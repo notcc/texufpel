@@ -1,0 +1,326 @@
+\documentclass[ti]{texufpel}
+
+\usepackage[latin1]{inputenc} % acentuacao
+\usepackage{graphicx} % para inserir figuras
+
+\hypersetup{
+    hidelinks, % Remove coloração e caixas
+    unicode=true,   %Permite acentuação no bookmark
+    linktoc=all %Habilita link no nome e página do sumário
+}
+
+\unidade{Centro de Desenvolvimento Tecnológico}
+\programa{Programa de Pós-Graduação em Computação}
+\curso{Ciência da Computação}
+
+\title{Um Blabla Blablabla com Aplicações em Blablabla}
+
+\author{UltimoNome}{Nome Sobrenome de}
+\advisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+
+%Palavras-chave em PT_BR
+\keyword{palavrachave-um}
+\keyword{palavrachave-dois}
+\keyword{palavrachave-tres}
+\keyword{palavrachave-quatro}
+
+%Palavras-chave em EN_US
+\keywordeng{keyword-one}
+\keywordeng{keyword-two}
+\keywordeng{keyword-three}
+\keywordeng{keyword-four}
+
+\begin{document}
+
+%\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
+%\renewcommand{\coadvisorname}{Coorientadora}      %descomente caso tenhas coorientadora
+
+\maketitle 
+
+\sloppy
+
+\fichacatalografica
+
+%Opcional
+\begin{dedicatoria}
+  Dedico\ldots bla blabla blablabla bla. Bla blabla blablabla bla.\\
+  Bla blabla blablabla bla. Bla blabla blablabla bla.
+\end{dedicatoria}
+
+%Opcional
+\begin{agradecimentos}
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+\end{agradecimentos}
+
+%Opcional
+\begin{epigrafe}
+  Bla blabla blablabla bla.\\
+  Bla blabla blablabla bla.\\
+  Bla blabla blablabla bla.\\
+  Bla blabla blablabla bla.\\
+  Bla blabla blablabla bla.\\
+  {\sc --- Fulano de Tal}
+\end{epigrafe}
+
+%Resumo em Portugues (no maximo 500 palavras)
+\begin{abstract}
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+\end{abstract}
+
+\begin{englishabstract}%
+  {Titulo do Trabalho em Ingles}
+  
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+\end{englishabstract}
+
+%Lista de Figuras
+\listoffigures
+
+%Lista de Tabelas
+\listoftables
+
+%lista de abreviaturas e siglas
+\begin{listofabbrv}{SPMD}
+        \item[SMP] Symmetric Multi-Processor
+        \item[NUMA] Non-Uniform Memory Access
+        \item[SIMD] Single Instruction Multiple Data
+        \item[SPMD] Single Program Multiple Data
+        \item[ABNT] Associação Brasileira de Normas Técnicas
+\end{listofabbrv}
+
+%Sumario
+\tableofcontents
+
+\chapter{Introdução}
+
+\section{Uma subseção}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla~\citet{Moore:1979:MAI,Aguiar:2005}.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla~\cite{vonNeumann:1966:TSR}.
+
+\section{Outra seção}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla~\ref{tabela}.
+
+\begin{table}
+\begin{center}
+\caption{Nome da Tabela}\label{tabela}
+\begin{tabular}{p{4cm}p{5cm}p{6cm}}
+\hline
+Blabla & Blabla & Blablabla\\
+\hline
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Uma subseção}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+\chapter{Desenvolvimento}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla~\ref{tabela2}.
+
+\begin{table}
+\begin{center}
+\caption{Nome da Tabela}\label{tabela2}
+\begin{tabular}{p{4cm}p{5cm}p{6cm}}
+\hline
+Blabla & Blabla & Blablabla\\
+\hline
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla. Conforme a figura~\ref{figura}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering \includegraphics[scale=.4]{figura}
+\caption{Nome da figura} 
+\label{figura}
+\end{figure}
+
+
+\chapter{Conclusão}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+% Bibliografia
+% http://liinwww.ira.uka.de/bibliography/index.html
+% um site que cataloga no formato bibtex a bibliografia em computacao
+%\bibliography{nomedoarquivo.bib} (sem extensao)
+%\bibliographystyle{formato.bst} (sem extensao)
+
+\bibliography{bibliografia}
+\bibliographystyle{abnt}
+
+% Anexos (Opcional)
+\annex 
+\chapter{Um Anexo}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+\chapter{Outro Anexo}
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
+  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla
+  bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
+  blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla
+  blabla blablabla bla.  Bla blabla blablabla bla.
+
+\end{document}
+

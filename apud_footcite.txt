@@ -1,0 +1,7 @@
+APUD
+\newcommand{\apud}[2]{\citeauthor{#1} (\citeyear{#1} apud \citeauthor{#2}, \citeyear{#2})}
+
+FOOTCITE
+\usepackage{bibentry}
+\nobibliography*
+\newcommand{\footcite}[1]{\footnote{\bibentry{#1}}}
