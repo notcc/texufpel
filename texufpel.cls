@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{1/8/2016}
+\def\currversion{2/9/2016}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -68,6 +68,11 @@ Versão: \currversion^^J
 \DeclareOption{ti}{
 \tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso}
+}
+
+\DeclareOption{tid}{
+\tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@programa, \@unidade}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
 }
 
 \newcommand{\capa}[1]{\gdef\@capa{#1}}
