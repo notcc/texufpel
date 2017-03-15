@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{2/9/2016}
+\def\currversion{9/2/2017}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -162,7 +162,7 @@ Versão: \currversion^^J
   \def\listabbrvname{List of Abbreviations and Acronyms}%
   \def\listsymbolname{List of Symbols}%
   \def\annexname{Annex}%
-  \def\keywordsname{Key-words}%
+  \def\keywordsname{Keywords}%
 }
 
 \@namedef{dateenglish}{%

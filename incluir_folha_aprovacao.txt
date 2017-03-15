@@ -1,0 +1,6 @@
+Para incluir a ficha catalográfica e a folha de aprovação (em PDF)
+
+\usepackage{pdfpages}
+
+no lugar de \fichacatalografica usar \includepdf{ficha.pdf}
+no lugar de \folhadeaprovacao usar \includepdf{folha.pdf}
