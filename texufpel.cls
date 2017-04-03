@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{9/2/2017}
+\def\currversion{4/3/2017}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -63,6 +63,11 @@ Versão: \currversion^^J
 \documento{Tese}
 \tipodocumento{Tese (Doutorado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
+}
+
+\DeclareOption{tese-proposta}{
+\tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
+\descricaodocumento{Proposta de Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
 }
 
 \DeclareOption{ti}{
