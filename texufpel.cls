@@ -401,7 +401,9 @@ Versão: \currversion^^J
   %\@ifundefined{titlepagespecificinfo}{}{%
     \hspace*{\fill}\makebox[.5\textwidth][l]{%
       \parbox[b]{8.5cm}{%
+      	\begin{hyphenrules}{nohyphenation}%
         \@descricaodocumento%
+      	\end{hyphenrules}%
       }%
     }%
     \vfill%
