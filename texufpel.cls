@@ -344,17 +344,18 @@ Versão: \currversion^^J
 }
 
 \newcommand{\thecoverpage}{%
+  \onehalfspacing%
   \noindent%
     \parbox[b]{\textwidth}{%
       \centering%
       \vskip 1cm%
       \MakeUppercase{\textbf{\@universidade}}\\%
-      \@unidade\\%
-      \@ifundefined{@nomecurso}{\@programa}{Curso de \@nomecurso}\\%
+      \textbf{\@unidade}\\%
+      \@ifundefined{@nomecurso}{\@programa}{\textbf{Curso de \@nomecurso}}\\%
       \vskip 1cm%
       \includegraphics[width=3cm]{ufpelw}
       \vskip 1cm%
-      \@documento\\%
+      \textbf{\@documento}\\%
       \vskip 1cm%
     }%
   \vskip 3cm%
@@ -381,7 +382,7 @@ Versão: \currversion^^J
     \parbox[b]{\textwidth}{%
       \centering%
       \vskip .1cm%
-      \@city, \ei@date%
+      \textbf{\@city, \ei@date}%
       \vskip .1cm%
     }%
 }
@@ -401,7 +402,8 @@ Versão: \currversion^^J
   %\@ifundefined{titlepagespecificinfo}{}{%
     \hspace*{\fill}\makebox[.5\textwidth][l]{%
       \parbox[b]{8.5cm}{%
-      	\begin{hyphenrules}{nohyphenation}%
+        \singlespacing%
+        \begin{hyphenrules}{nohyphenation}%
         \@descricaodocumento%
       	\end{hyphenrules}%
       }%
@@ -411,6 +413,7 @@ Versão: \currversion^^J
   \vfill%
   \@ifundefined{@advisora}{}{%
   \parbox[b]{\textwidth}{%
+    \onehalfspacing%
     \centering%
       \begin{tabular}{rp{9cm}}%
         \@ifundefined{@advisora}{}{
@@ -780,6 +783,7 @@ Versão: \currversion^^J
 
 \newenvironment{epigrafe}{%
   \clearpage%
+  \onehalfspacing%
   \em\small%
   \mbox{}\vfill\begin{flushright}%
   }{%
