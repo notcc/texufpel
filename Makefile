@@ -1,7 +1,7 @@
-LATEX = pdflatex
+LATEX = pdflatex --interaction=batchmode
 BIBTEX = bibtex
 RM = rm -f
-FILE = exemplo-tcc
+FILE = exemplo-diss
 
 all:	
 		$(LATEX) $(FILE)

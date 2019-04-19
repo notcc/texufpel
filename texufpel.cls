@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{4/3/2017}
+\def\currversion{4/19/2019}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -36,6 +36,7 @@ Versão: \currversion^^J
 \newcommand{\documento}[1]{\gdef\@documento{#1}}
 \newcommand{\tipodocumento}[1]{\gdef\@tipodocumento{#1}}
 \newcommand{\descricaodocumento}[1]{\gdef\@descricaodocumento{#1}}
+\newcommand{\descricaoaprovacao}[1]{\gdef\@descricaoaprovacao{#1}}
 
 \DeclareOption{tcc}{
 \documento{Trabalho de Conclus\~ao de Curso}
@@ -52,6 +53,7 @@ Versão: \currversion^^J
 \documento{Disserta\c c\~ao}
 \tipodocumento{Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso}
+\descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso\ no \@programa\ da \@universidade.}
 }
 
 \DeclareOption{diss-proposta}{
@@ -63,7 +65,7 @@ Versão: \currversion^^J
 \documento{Tese}
 \tipodocumento{Tese (Doutorado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
-}
+\descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso\ no \@programa\ da \@universidade.}}
 
 \DeclareOption{tese-proposta}{
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
@@ -258,16 +260,16 @@ Versão: \currversion^^J
 }
 
 \newcommand{\@cipkw}{%
-        \@ifundefined{keywa}{}{1.~\expandafter\MakeUppercase\keywa\@. }%
-        \@ifundefined{keywb}{}{2.~\expandafter\MakeUppercase\keywb\@. }%
-        \@ifundefined{keywc}{}{3.~\expandafter\MakeUppercase\keywc\@. }%
-        \@ifundefined{keywd}{}{4.~\expandafter\MakeUppercase\keywd\@. }%
-        \@ifundefined{keywe}{}{5.~\expandafter\MakeUppercase\keywe\@. }%
-        \@ifundefined{keywf}{}{6.~\expandafter\MakeUppercase\keywf\@. }%
-        \@ifundefined{keywg}{}{7.~\expandafter\MakeUppercase\keywg\@. }%
-        \@ifundefined{keywh}{}{8.~\expandafter\MakeUppercase\keywh\@. }%
-        \@ifundefined{keywi}{}{9.~\expandafter\MakeUppercase\keywi\@. }%
-        \@ifundefined{keywj}{}{10.~\expandafter\MakeUppercase\keywj\@. }%
+       \@ifundefined{keywa}{}{1.~\expandafter\MakeUppercase\keywa\@. }%
+       \@ifundefined{keywb}{}{2.~\expandafter\MakeUppercase\keywb\@. }%
+       \@ifundefined{keywc}{}{3.~\expandafter\MakeUppercase\keywc\@. }%
+       \@ifundefined{keywd}{}{4.~\expandafter\MakeUppercase\keywd\@. }%
+       \@ifundefined{keywe}{}{5.~\expandafter\MakeUppercase\keywe\@. }%
+       \@ifundefined{keywf}{}{6.~\expandafter\MakeUppercase\keywf\@. }%
+       \@ifundefined{keywg}{}{7.~\expandafter\MakeUppercase\keywg\@. }%
+       \@ifundefined{keywh}{}{8.~\expandafter\MakeUppercase\keywh\@. }%
+       \@ifundefined{keywi}{}{9.~\expandafter\MakeUppercase\keywi\@. }%
+       \@ifundefined{keywj}{}{10.~\expandafter\MakeUppercase\keywj\@. }%
 }
 
 \newcommand{\@abstractkw}{%
@@ -331,7 +333,7 @@ Versão: \currversion^^J
 \thetitlepage
 \end{titlepage}
 \clearpage
-\setcounter{page}{1}
+%\setcounter{page}{1}
 }{%
 \begin{titlepage}
 \thecoverpage
@@ -339,7 +341,7 @@ Versão: \currversion^^J
 \thetitlepage
 \end{titlepage}
 \clearpage
-\setcounter{page}{2}
+\setcounter{page}{3}
 }
 }
 
@@ -678,27 +680,6 @@ Versão: \currversion^^J
 \setlength{\bibhang}{0pt}
 \let\cite\citep
 
-\newcommand{\folhadeaprovacao}{%
-  \clearpage%
-  \mbox{}%
-  \vfill
-  \begin{center}
-    \textbf{Insira AQUI a folha de aprova\c c\~ao\\(ser\'a entregue ap\'os
-      a banca)}
-\end{center}
-\vfill%
-}
-
-\newcommand{\fichacatalografica}{%
-  \clearpage%
-  \mbox{}%
-  \vfill
-  \begin{center}
-    \textbf{Insira AQUI a ficha catalogr\'afica\\(solicitada na p\'agina da biblioteca)}
-\end{center}
-\vfill%
-}
-
 \newcommand{\makecover}{%
 \singlespacing
 \thispagestyle{empty}
@@ -767,64 +748,119 @@ Versão: \currversion^^J
 \vfill
 }
 
-
-\newenvironment{agradecimentos}{%
-  \chapter*{Agradecimentos}%
-}{%
+%ficha catalográfica (OBSOLETA -- deve ser utilizada a gerada pela biblioteca)
+\newcommand{\makecippage}{
+	\clearpage
+	\mbox{}\vfill
+	\vskip  1cm
+	\begin{center}
+		\@universidade\ / Sistema de Bibliotecas\\[.1cm]
+		Cataloga\c c\~ao na Publica\c c\~ao\\[.3cm]
+		\texufpel@cipwindow
+		\vskip  1cm
+		Elaborada por \@nomebibliotecario\\
+	\end{center}
 }
 
-\newenvironment{dedicatoria}{%
-  \clearpage%
-%  \bf\textbf%
-  \mbox{}\vfill\begin{flushright}%
-  }{%
-  \end{flushright}\vfill%
+\def\texufpel@cipwindow{
+	\framebox[140mm]{
+		\begin{minipage}[t]{20mm}
+			\vskip .3cm
+			\@codigocip
+		\end{minipage}
+		\begin{minipage}[t]{110mm}
+			\vspace*{0.2ex}
+			\setlength{\parindent}{1.5em}
+			\setlength{\parskip}{1.3ex}
+			\noindent\@authoralast, \@authorafirst
+			\par \@title\ / \@authora; \@advisorafirst\ \@advisoralast, \MakeLowercase{\advisorname}\@ifundefined{@coadvisorafirst}{.}{; \@coadvisorafirst\ \@coadvisoralast, \MakeLowercase{\coadvisorname}.}  -- \@city, \@publyear.
+			\par \pageref{LastPage}~f.
+			\par \@tipodocumento, \@universidade, \@publyear.
+			\par \@cipkw I.~\@advisoralast, \@advisorafirst, orient.
+			\@ifundefined{@coadvisorafirst}{II.~T\'{\i}tulo.}{II.~\@coadvisoralast, \@coadvisorafirst, coorient. III.~T\'{\i}tulo.}
+			\begin{flushright}
+				CDD: \@codigocdd
+			\end{flushright}
+			\vspace{0.4ex}
+		\end{minipage}
+	}
 }
 
-\newenvironment{epigrafe}{%
-  \clearpage%
-  \onehalfspacing%
-  \em\small%
-  \mbox{}\vfill\begin{flushright}%
-  }{%
-  \end{flushright}\vfill%
+%folha de aprovação
+\newcommand{\folhadeaprovacao}{
+	\clearpage
+	\mbox{}
+	\vfill
+	\begin{center}
+		\textbf{Insira AQUI a folha de aprova\c c\~ao\\(ser\'a entregue ap\'os a banca)}
+	\end{center}
+	\vfill
 }
 
 %ficha catalográfica
-\newcommand{\makecippage}{%
-\clearpage%
-\mbox{}\vfill
-\vskip  1cm
-\begin{center}
-\@universidade\ / Sistema de Bibliotecas\\[.1cm]
-Cataloga\c c\~ao na Publica\c c\~ao\\[.3cm]
-\texufpel@cipwindow
-\vskip  1cm
-Elaborada por \@nomebibliotecario\\
-\end{center}
+\newcommand{\fichacatalografica}{
+	\clearpage
+	\mbox{}
+	\vfill
+	\begin{center}
+		\textbf{Insira AQUI a ficha catalogr\'afica\\(solicitada na p\'agina da biblioteca)}
+	\end{center}
+	\vfill
 }
 
-% definição do quadro
-\def\texufpel@cipwindow{%
-\framebox[140mm]{%
-\begin{minipage}[t]{20mm}% 
-\vskip .3cm
-\@codigocip
-\end{minipage}%
-\begin{minipage}[t]{110mm}%
-\vspace*{0.2ex}
-\setlength{\parindent}{1.5em}%
-\setlength{\parskip}{1.3ex}%
-\noindent\@authoralast, \@authorafirst
-\par \@title\ / \@authora; \@advisorafirst\ \@advisoralast, \MakeLowercase{\advisorname}\@ifundefined{@coadvisorafirst}{.}{; \@coadvisorafirst\ \@coadvisoralast, \MakeLowercase{\coadvisorname}.}  -- \@city, \@publyear.
-\par \pageref{LastPage}~f.
-\par \@tipodocumento, \@universidade, \@publyear.
-\par \@cipkw I.~\@advisoralast, \@advisorafirst, orient.
-\@ifundefined{@coadvisorafirst}{II.~T\'{\i}tulo.}{II.~\@coadvisoralast, \@coadvisorafirst, coorient. III.~T\'{\i}tulo.}
-\begin{flushright}
-CDD: \@codigocdd
-\end{flushright}
-\vspace{0.4ex}
-\end{minipage}%
-}%
+%agradecimentos
+\newenvironment{agradecimentos}{
+	\chapter*{Agradecimentos}
+}{
+}
+
+%dedicatória
+\newenvironment{dedicatoria}{
+	\clearpage
+	\mbox{}
+	\vfill
+	\begin{flushright}
+}{
+	\end{flushright}
+	\vfill
+}
+
+%epígrafe
+\newenvironment{epigrafe}{
+	\clearpage
+	\onehalfspacing
+	\em\small
+	\mbox{}
+	\vfill
+	\begin{flushright}
+}{
+	\end{flushright}
+	\vfill
+}
+
+%nominata da banca
+\newenvironment{banca}[1]{
+	\clearpage
+	\onehalfspacing
+	\begin{center}
+		\noindent\textbf{\@authora}\\
+		\vskip 2cm
+		\noindent\textbf{\@title}\\
+		\vskip 2cm
+		\noindent\parbox[b]{16cm}{
+		\singlespacing
+		\begin{hyphenrules}{nohyphenation}
+			\@descricaoaprovacao
+		\end{hyphenrules}
+		}
+	\end{center}
+	\vskip 2cm
+	\noindent\textbf{Data da Defesa: }{#1}\\
+	\mbox{}
+	\vfill
+	\begin{flushleft}
+		\textbf{Banca Examinadora: }\\
+}{
+	\end{flushleft}
+	\vfill
 }
