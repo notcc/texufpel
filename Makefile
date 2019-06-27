@@ -1,7 +1,7 @@
 LATEX = pdflatex --interaction=batchmode
 BIBTEX = bibtex
 RM = rm -f
-FILE = exemplo-diss
+FILE = exemplo-tese
 
 all:	
 		$(LATEX) $(FILE)

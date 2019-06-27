@@ -22,16 +22,16 @@
 \collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
 
 %Palavras-chave em PT_BR
-\keyword{palavrachave-um}
-\keyword{palavrachave-dois}
-\keyword{palavrachave-tres}
-\keyword{palavrachave-quatro}
+\keyword{Palavrachave-um}
+\keyword{Palavrachave-dois}
+\keyword{Palavrachave-tres}
+\keyword{Palavrachave-quatro}
 
 %Palavras-chave em EN_US
-\keywordeng{keyword-one}
-\keywordeng{keyword-two}
-\keywordeng{keyword-three}
-\keywordeng{keyword-four}
+\keywordeng{Keyword-one}
+\keywordeng{Keyword-two}
+\keywordeng{Keyword-three}
+\keywordeng{Keyword-four}
 
 \begin{document}
 
@@ -45,15 +45,19 @@
 \fichacatalografica
 
 %Composição da Banca Examinadora
-\begin{banca}{30 de fevereiro de 2019} %data da banca por extenso
-Prof. Dr. Marilton Sanchotene de Aguiar (orientador, PPGC/UFPel)
+\begin{aprovacao}{30 de fevereiro de 2019} %data da banca por extenso
+\noindent Prof. Dr. Marilton Sanchotene de Aguiar (orientador)\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
 
-Prof. Dr. Paulo Roberto Ferreira Jr. (PPGC/UFPel)
+\noindent Prof. Dr. Paulo Roberto Ferreira Jr.\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
 
-Prof. Dr. Ricardo Matsumura Araujo (PPGC/UFPel)
+\noindent Prof. Dr. Ricardo Matsumura Araujo\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
 
-Prof. Dr. Luciano da Silva Pinto (PPGBiotec/UFPel)
-\end{banca}
+\noindent Prof. Dr. Luciano da Silva Pinto\\
+Doutor em Biotecnologia pela Universidade Federal de Pelotas.
+\end{aprovacao}
 
 %Opcional
 \begin{dedicatoria}
@@ -266,10 +270,15 @@ Bla blabla blablabla bla.
 % \bibliography{nomedoarquivo.bib} (sem extensao)
 % \bibliographystyle{formato.bst} (sem extensao)
 
-\bibliography{bibliografia} \bibliographystyle{abnt}
+\bibliographystyle{abnt}
+\bibliography{bibliografia} 
 
-% Anexos (Opcional)
-\annex
+% Apêndices (Opcional) - Material produzido pelo autor
+\apendices
+\chapter{Um Apêndice}
+
+% Anexos (Opcional) - Material produzido por outro
+\anexos
 \chapter{Um Anexo}
 
 Bla blabla blablabla bla.  Bla blabla blablabla bla.  Bla blabla
@@ -315,7 +324,7 @@ blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
 Bla blabla blablabla bla.
 
 % Faz a capa do CDROM
-%\makecover
+% \makecover
 
 \end{document}
 

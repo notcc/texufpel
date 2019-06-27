@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{4/19/2019}
+\def\currversion{6/26/2019}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -21,8 +21,8 @@ Versão: \currversion^^J
 % Declaração de opções
 %==============================================================================
 
-\newcommand{\bibliotecario}[1]{\gdef\@nomebibliotecario{#1}}
-\newcommand{\cipdata}[2]{\gdef\@codigocip{#1}\gdef\@codigocdd{#2}}
+% \newcommand{\bibliotecario}[1]{\gdef\@nomebibliotecario{#1}}
+% \newcommand{\cipdata}[2]{\gdef\@codigocip{#1}\gdef\@codigocdd{#2}}
 
 \newcommand{\universidade}[1]{\gdef\@universidade{#1}}
 \universidade{Universidade Federal de Pelotas}
@@ -41,45 +41,46 @@ Versão: \currversion^^J
 \DeclareOption{tcc}{
 \documento{Trabalho de Conclus\~ao de Curso}
 \tipodocumento{Trabalho de Conclus\~ao de Curso (\@nomecurso) -- \@unidade}
-\descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso}
+\descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
+\descricaoaprovacao{Trabalho de Conclus\~ao de Curso aprovado, como requisito parcial, para obten{\c{c}}{\~a}o do grau de \@titulocurso, \@unidade, \@universidade.}
 }
 
 \DeclareOption{tcc-proposta}{
 \tipodocumento{Proposta de Trabalho de Conclus\~ao de Curso (\@nomecurso) -- \@unidade}
-\descricaodocumento{Proposta de Trabalho de Conclus\~ao de Curso apresentada ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso}
+\descricaodocumento{Proposta de Trabalho de Conclus\~ao de Curso apresentada ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
 }
 
 \DeclareOption{diss}{
 \documento{Disserta\c c\~ao}
-\tipodocumento{Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso}
-\descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso\ no \@programa\ da \@universidade.}
+\tipodocumento{Disserta\c c\~ao (Mestrado em \@curso) -- \@unidade}
+\descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Mestre em \@curso, \@programa, \@unidade, \@universidade.}
 }
 
 \DeclareOption{diss-proposta}{
 \tipodocumento{Proposta de Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso}
+\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tese}{
 \documento{Tese}
-\tipodocumento{Tese (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
-\descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso\ no \@programa\ da \@universidade.}}
+\tipodocumento{Tese (Doutorado em \@curso) -- \@unidade}
+\descricaodocumento{Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 \DeclareOption{tese-proposta}{
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
+\descricaodocumento{Proposta de Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \DeclareOption{ti}{
-\tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso}
+\tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@unidade}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tid}{
-\tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso}
+\tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@unidade}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \newcommand{\capa}[1]{\gdef\@capa{#1}}
@@ -104,13 +105,14 @@ Versão: \currversion^^J
 \RequirePackage{indentfirst}
 \RequirePackage{natbib}
 \RequirePackage{chngcntr}
-\RequirePackage{eso-pic}
+\RequirePackage{titlesec}
 \RequirePackage{color}
 \RequirePackage{setspace}
 \RequirePackage{geometry}
 \RequirePackage{hyperref}
-\RequirePackage[labelsep=endash,hang]{caption}
 \RequirePackage[T1]{fontenc}
+\RequirePackage[singlelinecheck=off,font=small,justification=justified,format=plain,labelsep=endash]{caption}
+\setlength{\captionmargin}{20pt}
 
 \geometry{top=3cm,right=2cm,left=3cm,bottom=2cm}
 
@@ -137,7 +139,7 @@ Versão: \currversion^^J
   \def\listabbrvname{Lista de Abreviaturas e Siglas}%
   \def\listsymbolname{Lista de S{\'\i}mbolos}%
   \def\annexname{Anexo}%
-  \def\keywordsname{Palavras-Chave}%
+  \def\keywordsname{Palavras-chave}%
 }
 
 \@namedef{datebrazilian}{%
@@ -273,30 +275,30 @@ Versão: \currversion^^J
 }
 
 \newcommand{\@abstractkw}{%
-        \@ifundefined{keywa}{}{\expandafter \keywa}%
-        \@ifundefined{keywb}{}{; \keywb}%
-        \@ifundefined{keywc}{}{; \keywc}%
-        \@ifundefined{keywd}{}{; \keywd}%
-        \@ifundefined{keywe}{}{; \keywe}%
-        \@ifundefined{keywf}{}{; \keywf}%
-        \@ifundefined{keywg}{}{; \keywg}%
-        \@ifundefined{keywh}{}{; \keywh}%
-        \@ifundefined{keywi}{}{; \keywi}%
-        \@ifundefined{keywj}{}{; \keywj}%
+        \@ifundefined{keywa}{}{\expandafter \keywa.}%
+        \@ifundefined{keywb}{}{ \keywb.}%
+        \@ifundefined{keywc}{}{ \keywc.}%
+        \@ifundefined{keywd}{}{ \keywd.}%
+        \@ifundefined{keywe}{}{ \keywe.}%
+        \@ifundefined{keywf}{}{ \keywf.}%
+        \@ifundefined{keywg}{}{ \keywg.}%
+        \@ifundefined{keywh}{}{ \keywh.}%
+        \@ifundefined{keywi}{}{ \keywi.}%
+        \@ifundefined{keywj}{}{ \keywj.}%
 }
 
 
 \newcommand{\@abstractkweng}{%
-        \@ifundefined{keywenga}{}{\expandafter \keywenga}%
-        \@ifundefined{keywengb}{}{; \keywengb}%
-        \@ifundefined{keywengc}{}{; \keywengc}%
-        \@ifundefined{keywengd}{}{; \keywengd}%
-        \@ifundefined{keywenge}{}{; \keywenge}%
-        \@ifundefined{keywengf}{}{; \keywengf}%
-        \@ifundefined{keywengg}{}{; \keywengg}%
-        \@ifundefined{keywengh}{}{; \keywengh}%
-        \@ifundefined{keywengi}{}{; \keywengi}%
-        \@ifundefined{keywengj}{}{; \keywengj}%
+        \@ifundefined{keywenga}{}{\expandafter \keywenga.}%
+        \@ifundefined{keywengb}{}{ \keywengb.}%
+        \@ifundefined{keywengc}{}{ \keywengc.}%
+        \@ifundefined{keywengd}{}{ \keywengd.}%
+        \@ifundefined{keywenge}{}{ \keywenge.}%
+        \@ifundefined{keywengf}{}{ \keywengf.}%
+        \@ifundefined{keywengg}{}{ \keywengg.}%
+        \@ifundefined{keywengh}{}{ \keywengh.}%
+        \@ifundefined{keywengi}{}{ \keywengi.}%
+        \@ifundefined{keywengj}{}{ \keywengj.}%
 }
 
 
@@ -353,11 +355,11 @@ Versão: \currversion^^J
       \vskip 1cm%
       \MakeUppercase{\textbf{\@universidade}}\\%
       \textbf{\@unidade}\\%
-      \@ifundefined{@nomecurso}{\@programa}{\textbf{Curso de \@nomecurso}}\\%
+      \@ifundefined{@nomecurso}{\textbf{\@programa}}{\textbf{Curso de \@nomecurso}}\\%
       \vskip 1cm%
       \includegraphics[width=3cm]{ufpelw}
       \vskip 1cm%
-      \textbf{\@documento}\\%
+      \@documento\\%
       \vskip 1cm%
     }%
   \vskip 3cm%
@@ -384,7 +386,7 @@ Versão: \currversion^^J
     \parbox[b]{\textwidth}{%
       \centering%
       \vskip .1cm%
-      \textbf{\@city, \ei@date}%
+      \@city, \ei@date%
       \vskip .1cm%
     }%
 }
@@ -417,8 +419,8 @@ Versão: \currversion^^J
   \parbox[b]{\textwidth}{%
     \onehalfspacing%
     \centering%
-      \begin{tabular}{rp{9cm}}%
         \@ifundefined{@advisora}{}{
+          \begin{tabular}{rp{9cm}}%
           \@ifundefined{@advisorb}{\advisorname:}{\advisorname es:} &
           \@ifundefined{@advisora}{}{\@advisora\\}
           \@ifundefined{@advisorb}{}{\ &}
@@ -426,26 +428,33 @@ Versão: \currversion^^J
           \@ifundefined{@advisorc}{}{\ &}
           \@ifundefined{@advisorc}{}{\@advisorc\\}
           \@ifundefined{@advisord}{}{\ &}
-          \@ifundefined{@advisord}{}{\@advisord\\}}
+          \@ifundefined{@advisord}{}{\@advisord\\}
+          \end{tabular}
+          }
         \@ifundefined{@coadvisora}{}{
-	\@ifundefined{@coadvisorb}{\coadvisorname:}{\coadvisorname es:} &
-	\@ifundefined{@coadvisora}{}{\@coadvisora\\}
-          \@ifundefined{@coadvisorb}{}{\ &}
-          \@ifundefined{@coadvisorb}{}{\@coadvisorb\\}
-          \@ifundefined{@coadvisorc}{}{\ &}
-          \@ifundefined{@coadvisorc}{}{\@coadvisorc\\}
-          \@ifundefined{@coadvisord}{}{\ &}
-          \@ifundefined{@coadvisord}{}{\@coadvisord\\}}
-        \@ifundefined{@collaboratora}{}{
-	\@ifundefined{@collaboratorb}{\collaboratorname:}{\collaboratorname es:} &
-	\@ifundefined{@collaboratora}{}{\@collaboratora\\}
-          \@ifundefined{@collaboratorb}{}{\ &}
-          \@ifundefined{@collaboratorb}{}{\@collaboratorb\\}
-          \@ifundefined{@collaboratorc}{}{\ &}
-          \@ifundefined{@collaboratorc}{}{\@collaboratorc\\}
-          \@ifundefined{@collaboratord}{}{\ &}
-          \@ifundefined{@collaboratord}{}{\@collaboratord\\}}
+        \begin{tabular}{rp{9cm}}%
+      	\@ifundefined{@coadvisorb}{\coadvisorname:}{\coadvisorname es:} &
+      	\@ifundefined{@coadvisora}{}{\@coadvisora\\}
+        \@ifundefined{@coadvisorb}{}{\ &}
+        \@ifundefined{@coadvisorb}{}{\@coadvisorb\\}
+        \@ifundefined{@coadvisorc}{}{\ &}
+        \@ifundefined{@coadvisorc}{}{\@coadvisorc\\}
+        \@ifundefined{@coadvisord}{}{\ &}
+        \@ifundefined{@coadvisord}{}{\@coadvisord\\}
         \end{tabular}
+        }
+        \@ifundefined{@collaboratora}{}{
+        \begin{tabular}{rp{9cm}}%
+      	\@ifundefined{@collaboratorb}{\collaboratorname:}{\collaboratorname es:} &
+      	\@ifundefined{@collaboratora}{}{\@collaboratora\\}
+        \@ifundefined{@collaboratorb}{}{\ &}
+        \@ifundefined{@collaboratorb}{}{\@collaboratorb\\}
+        \@ifundefined{@collaboratorc}{}{\ &}
+        \@ifundefined{@collaboratorc}{}{\@collaboratorc\\}
+        \@ifundefined{@collaboratord}{}{\ &}
+        \@ifundefined{@collaboratord}{}{\@collaboratord\\}
+        \end{tabular}
+        }
       }%
     \vfill%
   }%
@@ -523,11 +532,11 @@ Versão: \currversion^^J
   \chapter*{\abstractname}
   \@ifundefined{@nocipinfo}{
   \noindent{\MakeUppercase{\@authoralast},
-    \@authorafirst. \textbf{\@title}. {\@publyear}. \pageref{LastPage}~f. \@tipodocumento,
+    \@authorafirst. \textbf{\@title}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
     \@universidade, \@city, \@publyear.}\\~\\}{}
 }{%
   \par\vfill
-  \noindent\textbf{\keywordsname:} \MakeLowercase{\@abstractkw}
+  \noindent\keywordsname: \@abstractkw
 }
 
 \newenvironment{englishabstract}[1]{%
@@ -542,11 +551,11 @@ Versão: \currversion^^J
 
       \chapter*{\abstractname}
       \noindent{\MakeUppercase{\@authoralast},
-        \@authorafirst. \textbf{\@englishtitle}. {\@publyear}. \pageref{LastPage}~f. \@tipodocumento,
+        \@authorafirst. \textbf{\@englishtitle}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
         \@universidade, \@city, \@publyear.}\\~\\
     }{
       \par\vfill
-      \noindent\textbf{\keywordsname:} \MakeLowercase{\@abstractkweng}
+      \noindent\keywordsname: \@abstractkweng
     \end{otherlanguage}
 }
 
@@ -680,6 +689,7 @@ Versão: \currversion^^J
 \setlength{\bibhang}{0pt}
 \let\cite\citep
 
+%capa do CDROM
 \newcommand{\makecover}{%
 \singlespacing
 \thispagestyle{empty}
@@ -748,53 +758,32 @@ Versão: \currversion^^J
 \vfill
 }
 
-%ficha catalográfica (OBSOLETA -- deve ser utilizada a gerada pela biblioteca)
-\newcommand{\makecippage}{
-	\clearpage
-	\mbox{}\vfill
-	\vskip  1cm
-	\begin{center}
-		\@universidade\ / Sistema de Bibliotecas\\[.1cm]
-		Cataloga\c c\~ao na Publica\c c\~ao\\[.3cm]
-		\texufpel@cipwindow
-		\vskip  1cm
-		Elaborada por \@nomebibliotecario\\
-	\end{center}
+%apendices
+\newcommand{\apendices}{
+  \clearpage
+  \pagestyle{empty}
+  \mbox{}
+  \vfill
+  \begin{center}
+    \textbf{Ap\^endices}
+  \end{center}
+  \vfill
+  \appendix
+  \titleformat{\chapter}{\centering\normalfont}{\chaptertitlename\ \thechapter\ --\ }{0em}{}
 }
 
-\def\texufpel@cipwindow{
-	\framebox[140mm]{
-		\begin{minipage}[t]{20mm}
-			\vskip .3cm
-			\@codigocip
-		\end{minipage}
-		\begin{minipage}[t]{110mm}
-			\vspace*{0.2ex}
-			\setlength{\parindent}{1.5em}
-			\setlength{\parskip}{1.3ex}
-			\noindent\@authoralast, \@authorafirst
-			\par \@title\ / \@authora; \@advisorafirst\ \@advisoralast, \MakeLowercase{\advisorname}\@ifundefined{@coadvisorafirst}{.}{; \@coadvisorafirst\ \@coadvisoralast, \MakeLowercase{\coadvisorname}.}  -- \@city, \@publyear.
-			\par \pageref{LastPage}~f.
-			\par \@tipodocumento, \@universidade, \@publyear.
-			\par \@cipkw I.~\@advisoralast, \@advisorafirst, orient.
-			\@ifundefined{@coadvisorafirst}{II.~T\'{\i}tulo.}{II.~\@coadvisoralast, \@coadvisorafirst, coorient. III.~T\'{\i}tulo.}
-			\begin{flushright}
-				CDD: \@codigocdd
-			\end{flushright}
-			\vspace{0.4ex}
-		\end{minipage}
-	}
-}
-
-%folha de aprovação
-\newcommand{\folhadeaprovacao}{
-	\clearpage
-	\mbox{}
-	\vfill
-	\begin{center}
-		\textbf{Insira AQUI a folha de aprova\c c\~ao\\(ser\'a entregue ap\'os a banca)}
-	\end{center}
-	\vfill
+%anexos
+\newcommand{\anexos}{
+  \clearpage
+  \pagestyle{empty}
+  \mbox{}
+  \vfill
+  \begin{center}
+    \textbf{Anexos}
+  \end{center}
+  \vfill
+  \annex
+  \titleformat{\chapter}{\centering\normalfont}{\chaptertitlename\ \thechapter\ --\ }{0em}{}
 }
 
 %ficha catalográfica
@@ -803,7 +792,7 @@ Versão: \currversion^^J
 	\mbox{}
 	\vfill
 	\begin{center}
-		\textbf{Insira AQUI a ficha catalogr\'afica\\(solicitada na p\'agina da biblioteca)}
+		\textbf{Insira AQUI a ficha catalogr\'afica\\(solicite em http://sisbi.ufpel.edu.br/?p=reqFicha)}
 	\end{center}
 	\vfill
 }
@@ -839,7 +828,7 @@ Versão: \currversion^^J
 }
 
 %nominata da banca
-\newenvironment{banca}[1]{
+\newenvironment{aprovacao}[1]{
 	\clearpage
 	\onehalfspacing
 	\begin{center}
