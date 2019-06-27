@@ -25,13 +25,19 @@ Versão: \currversion^^J
 % \newcommand{\cipdata}[2]{\gdef\@codigocip{#1}\gdef\@codigocdd{#2}}
 
 \newcommand{\universidade}[1]{\gdef\@universidade{#1}}
+\newcommand{\universidadeeng}[1]{\gdef\@universidadeeng{#1}}
 \universidade{Universidade Federal de Pelotas}
+\universidadeeng{Federal University of Pelotas}
 
 \newcommand{\unidade}[1]{\gdef\@unidade{#1}}
 \newcommand{\programa}[1]{\gdef\@programa{#1}}
 \newcommand{\curso}[1]{\gdef\@curso{#1}}
 \newcommand{\nomecurso}[1]{\gdef\@nomecurso{#1}}
 \newcommand{\titulocurso}[1]{\gdef\@titulocurso{#1}}
+
+\newcommand{\unidadeeng}[1]{\gdef\@unidadeeng{#1}}
+\newcommand{\programaeng}[1]{\gdef\@programaeng{#1}}
+\newcommand{\cursoeng}[1]{\gdef\@cursoeng{#1}}
 
 \newcommand{\documento}[1]{\gdef\@documento{#1}}
 \newcommand{\tipodocumento}[1]{\gdef\@tipodocumento{#1}}
@@ -40,7 +46,7 @@ Versão: \currversion^^J
 
 \DeclareOption{tcc}{
 \documento{Trabalho de Conclus\~ao de Curso}
-\tipodocumento{Trabalho de Conclus\~ao de Curso (\@nomecurso) -- \@unidade}
+\tipodocumento{\tccname\ (\cursoname) -- \unidadename}
 \descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
 \descricaoaprovacao{Trabalho de Conclus\~ao de Curso aprovado, como requisito parcial, para obten{\c{c}}{\~a}o do grau de \@titulocurso, \@unidade, \@universidade.}
 }
@@ -52,35 +58,35 @@ Versão: \currversion^^J
 
 \DeclareOption{diss}{
 \documento{Disserta\c c\~ao}
-\tipodocumento{Disserta\c c\~ao (Mestrado em \@curso) -- \@unidade}
+\tipodocumento{\dissname\ (\masterin\ \cursoname) -- \unidadename}
 \descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 \descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Mestre em \@curso, \@programa, \@unidade, \@universidade.}
 }
 
 \DeclareOption{diss-proposta}{
 \tipodocumento{Proposta de Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tese}{
 \documento{Tese}
-\tipodocumento{Tese (Doutorado em \@curso) -- \@unidade}
+\tipodocumento{\thesisname\ (\doctoratein\ \cursoname) -- \unidadename}
 \descricaodocumento{Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 \descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 \DeclareOption{tese-proposta}{
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Tese apresentada ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaodocumento{Proposta de Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \DeclareOption{ti}{
 \tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tid}{
 \tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \newcommand{\capa}[1]{\gdef\@capa{#1}}
@@ -110,6 +116,7 @@ Versão: \currversion^^J
 \RequirePackage{setspace}
 \RequirePackage{geometry}
 \RequirePackage{hyperref}
+\RequirePackage{changepage}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[singlelinecheck=off,font=small,justification=justified,format=plain,labelsep=endash]{caption}
 \setlength{\captionmargin}{20pt}
@@ -140,6 +147,15 @@ Versão: \currversion^^J
   \def\listsymbolname{Lista de S{\'\i}mbolos}%
   \def\annexname{Anexo}%
   \def\keywordsname{Palavras-chave}%
+  \def\tccname{Trabalho de Conclus\~ao de Curso}%
+  \def\thesisname{Tese}%
+  \def\doctoratein{Doutorado em}%
+  \def\dissname{Disserta\c c\~ao}%
+  \def\masterin{Mestrado em}%
+  \def\universidadename{\@universidade}%
+  \def\unidadename{\@unidade}%
+  \def\programaname{\@programa}%
+  \def\cursoname{\@curso}%
 }
 
 \@namedef{datebrazilian}{%
@@ -172,6 +188,15 @@ Versão: \currversion^^J
   \def\listsymbolname{List of Symbols}%
   \def\annexname{Annex}%
   \def\keywordsname{Keywords}%
+  \def\tccname{Undergraduate Thesis}%
+  \def\thesisname{Thesis}%
+  \def\doctoratein{Doctorate in}%
+  \def\dissname{Dissertation}%
+  \def\masterin{Masters in}%
+  \def\universidadename{\@universidadeeng}%
+  \def\unidadename{\@unidadeeng}%
+  \def\programaname{\@programaeng}%
+  \def\cursoname{\@cursoeng}%
 }
 
 \@namedef{dateenglish}{%
@@ -350,7 +375,6 @@ Versão: \currversion^^J
 \newcommand{\thecoverpage}{%
   \onehalfspacing%
   \noindent%
-    \parbox[b]{\textwidth}{%
       \centering%
       \vskip 1cm%
       \MakeUppercase{\textbf{\@universidade}}\\%
@@ -361,18 +385,14 @@ Versão: \currversion^^J
       \vskip 1cm%
       \@documento\\%
       \vskip 1cm%
-    }%
   \vskip 3cm%
   \noindent%
-    \parbox[b]{\textwidth}{%
       \centering%
       \vskip .5cm%
       \textbf{\@title}%
       \vskip .5cm%
-    }%
   \vskip 3cm%
   \noindent%
-    \parbox[b]{\textwidth}{%
       \centering%
       \vskip .5cm%
       \textbf{\@authora\\
@@ -380,20 +400,16 @@ Versão: \currversion^^J
       \@ifundefined{@authorc}{}{\@authorc\\}%
       \@ifundefined{@authord}{}{\@authord\\}}%
       \vskip .5cm%
-    }%
   \vfill%
   \noindent%
-    \parbox[b]{\textwidth}{%
       \centering%
       \vskip .1cm%
       \@city, \ei@date%
       \vskip .1cm%
-    }%
 }
 
 \newcommand{\thetitlepage}{%
   \noindent%
-  \parbox[b]{\textwidth}{%
     \centering%
     \textbf{\@authora}\\
     \@ifundefined{@authorb}{}{\textbf{\@authorb}\\}%
@@ -401,22 +417,16 @@ Versão: \currversion^^J
     \@ifundefined{@authord}{}{\textbf{\@authord}\\}%
     \vskip 5cm%
     {\textbf{\@title}}%
-  }
   \vskip 8cm%
-  %\@ifundefined{titlepagespecificinfo}{}{%
-    \hspace*{\fill}\makebox[.5\textwidth][l]{%
-      \parbox[b]{8.5cm}{%
         \singlespacing%
-        \begin{hyphenrules}{nohyphenation}%
+  \begin{adjustwidth}{7cm}{0cm}
+%        \begin{hyphenrules}{nohyphenation}%
         \@descricaodocumento%
-      	\end{hyphenrules}%
-      }%
-    }%
+ %     	\end{hyphenrules}%
+  \end{adjustwidth}
     \vfill%
-  %}%
   \vfill%
   \@ifundefined{@advisora}{}{%
-  \parbox[b]{\textwidth}{%
     \onehalfspacing%
     \centering%
         \@ifundefined{@advisora}{}{
@@ -455,7 +465,6 @@ Versão: \currversion^^J
         \@ifundefined{@collaboratord}{}{\@collaboratord\\}
         \end{tabular}
         }
-      }%
     \vfill%
   }%
   \centerline{\@city, \ei@date}%
@@ -533,7 +542,7 @@ Versão: \currversion^^J
   \@ifundefined{@nocipinfo}{
   \noindent{\MakeUppercase{\@authoralast},
     \@authorafirst. \textbf{\@title}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-    \@universidade, \@city, \@publyear.}\\~\\}{}
+    \universidadename, \@city, \@publyear.}\\~\\}{}
 }{%
   \par\vfill
   \noindent\keywordsname: \@abstractkw
@@ -552,7 +561,7 @@ Versão: \currversion^^J
       \chapter*{\abstractname}
       \noindent{\MakeUppercase{\@authoralast},
         \@authorafirst. \textbf{\@englishtitle}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-        \@universidade, \@city, \@publyear.}\\~\\
+        \universidadename, \@city, \@publyear.}\\~\\
     }{
       \par\vfill
       \noindent\keywordsname: \@abstractkweng
@@ -806,11 +815,12 @@ Versão: \currversion^^J
 %dedicatória
 \newenvironment{dedicatoria}{
 	\clearpage
+  \onehalfspacing
 	\mbox{}
 	\vfill
-	\begin{flushright}
+  \begin{adjustwidth}{6cm}{0cm}
 }{
-	\end{flushright}
+	\end{adjustwidth}
 	\vfill
 }
 
@@ -821,9 +831,9 @@ Versão: \currversion^^J
 	\em\small
 	\mbox{}
 	\vfill
-	\begin{flushright}
+  \begin{adjustwidth}{6cm}{0cm}
 }{
-	\end{flushright}
+  \end{adjustwidth}
 	\vfill
 }
 
