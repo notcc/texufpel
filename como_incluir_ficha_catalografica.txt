@@ -1,0 +1,5 @@
+Para incluir a ficha catalográfica (em PDF)
+
+\usepackage{pdfpages}
+
+no lugar de \fichacatalografica usar \includepdf{ficha.pdf}
