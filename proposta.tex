@@ -15,11 +15,11 @@
 \programa{Programa de Pós-Graduação em Computação}
 \curso{Ciência da Computação}
 
-\title{Estudo e Revisão das Técnicas de Mineração de Dados em Ambientes Educacionais}
+\title{Aplicação de Técnicas de Mineração de Dados e Learning Analytics para Predição de Evasão de Alunos na UFPel}
 
 \author{Costa}{Alexandre Gomes da}
 \advisor[Prof.~Dr.]{Mattos}{Julio Carlos Balzano de}
-\coadvisor[Prof.~Dr.]{Primo}{Tiago}
+\coadvisor[Prof.~Dr.]{Primo}{Tiago Thompsen}
 
 %Palavras-chave em PT_BR
 \keyword{mineração de dados educacionais}
@@ -43,7 +43,12 @@
 
 %Resumo em Portugues (no maximo 1 pagina)
 \begin{abstract}
-Uma grande quantidade de dados vem sendo produzida através de diversas modalidade de iteração em sistemas envolvendo alunos e professores. Contudo, grande parte desses dados não sofre qualquer tipos de analise. Nos últimos anos uma gama cada vez maior de trabalhos vem surgindo na área de Mineração de Dados Educacionais (MDE). Devido a essa grande quantidade de trabalhos é que se faz necessário fazer um levantamento para descobrir quais métodos, técnicas e algoritmos vem sendo utilizado, e ainda quais tipos de problemas vem sendo apurados. A pesquisa foi realizada, procurando responder as seguintes questões: Qual tem sido as técnicas utilizadas nos trabalhos na área. Qual tipo de dados estão sendo considerados pertinentes na área. Qual é o objetivo de estudo dos trabalhos na área. Qual são as ferramentas que tem sido utilizadas na área. O objetivo deste trabalho é fazer uma busca nas principais meios de publicações brasileiros que vem pesquisando MDE utilizando técnicas de predição.
+Os sistemas de gestão para educação armazenam uma grande quantidade de dados oriundos de diversas modalidades de iteração entre alunos e professores mas também entre os alunos e o ambiente educacional (biblioteca, restaurantes universitários entre outros). Por exemplo, dados como notas, registro de presença de aluno, acesso ao sistema de biblioteca, logs de iteração com o sistema e vários outros tipos de atributos são ricos para a compreensão e auxílio nos processos de tomada de decisão em ambientes educacionais. Analisar e encontrar padrões nesta quantidade de dados manualmente é inviável humana e economicamente, por isso a utilização de Mineração de Dados Educacionais (MDE) e \textit{Learning Analytics (LA)} ganharam popularidade nos últimos anos. Este trabalho pretende explorar a utilização destas técnicas para extrair os dados do Sistema Integrado de Gestão da UFPel (Cobalto) visando criar modelos que levem a predição de alunos em risco de evasão para suporte aos processos de tomada de decisão na Universidade Federal de Pelotas. 
+
+% Com o surgimento de sistemas de gestão da educação uma grande quantidade de dados vem sendo produzida através de diversas modalidade de iteração entre alunos e professores. Analisar essa quantidade de dados não é uma tarefa viável para o homem, por isso surge a Mineração de Dados Educacionais (MDE) e Learning Analytics (LA). Nos últimos anos, uma gama cada vez maior de trabalhos vem surgindo nas áreas de MDE e LA. Este trabalho será focado em extrair os dados do Sistema Integrado de Gestão da UFPel (Cobalto) para prever alunos em risco de evasão. A partir da aquisição dos dados serão aplicado técnicas de MDE e LA para chegar a um modelo de predição.
+
+
+% Devido a essa grande quantidade de trabalhos é que se faz necessário fazer um levantamento para descobrir quais métodos, técnicas e algoritmos vem sendo utilizado, e ainda quais tipos de problemas vem sendo apurados. A pesquisa foi realizada, procurando responder as seguintes questões: Qual tem sido as técnicas utilizadas nos trabalhos na área. Qual tipo de dados estão sendo considerados pertinentes na área. Qual é o objetivo de estudo dos trabalhos na área. Qual são as ferramentas que tem sido utilizadas na área. O objetivo deste trabalho é fazer uma busca nas principais meios de publicações brasileiros que vem pesquisando MDE utilizando técnicas de predição.
 \end{abstract}
 
 \chapter{Motivação}
@@ -56,29 +61,27 @@ Uma grande quantidade de dados vem sendo produzida através de diversas modalida
 % ou para comunidade e grau de inovação. Poderá também apresentar as
 % distinções entre o trabalho atual e outros trabalhos já realizados.
 
-*** Motivação: dados evasão do INEP, motivar o trabalho (já está) e colocar os trabalhos relacionados (para embasar o trabalho)
-Sequencia: evasão, etc -> TICs - TICs na evasão -> objetivo (teu trabalho)
-1. Crescimento da Educação Superior
-2. Taxas evasão, trancamento elevadas
-3. Isto é um problema !
-4. TICs
-5. TICs no ambiente educacional (evasão)
+% *** Motivação: dados evasão do INEP, motivar o trabalho (já está) e colocar os trabalhos relacionados (para embasar o trabalho)
+% Sequencia: evasão, etc -> TICs - TICs na evasão -> objetivo (teu trabalho)
+% 1. Crescimento da Educação Superior
+% 2. Taxas evasão, trancamento elevadas
+% 3. Isto é um problema !
+% 4. TICs
+% 5. TICs no ambiente educacional (evasão)
 
+% *** Metodologia
 
-*** Metodologia
+% Comparando os índices da Universidade Federal de Pelotas (UFPel) com os do \citet{inep:2018} estes índices não mudam muito. Em 2017 o índice de matriculas desvinculadas na UFPel foi de de 11,53\% que está abaixo do índice de 11,56\% apresentado pelo \citet{inep:2018}. Mas olhando para a evasão curso a curso no ano de 2017 observamos dados alarmantes. Por exemplo, temos cursos como o de Geoprocessamento onde a taxa de evasão foi de 29,07\%. Por isso esses dados mostram que a evasão também é um problema na UFPel e deve ser observada.
 
-http://portal.inep.gov.br/web/guest/sinopses-estatisticas-da-educacao-superior
-
-INSTITUTO  NACIONAL  DE  ESTUDOS  E  PESQUISAS  EDUCACIONAIS  ANÍSIO  TEIXEIRA. 
-Sinopse Estatística da Educação Superior 2016. Brasília: Inep, 2017. Disponível  em:  <http://portal.inep.gov.br/web/guest/sinopses-estatisticas-da-educacao-superior>. Acesso em: dd mm. yyyy.  
-
-
-O uso constante de Tecnologia da Informação e Comunicação em diversas áreas vem gerando um grande volume de dados.
-Tecnologias como a internet, redes sociais, ambientes virtuais de aprendizagem, dispositivo móveis, aplicativos embarcados, leitores de código de barras, sensores, leitores biométricos e sistemas de informação em geral são alguns exemplos de recursos que vem aumentando o numero de dados das mais diversas naturezas \cite{goldschmidt2015data}.
+O uso constante de Tecnologia da Informação e Comunicação em diversas áreas vêm gerando um grande volume de dados. Tecnologias como a internet, redes sociais, ambientes virtuais de aprendizagem, dispositivo móveis, aplicativos embarcados, leitores de código de barras, sensores, leitores biométricos e sistemas de informação em geral são alguns exemplos de recursos que vem aumentando o número de dados das mais diversas naturezas \cite{goldschmidt2015data}.
 
 %% Educação
-Atualmente, áreas como a educação produzem dados relacionados a alunos e professores todos os dias.
-Necessidades da educação como sistemas para fazer o controle de iterações acadêmicas, gestão de projetos de pesquisa, ensino ou extensão, ou até mesmo sistemas para fazer o controle de gestão de pessoas são alguns do exemplos de sistemas que podem gerar um volume considerável de dados com frequência.
+Atualmente, as áreas como a educação produzem uma grande quantidade de dados relacionados a alunos e professores todos os dias. Para isto, esta área utiliza sistemas para fazer o controle de iterações acadêmicas, gestão de projetos de pesquisa, ensino ou extensão, ou até mesmo sistemas para fazer o controle de gestão de pessoas são alguns do exemplos de sistemas que podem gerar um volume considerável de dados com frequência.
+
+A partir desse volume de dados é possível analisar problemas recorrentes relacionados a educação. Um desses problemas é a evasão escolar que ainda é um desafio a ser superado.
+A evasão é um problema que atinge não só as Instituições de Ensino Superior (IES) privadas, mas também as públicas. Segundo dados do \citet{inep:2018}, em 2017, o índice de matrículas desvinculadas em todo o Brasil foi de 16,41\%. Já para as IES públicas esse índice no mesmo período foi de 11,56\%. Outro valor a ser considerado é o número de matriculas trancadas, onde foi de 11,17\% em todo o Brasil e 8,10\% IES públicas.
+
+Comparando os índices da Universidade Federal de Pelotas (UFPel) com os do \citet{inep:2018} estes índices não mudam muito. Em 2017 o índice de matriculas desvinculadas na UFPel foi de de 11,53\% que está abaixo do índice de 11,56\% apresentado pelo \citet{inep:2018}. Mas olhando para a evasão curso a curso no ano de 2017 observamos dados alarmantes. Por exemplo, temos cursos como o de Geoprocessamento onde a taxa de evasão foi de 29,07\%.  Esse fenômeno é conhecido na estatística como paradoxo de Simpson, uma tendência aparece em um determinado grupo de dados e desaparece quando estes dados são combinado. Ou seja, olhando para os cursos individualmente vários deles apresentam uma taxa de evasão bem elevada, mas quando essas taxas são combinadas a taxa de evasão não é tão relevante \cite{wagner1982simpson}. Olhando para esses dados algumas perguntas surgem tais como "Qual é o perfil do aluno que tende a evadir?" ou "Qual é a quantidade de alunos que trancaram e acabaram evadindo?", por exempo.
 
 %% Knowledge Discovery in Database - KDD
 Embora com ajuda de ferramentas computacionais, analisar essa crescente quantidade de dados não é trabalho para o homem \cite{goldschmidt2015data}. Para ajudar nesta questão a área de Descoberta de Conhecimento em Base de Dados (\textit{Knowledge Discovery in Database} - KDD) é focada em extrair conhecimento encima de granes volumes de dados. O termo mais conhecido relacionado a essa área é a Mineração de Dados (MD) que é uma das etapas do processo de KDD.
@@ -93,20 +96,30 @@ Segundo \citet{Koedinger2008} Mineração de Dados (MD) aplicada à educação �
   \label{fig:areas-relacionadas-mde}
 \end{figure}
 
-
 %% Predição
-Neste trabalho será aplicado um tarefa de classificação para tentar resolver o problema de evasão escolar. 
-Segundo \citet{goldschmidt2015data} uma tarefa de classificação possui dois grupos. Um grupo contem normalmente um atributo apenas que vai servir para fazer a predição de um valor (atributo-alvo). Outro grupo corresponde aos atributos que vão servir para fazer a predição do valor (atributos de predição).
-Tarefas de classificação são largamente utilizadas para fazer a predição de alunos em risco de evasão escolar, como será apresentado mais afrente.
+% Neste trabalho será aplicado uma tarefa de classificação para tentar resolver o problema de evasão escolar. Segundo \citet{goldschmidt2015data} uma tarefa de classificação possui dois grupos. Um grupo contem normalmente um atributo apenas que vai servir para fazer a predição de um valor (atributo-alvo). Outro grupo corresponde aos atributos que vão servir para fazer a predição do valor (atributos de predição). Tarefas de classificação são largamente utilizadas para fazer a predição de alunos em risco de evasão escolar, como será apresentado mais afrente.
 
-\citet{baker2010data} agrupa o problema de evasão em uma categoria ou tarefa de detectar o comportamento do aluno.
-Onde o objetivo é detectar os alunos que têm algum tipo de problema ou comportamento incomum, por exemplo: ações erradas, pouca motivação, trapaça, evasão escolar, etc.
-Destaca também que as principais técnicas usadas para resolver esses tipos de problemas são de classificação e agrupamentos.
+Neste trabalho iremos explorar a utilização de MDE/LA visando classificar e identificar perfis de alunos com tendência a evadir. Segundo \citet{goldschmidt2015data} uma tarefa de classificação possui dois grupos. Um grupo contem normalmente um atributo apenas que vai servir para fazer a predição de um valor (atributo-alvo). Outro grupo corresponde aos atributos que vão servir para fazer a predição do valor (atributos de predição). Tarefas de classificação são largamente utilizadas para fazer a predição de alunos em risco de evasão escolar, como será apresentado nesta proposta.
+
+\citet{baker2010data} agrupa o problema de evasão em uma categoria ou tarefa de detectar o comportamento do aluno. Onde o objetivo é detectar os alunos que têm algum tipo de problema ou comportamento incomum, por exemplo: pouca motivação, trapaça, evasão escolar, etc. Destaca também que as principais técnicas usadas para resolver esses tipos de problemas são de classificação e agrupamentos.
+
+%% 2014
+No trabalho de \citet{rigo2014aplicaccoes} é apresentado um estudo de fatores envolvidos no fenômeno de evasão escolar e descrevem a utilização de um sistema para MDE e LA durante 18 meses em cursos de graduação na modalidade de Educação a Distância. Ao todo foram executados 4 experimentos onde foram acompanhados 603, 250, 925 e 713 alunos. Para cada estudo de caso que trata o trabalho foi utilizado a técnica \textit{RNA Multilayer Perceptron}. O melhor resultado com relação a predição da evasão foi no experimento 4 onde a melhor média de acertos foi de 83,7\%.
+
+%% 2015
+\citet{pradeep2015students} buscaram prever a evasão de alunos em \textit{middle or secondary education} de uma escola de renome na Índia. O conjunto de dados foi composto por 670 registros de alunos com 57 atributos de estudantes registrados entre 2011 e 2013. Foram usadas 3 fontes de dados diferentes pesquisa com familiares, formulários de admissão e notas dos alunos. O estudo utilizou a ferramenta WEKA: para a seleção de atributos utilizou 7 algoritmos (CfsSubsetEval, ReliefFAttributeEval, ChiSquaredAttributeEval, neRAttributeEval, Consistency-SubsetEval, Filtered AttributeEval, GainRatioAttributeEval) e para a classificação aplicou a técnica de \textit{Decision tree} e \textit{rule induction}. Segundo o autor a qualidade e a confiabilidade das informações disponíveis afetam diretamente os resultados obtidos, por isso é importante reunir as informações corretas. As principais considerações a respeito das técnicas de mineração de dados foram de que os algoritmos se mostraram promissores para fazer a predição de evasão, e a seleção de atributos contribuem para diminuir o número de regras e condições sem perder o desempenho dos classificadores. Com relação ao conhecimento extraído as principais conclusões foram: os métodos de \textit{decision tree} e \textit{induciton rule} são facilmente convertidos em regras \textit{IF-THEM}; alguns atributos que contribuem diretamente para a evasão são notas baixa em matemática, inglês e física, e também alunos com idade acima de 15 anos.
+
+%% 2016
+Em \citet{hasbun2016extracurricular} foi discutida a importância de atividades extracurriculares para prever o abandono escolar de estudantes de dois cursos de Bacharel em Ciências (Engenharia e Negócios). Foram coletados dados de 4840 alunos. Dois modelos foram treinados, uma incluindo todos os dados e outra removendo notas e créditos obrigatórios do valor das atividades. Ambos os modelos foram treinados e validados usando \textit{cross-validation}. Utilizou o pacote \textit{R Studio} para o algoritmo CART. A primeira árvore de decisão obteve a melhor precisão (93,94\%). Para o segundo modelo obteve uma precisão de 79,29\%. Os autores relataram que embora a previsão de abandono com dados acumulados mostre um melhor desempenho, o segundo modelo ajuda a resolver o problema de disponibilidade de dados dos alunos. Além disso, a partir da análise dos erros, descobriram que a árvore de decisão treinada com todos os dados foi eficiente na modelagem das expectativas acadêmicas do programa, ocultando fatores pessoais que são mais relevantes para intervenções de prevenção de abandono. Por isso, os resultados apresentados sugerem que incluir atividades extracurriculares é útil para observar comportamentos específicos que parecem estar relacionados ao fenômeno de desligamento relacionado ao abandono.
+
+%% 2017
+
+%% 2018
+\citet{lanes2018prediccao} apresentaram um estudo que visa identificar estudantes que apresentam risco de evasão a partir do seu primeiro ano no curso de graduação. Os experimentos foram realizados com informações extraídas do sistema acadêmico da FURG. O conjunto de dados contou com 916 registros de 12 cursos de graduação de áreas distintas. Os dados foram discretizados e categorizados para gerar o \textit{dataset} final. Foi utilizado a ferramenta Weka e aplicado o algoritmo J48 para processar o \textit{dataset} e obter a arvore de decisão. Os resultados mostram que os potenciais alunos em risco de evadir podem ser identificados com acurácia de 90,7\% usando o algoritmo J48.
 
 %% Justificativa
-Este trabalho busca usar a base de dados do Cobalto que é o Sistema Integrado de Gestão da UFPEL. A base do Cobalto conta também com os dados históricos do GOL que foi o sistema acadêmico da UFPEL de 2006 à 2013. %% CONTINUAR
 
-A grande vantagem deste estudo está na naturalidade dos dados. Quanto alguns trabalhos fazem questionários, provas, exercícios, etc, no presente trabalho serão coletado dados que foram gerados a partir de resultado que os alunos obtiveram em diversas disciplinas e cursos.
+Este trabalho possui como motivação o grande problema de evasão encontrado nos cursos superiores, em especial em alguns cursos sendo principalmente cursos das engenharias e exatas, e a dificuldade de traçar o perfil destes alunos. Além disso, existe uma enorme quantidade de dados históricos de cursos de graduação presencias da UFPEL, uma vez que a grande maioria dos trabalhos vem de cursos EAD. Quanto alguns trabalhos fazem questionários, provas, exercícios, etc, no presente trabalho serão coletado dados que foram gerados a partir de resultado que os alunos obtiveram em diversas disciplinas, cursos entre outros. Este trabalho utilizará a base de dados do Sistema Integrado de Gestão da UFPEL (Cobalto). A base do Cobalto conta também com os dados históricos do GOL que foi o sistema acadêmico da UFPEL de 2006 à 2013. %%
 
 %% Importância acadêmica
 
@@ -116,17 +129,19 @@ A grande vantagem deste estudo está na naturalidade dos dados. Quanto alguns tr
 \chapter{Objetivos e Resultados}
 % (ENTRE 1 e 3 PÁGINAS)
 
-Este trabalho tem como objetivo estudar e aplicar técnicas de KDD aos dados do sistema Cobalto, para obter um padrão de predição da evasão de alunos através de dados inerentes aos estudantes da UFPEL. Para atingir este objetivo é preciso dividir o trabalho em objetivos específicos.
+% Este trabalho tem como objetivo estudar e aplicar técnicas de KDD aos dados do sistema Cobalto, para obter um padrão de predição da evasão de alunos através de dados inerentes aos estudantes da UFPEL. Para atingir este objetivo é preciso dividir o trabalho em objetivos específicos.
 
-O primeiro objetivo específico é investigar o que esta sendo pesquisado na área de mineração de dados educacionais, tentando focar em trabalho que tratam da evasão de alunos.
+Este trabalho tem como objetivo estudar e aplicar técnicas de MDE/LA aos dados do sistema Cobalto, para obter um padrão de predição da evasão de alunos através de dados inerentes aos estudantes da UFPEL. Para atingir este objetivo é preciso dividir o trabalho em objetivos específicos.
 
-Em seguida é preciso fazer um levantamento do referencial teórico e apresentar os principais conceitos a repeito de mineração de dados educacionais. Mais especificamente seria estudar e apresentar os conceitos de KDD, mineração de dados e mineração de dados educacionais.
+% O primeiro objetivo específico é investigar o que esta sendo pesquisado na área de mineração de dados educacionais, tentando focar em trabalho que tratam da evasão de alunos.
 
-Por fim, criar e testar modelos de predição de alunos em risco de evasão de estudantes da UFPEL, utilizando os dados acadêmicos dos alunos.
+O primeiro objetivo específico é aprofundar sobre os principais método utilizados em MDE/LA, tentando focar em trabalhos que tratam da evasão escolar. Uma investigação prévia já foi realizada no Trabalho Individual (TI), que focou em encontrar as técnicas mais utilizadas na área de MDE/LA.
 
-Em geral a grande maioria dos trabalho com este foco utilizam base de dados de sistemas de EAD. O grande diferencial deste trabalho é que será utilizado um base de dados histórica consolidada de alunos da UFPEL.
+Em seguida é preciso fazer um levantamento do referencial teórico e apresentar os principais conceitos a respeito de mineração de dados educacionais. Mais especificamente seria estudar e apresentar os conceitos de KDD, mineração de dados, mineração de dados educacionais, learning analytics. Além disso buscar os principais desafios e oportunidades de aplicação.
 
-Espera-se que os resultados deste trabalho seja aplicado ao sistema acadêmico da UFPEL para ajudar discentes e docentes a prever e combater a evasão.
+Por fim, criar e testar modelos de predição de alunos em risco de evasão de estudantes da UFPEL, utilizando os dados acadêmicos dos alunos. Além de tentar encontrar a melhor forma de apresentar os resultados obtidos.
+
+Em geral a grande maioria dos trabalhos com este foco utilizam base de dados de sistemas de EAD. O grande diferencial deste trabalho é que será utilizado um base de dados histórica consolidada de alunos de graduação da modalidade presencial da UFPEL. Espera-se que os resultados deste trabalho seja aplicado ao sistema acadêmico da UFPEL para ajudar discentes e docentes a prever e combater a evasão.
 
 % Nesta seção, apresentam-se o objetivo Geral e os objetivos Específicos
 % da dissertação. Os objetivos não devem ser confundidos com as
@@ -142,118 +157,26 @@ Espera-se que os resultados deste trabalho seja aplicado ao sistema acadêmico d
 \chapter{Metodologia}
 % (ENTRE 1 e 3 PÁGINAS)
 
-% O processo de mineração de dados envolve várias fases e etapas. Este trabalho classifica o processo de KDD em três grandes fases, com base nas abordagens descritas em [Silva and Vieira 2002] e [Rezende et al. 2003]: Preparação, Extração de Padrões e Pós-Processamento. Cada fase pode envolver uma ou mais etapas conforme mostra a tabela 1. No entanto, o KDD é um processo iterativo e algumas etapas podem ser realizadas novamente após a análise dos padrões encontrados de forma a melhorá-los \cite{Pimentel2006}.
+Tomando como ponto de partida os trabalhos encontrados no desenvolvimento do trabalho individual (TI), a dissertação de mestrado seguirá uma metodologia baseada no processo de descoberta de conhecimentos em base de dados (em inglês KDD) e usará a ferramenta de mineração de dados RapidMiner para gerar o conjunto de testes, executar os algoritmos de aprendizagem de máquina e produzir os resultados. Para \citet{fayyad1996kdd} KDD é o processo de descoberta de conhecimento útil de um conjunto de dados, enquanto Mineração de Dados (MD) é apenas parte do processo de KDD. Por isso, considerando o TI como ponto de partida, a elaboração deste trabalho será dividida em 4 etapas: (I) aquisição dos dados, (II) pré-processamento, (III) criar modelos de predição e (IV) avaliar os modelos de predição com base nos modelos de alunos.
 
-Neste trabalho será utilizado uma metodologia apresentada no livro de \citet{goldschmidt2015data}, que é baseada na metodologia CRISP-DM (Cross-Industry Standard Process for Data Mining) e em alguns princípios de planejamento de atividades. A metodologia mostrada no livro se difere da metodologia CRISP-DM no momento em que ela sugere aplicar a definição dos objetivos e escolha da técnica de mineração antes da faze de preparação dos dados. Além disso, ela adiciona instrumentos para documentar as decisões e os resultados durante o processo de KDD, um exemplo é o formulário mostrado na figura \ref{fig:formulario-para-documentacao-de-acoes}.
+Na etapa de aquisição dos dados será separado os dados históricos de alunos do Sistema Cobalto. Este procedimento será feito de forma manual através de consultas na base de dados. Após os dados serão separados e identificados para ser avaliado a qualidade destes dados.
 
-\begin{figure}[htbp]
-  \centering \includegraphics[scale=.4]{imagens/formulario-para-documentacao-de-acoes.png}
-  \caption{Formulário para documentação de ações \cite{goldschmidt2015data}.}
-  \label{fig:formulario-para-documentacao-de-acoes}
-\end{figure}
+No pré-processamento os dados serão classificados e passarão por um processo de "limpeza" para tentar eliminar ruído dos dados. Esta etapa também será feita de forma manual e é preciso ter um cuidado especial para manter a privacidade dos alunos.
 
-A metodologia proposta no livo divide o processo em 5 etapas Levantamento da Situação Vigente, Definição dos Objetivos, Planejamento de Atividades, Execução dos Planos de Ação e Avaliação de Resultados. O resto desta sessão aprofunda cada uma dessas etapas.
+A etapa de gerar o modelo de predição será selecionar, implementar e executar os algoritmos de aprendizagem de máquina. Nesta etapa serão utilizados os algoritmos que obtiveram resultados mais promissores dos artigos selecionados. Além disso, serão gerado modelos de predição para o problema proposto baseado nos dados que foram tratados na etapa anterior.
 
-\section{Levantamento da Situação Vigente}
-\label{sec:levantamento-da-situacao-vigente}
+A ultima etapa os resultados dos experimentos serão avaliados e comparados, para avaliar os conhecimentos extraído. Também será feito um levantamento das principais técnicas usas para avaliar os modelos gerados encontradas nos trabalhos relacionado no TI.
 
-Nesta etapa deve ser realizada todas as fases da \textbf{Compreensão do Negócio} e \textbf{Compreensão dos Dados} da metodologia CRISP-DM. 
+% De forma mais geral a metodologia para elaboração deste trabalho será dividida em 4 etapas: (I)aquisição dos dados, (II)pré-processamento, (III)criar modelos de predição e (IV)avaliar os modelos de predição com base nos modelos de alunos.
 
-A fase de \textbf{Compreensão do Negócio} tem como meta compreender o contexto em que o processo de KDD será realizado. As principais considerações técnicas desta fase são:
-\begin{itemize}
-\item Fazer a identificação das pessoas envolvidas no processo;
-\item Elaborar uma lista de necessidades e expectativas das pessoas envolvidas quanto ao propósito do KDD;
-\item Conhecer o software e hardware existentes;
-\item Elaborar um inventário da base de dados;
-\item Verificar se existe um Data Warehouse;
-\item Tentar identificar e documentar todo o conhecimento prévio existente e disponível sobre o domínio da aplicação.
-\end{itemize}
+% Na etapa de aquisição dos dados será separado os dados históricos de alunos do Sistema Cobalto. Este procedimento será feito de forma manual através de consultas na base de dados. Após os dados serão separados e identificados para ser avaliado a qualidade destes dados.
 
-Na fase de \textbf{Compreensão dos dados} será feito um estudo detalhado das informações disponíveis. Esta fase vão ser realizadas as etapas destacadas abaixo:
-\begin{itemize}
-\item Compreender como um todo os dados e atributos disponíveis da base de dados;
-\item Avaliar a qualidade dos dados disponíveis;
-\item Verificar a disponibilidade dos dados, principalmente sobre a quantidade dos dados;
-\end{itemize}
+% No pré-processamento os dados serão classificados e passarão por um processo de "limpeza" para tentar eliminar ruído dos dados. Esta etapa também será feita de forma manual e é preciso ter um cuidado especial para manter a privacidade dos alunos.
 
-Já na etapa de levantamento vai ser usado o formulário da figura \ref{formulario-para-documentacao-de-acoes} para documentação de ações e resultados do processo de KDD. O formulário deve ser utilizado para registrar o titulo da aplicação e um resumo descritivo do trabalho.
+% A etapa de gerar o modelo de predição será selecionado, implementado e executado os algoritmos de aprendizagem de máquina. Nesta etapa será utilizado a ferramenta WEKA e serão utilizados os algoritmos que obtiveram resultados mas promissores dos artigos selecionados. Será gerado modelos de predição para o problema proposto baseado nos dados que foram tratados na etapa anterior.
+% % A etapa de gerar o modelo de predição será selecionado, implementado e executado os algoritmos de aprendizagem de máquina. Ao final desta etapa serão gerados diversos resultados dos experimentos.
 
-
-% É nesta etapa que será realizado um estudo mais aprofundado para tentar entender mais a fundo o problema da evasão e também tentar definir o objetivo sob a luz de descoberta de conhecimento em base de dados.
-
-\section{Definição dos Objetivos}
-\label{sec:definicao-dos-objetivos}
-
-Na metodologia proposta do livro a etapa de Definição dos Objetivos agrega duas fazes da metodologia CRISP-DM Compreensão do Negócio e Modelagem. Essa etapa destaca que a escolha da técnica mineração deve vir antes da preparação dos dados, logo o pré-processamento dos dados pode seguir em função da técnica de mineração aplicada aos dados.
-
-De forma prática primeiramente serão identificadas todas as expectativas, logo depois elas serão validadas junto aos Orientadores. Por fim, essas expectativas serão agrupadas de acordo com sua natureza e de forma que um modelo de conhecimento possa englobar um grupo de expectativas.
-
-Com as expectativas identificas e agrupadas será apurado qual tipo de tarefa de Mineração de Dados deve ser aplicado para obter um modelo de conhecimento que atenda a cada grupo de expectativa.
-
-Nesta etapa serão preenchidos os seguintes campos do formulário gerado na etapa anterior: Sessão, Objetivo, Tarefa de KDD e Expectativas quanto ao modelo de conhecimento.
-Uma sessão estará associada a uma única tarefa de KDD. O objetivo será associado a um grupo de expectativas. A tarefa de KDD será a tarefa que será executada para o objetivo dessa sessão. Para o ultimo campo será especificado uma lista de expectativas quanto ao modelo de conhecimento.
-
-A figura~\ref{fig:formulario-etapa-definicao-objetivo} é um exemplo de como preencher o formulário da sessão \ref{sec:levantamento-da-situacao-vigente}. É o exemplo da expectativa de comportamento do cliente que é mapeada em uma tarefa de Descoberta de Sequência.
-
-\begin{figure}[htbp]
-  \centering \includegraphics[scale=.4]{imagens/formulario-etapa-definicao-objetivo.png}
-  \caption{Exemplo de preenchimento do formulário na etapa de Definição de Objetivos. Fonte: \cite{goldschmidt2015data}.}
-  \label{fig:formulario-etapa-definicao-objetivo}
-\end{figure}
-
-\section{Planejamento de atividades}
-\label{sec:planejamento-de-atividades}
-
-Nesta etapa cada sessão de KDD identificada na sessão \ref{sec:definicao-dos-objetivos} deverá ser elaborado um planejamento de atividades que proporcione a execução do objetivo correspondente. Também será identificado, dentre o métodos disponíveis, aqueles que melhor implementam a tarefa da sessão de KDD. Este métodos são chamados de métodos candidatos.
-
-Segundo \citet{goldschmidt2015data} a filtragem dos métodos requer conhecimento profundo de cada método e que a escolha do método depende da preferência pessoal do analista de KDD, porem ressalva que todos os métodos candidatos que não foram retirados da filtragem devem ser considerados. A filtragem dos métodos candidatos será feita junto aos orientadores e ao fim dessa filtragem será elaborado uma lista ordenada dos método que podem obter melhor resultado.
-
-A partir da listagem dos métodos selecionados será apresentado alternativas de pré-processamento para cada método da lista. \citet{goldschmidt2015data} denomina essas alternativas de pré-processamento de planos de ação e que o analista deve planejar quais métodos de pré-processamento devem ser utilizados, incluindo a ordem de aplicação.
-
-A figura \ref{fig:formulario-etapa-planejamento-atividades} é um exemplo retirado do livro que mostra como ficaria o formuláro após a etapa de planejamento de atividades.
-
-\begin{figure}[htbp]
-  \centering \includegraphics[scale=.4]{imagens/formulario-etapa-planejamento-atividades.png}
-  \caption{Exemplo de preenchimento do formulário na etapa de Planejamento de Atividades. Fonte: \cite{goldschmidt2015data}.}
-  \label{fig:formulario-etapa-planejamento-atividades}
-\end{figure}
-
-\section{Execução do Plano de Ação}
-\label{sec:execucao-do-plano-de-acao}
-
-Nesta etapa todos os planos de ação descritos na sessão \ref{sec:planejamento-de-atividades} serão experimentados e avaliados. \citet{goldschmidt2015data} recomenda que os planos sejam executados simultaneamente para ser feito uma análise conjunta dos resultados obtidos. Isso pode trazer uma visão global do processo e pode ser possível perceber detalhes que permitam reavaliar ou mudar a estratégia escolhida.
-
-\citet{goldschmidt2015data} recomenda também que o plano de ação entende a execução ordenada dos métodos do plano e deve ser executada em ciclos. Ou seja, o plano deve ser executado total ou parcialmente a cada ciclo, procurando obter os melhores resultados.
-
-\citet{goldschmidt2015data} destaca que um problema frequente em um processo de KDD é a escolha dos parâmetros de um algoritmo frente a uma nova situação. Este problema pode aumentar bastante o número de ciclos do processo. Por isso, nessa etapa serão registrados dos parâmetros adotados e os resultados obtidos a cada ciclo no formulário. A figura \ref{fig:formulario-etapa-execucao-dos-planos-de-acao} mostra um possível preenchimento do formulário.
-
-\section{Avaliação de Resultados}
-\label{sec:avaliacao-de-resultados}
-
-Esta etapa deve ser realizada no final do processamento de cada método do plano. \citet{goldschmidt2015data} diz que é o momento de comparar as características do modelo de conhecimento gerado com as expectativas quanto ao modelo de conhecimento listadas na sessão \ref{sec:definicao-dos-objetivos}. Ele reforça que algumas medidas podem ser comparadas diretamente, já outras, são mais subjetivas. Uma pergunta que poderia se fazer nessa etapa é qual é a exclusividade e utilidade do conhecimento extraído? Por isso, esta etapa deverá ser homologada junto ao orientador deste trabalho. Nessa etapa também terá de ser feito um estudo sobre as medidas de interesse no processo de KDD.
-
-\begin{figure}[htbp]
-  \centering \includegraphics[scale=.4]{imagens/formulario-etapa-execucao-dos-planos-de-acao.png}
-  \caption{Exemplo de preenchimento do formulário na etapa de Execução do plano de ação. Fonte: \cite{goldschmidt2015data}.}
-  \label{fig:formulario-etapa-execucao-dos-planos-de-acao}
-\end{figure}
-
-
-% O processo de descoberta de conhecimento envolve várias fases e etapas. Para o desenvolvimento deste trabalho será utilizada a abordagem proposta por [Silva and Vieira 2002] e [Rezende et al. 2003] onde o processo pode ser separado em três fases: Preparação, Extração de Padrões e Pós-Processamento. Cada fase pode envolver uma ou mais etapas. No podem ser realizadas novamente após a análise dos padrões encontrados de forma a melhorá-los \cite{Pimentel2006}.
-
-% Descoberta de conhecimento em base dados pode ser composto por várias etapas operacionais \cite{goldschmidt2015data}.
-% Este trabalho será dividido em 3 grandes momentos: coleta dos dados, pré-processamento dos dados, criar e avaliar os modelos de predição.
-
-% Na etapa de coleta será coletado todo o dado bruto referente aos alunos dos cursos de graduação da UFPEL. Esta etapa será feita de forma manual através de consultas a base de dados.
-% Os sistemas de aplicações, conhecidos por OLTP (On-Line Transaction Processing), processam dados armazenados em Base de Dados relacionais usadas para armazenar, consultar e alterar informações do negócio. Normalmente, não é possível aplicar as técnicas de MD diretamente a estas bases, pois isso poderia resultar numa sobrecarga de consultas nas mesmas podendo literalmente “travar” um sistema, impossibilitando qualquer outro tipo de operação transacional. 
-% Assim, é recomendável que os dados a serem utilizados na descoberta de conhecimento estejam separados da Base de Dados operacional. Nesses casos, utilização de DW é indicada, pois possibilita o armazenamento de grande quantidade de dados históricos de uma organização e viabiliza acessos otimizados aos dados previamente consolidados, reduzindo consideravelmente o tempo de realização do processo de MD \cite{Rezende2002}.
-
-% Em seguida vem a etapa de pré-processamento onde será verificado a necessidade de fazer a limpeza e classificação dos dados para serem utilizados nos testes. Da mesma forma que a primeira esta etapa também sera feita de forma manual.
-
-% De uma forma mais macro vem a terceira etapa onde será gerado um modelo de predição aplicando algoritmos de aprendizagem de máquina e posteriormente este modelo será avaliado a partir dos resultados.
-
-% O processo de mineração de dados envolve várias fases e etapas. Este trabalho classifica o processo de KDD em três grandes fases, com base nas abordagens descritas em [Silva and Vieira 2002] e [Rezende et al. 2003]: Preparação, Extração de Padrões e Pós-Processamento. Cada fase pode envolver uma ou mais etapas conforme mostra a tabela 1. No entanto, o KDD é um processo iterativo e algumas etapas podem ser realizadas novamente após a análise dos padrões encontrados de forma a melhorá-los \cite{Pimentel2006}.
-
+% A ultima etapa os resultados dos experimentos serão avaliados e comparados, para avaliar os conhecimentos extraído.
 
 
 % Nesta seção, apresenta-se a metodologia proposta para o
@@ -262,30 +185,18 @@ Esta etapa deve ser realizada no final do processamento de cada método do plano
 
 \chapter{Cronograma}
 
-Esta seção apresenta a relação de atividades que deverão ser realizadas e o seu  cronograma para finalização do mestrado em Março/2020. As atividades são as seguintes:
+Esta seção apresenta a relação de atividades que deverão ser realizadas e o seu  cronograma para finalização do mestrado em Agosto/2020. As atividades são as seguintes:
+\begin{enumerate}
+    \item Revisão Bibliográfica: trabalho já realizado e versou sobre descoberta de conhecimento em base de dados;
+    \item Aquisição dos Dados: já em andamento consta da extração dos dados do Cobalto;
+    \item Pré-processamento: Os dados extraídos do Cobalto passarão por uma limpeza e classificação;
+    \item Gerar o modelo de predição: estudar técnicas de mineração de dados aplicadas a educação que mais se adéquam ao problema e aplicar os algoritmos usando o Rapidminer para obter resultados;
+    \item Avaliação dos benchmarks dos algoritmos através da ferramenta Rapidminer;
+    \item Escrita da  dissertação;
+    \item Escrita e submissão de artigo;
+    \item Entrega e defensa da dissertação.
+\end{enumerate}
 
-\begin{itemize}
-\item Revisão Bibliográfica: trabalho já realizado e versou sobre descoberta de conhecimento ...;
-\item Extração dos Dados: já em andamento consta da extração ...
-\item ...
-\item Escrita da  dissertação;
-\item Escrita e submissão de artigo;
-\item Entrega e defensa da dissertação.
-\end{itemize}
-
-Dessa forma, de acordo com a metodologia proposta, foram listadas as
-seguintes atividades:
-1. Estudar técnicas de otimização de memória para sistemas embarcados;
-2. Seleção e/ou desenvolvimento de benchmarks para avaliação das arquiteturas;
-3. Pesquisa e seleção de ferramentas para avaliação/simulação das arquiteturas
-e dos modelos de memória (para caracterização de latência e consumo energético);
-4. Avaliação dos benchmarks nas arquiteturas através das ferramentas
-selecionadas;
-6. Propor e avaliar técnicas específicas para a arquitetura de processadores
-embarcados;
-
-
-O cronograma é apresentado na Figura \ref{fig:cronograma} ao longo do tempo.
 \begin{figure}[htbp]
   \centering \includegraphics[scale=.4]{imagens/cronograma.png}
   \caption{Cronograma de atividades que serão realizadas.}
@@ -322,6 +233,17 @@ O cronograma é apresentado na Figura \ref{fig:cronograma} ao longo do tempo.
 
 	Prof. Dr. Julio Carlos Balzano de Mattos\\
 	Prof. Orientador
+
+\end{center}
+
+\vspace{4cm}
+
+\begin{center}
+\rule{8cm}{.3mm}
+\medskip
+
+	Prof. Dr. Tiago Thompsen Primo\\
+	Prof. Coorientador
 
 \end{center}
 \end{document}
