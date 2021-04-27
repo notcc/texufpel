@@ -692,11 +692,17 @@ Versão: \currversion^^J
   \end{list}
 }
 
+
+
 %==============================================================================
 % Ajuste do formato das citações e referências
 %==============================================================================
 \setlength{\bibhang}{0pt}
 \let\cite\citep
+
+\renewcommand{\NAT@nmfmt}[1]{%
+  \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
+}
 
 %capa do CDROM
 \newcommand{\makecover}{%

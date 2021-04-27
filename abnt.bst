@@ -382,7 +382,7 @@ FUNCTION {format.family.names}
 			pop$ names " et~al." *
 			n 'i :=
 		}{
-			"u" change.case$
+			"t" change.case$
 			names swap$ add.to.namelist
 		} if$ 'names :=
 		#1 i + 'i :=
