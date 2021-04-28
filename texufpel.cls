@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{6/26/2019}
+\def\currversion{28/abr/2021}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -118,8 +118,12 @@ Versão: \currversion^^J
 \RequirePackage{hyperref}
 \RequirePackage{changepage}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[singlelinecheck=off,font=small,justification=justified,format=plain,labelsep=endash]{caption}
-\setlength{\captionmargin}{20pt}
+\RequirePackage[singlelinecheck=off, skip=2pt, font=small, justification=justified, format=plain, labelsep=endash]{caption}
+
+\DeclareCaptionListFormat{figuracf}{\figurename\ #1#2}
+\DeclareCaptionListFormat{tabelacf}{\tablename\ #1#2}
+\captionsetup[figure]{position=bottom,listformat=figuracf}
+\captionsetup[table]{position=top,listformat=tabelacf}
 
 \geometry{top=3cm,right=2cm,left=3cm,bottom=2cm}
 
@@ -608,6 +612,7 @@ Versão: \currversion^^J
   \vspace*{90pt}%
   \reset@font\centerline{\ei@chapterfont\sffamily\textbf{\MakeUppercase{#1}}}%
   \addvspace{42pt}%
+  \thispagestyle{empty}%
 }
 
 \renewcommand{\appendix}[1][\appendixname]{%
@@ -663,6 +668,7 @@ Versão: \currversion^^J
 % Redefinição do conteúdo das listas de figuras e tabelas
 %==============================================================================
 \newif\if@captionlisting\@captionlistingtrue
+
 \long\def\@caption#1[#2]#3{%
   \par
   \if@captionlisting%
@@ -691,7 +697,6 @@ Versão: \currversion^^J
   }{%
   \end{list}
 }
-
 
 
 %==============================================================================
