@@ -84,7 +84,7 @@ Versão: \currversion^^J
 \documento{Exame de Qualifica{\c{c}}{\~a}o}
 \tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
 \descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-}
+\descricaoaprovacao{Exame de Qualifica{\c{c}}{\~a}o aprovado, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 \DeclareOption{ti}{
 \tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@unidade}
