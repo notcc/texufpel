@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{28/04/2021}
+\def\currversion{02/07/2021}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -74,9 +74,16 @@ Versão: \currversion^^J
 \descricaodocumento{Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 \descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
+%proposta de tese deixou de existir no PPGC - regimento de 2020
 \DeclareOption{tese-proposta}{
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Proposta de Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+}
+
+\DeclareOption{eq}{
+\documento{Exame de Qualifica{\c{c}}{\~a}o}
+\tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
+\descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \DeclareOption{ti}{
@@ -153,6 +160,7 @@ Versão: \currversion^^J
   \def\keywordsname{Palavras-chave}%
   \def\tccname{Trabalho de Conclus\~ao de Curso}%
   \def\thesisname{Tese}%
+  \def\eqname{Exame de Qualifica{\c{c}}{\~a}o}%
   \def\doctoratein{Doutorado em}%
   \def\dissname{Disserta\c c\~ao}%
   \def\masterin{Mestrado em}%
@@ -193,6 +201,7 @@ Versão: \currversion^^J
   \def\annexname{Annex}%
   \def\keywordsname{Keywords}%
   \def\tccname{Undergraduate Thesis}%
+  \def\eqname{Qualification Exam}%
   \def\thesisname{Thesis}%
   \def\doctoratein{Doctorate in}%
   \def\dissname{Dissertation}%
