@@ -1,0 +1,7 @@
+Para incluir um tooltip em uma abreviação (ou outro texto qualquer) (em PDF)
+
+\usepackage{pdfcomment}
+
+e no texto:
+
+A \pdftooltip{SBC}{Sociedade Brasileira de Computação} produziu um documento ...
