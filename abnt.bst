@@ -334,7 +334,7 @@ FUNCTION {format.names}
 	{
 		duplicate$ duplicate$ i "{ll}{~jj}" format.name$
 		duplicate$ "others" =
-        n #4 >
+        n #20 >
         i #2 =
         and
         or
