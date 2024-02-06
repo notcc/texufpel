@@ -332,7 +332,7 @@ FUNCTION {format.names}
 
 	{i n #1 + <}
 	{
-		duplicate$ duplicate$ i "{ll}{~jj}" format.name$
+		duplicate$ duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
         n #20 >
         i #2 =
@@ -343,7 +343,7 @@ FUNCTION {format.names}
 			n 'i :=
 		}{
 			"u" change.case$ swap$
-			i "{, f.}{~vv}" format.name$ *
+			i "{, f.}{~vv}" format.name$ * 
 			names swap$ add.to.namelist
 		} if$ 'names :=
 		#1 i + 'i :=
@@ -372,9 +372,9 @@ FUNCTION {format.family.names}
 
 	{i n #1 + <}
 	{
-		duplicate$ i "{ll}{~jj}" format.name$
+		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-		n #3 >
+		n #20 >
 		i #2 =
 		and
 		or
@@ -405,13 +405,13 @@ FUNCTION {format.family.names.all}
 
 	{i n #1 + <}
 	{
-		duplicate$ i "{ll}{~jj}" format.name$
+		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
 		{
 			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
-			"u" change.case$
+			"t" change.case$
 			names swap$ add.to.namelist
 		} if$ 'names :=
 		#1 i + 'i :=

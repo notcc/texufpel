@@ -26,16 +26,18 @@
 \collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
 
 %Palavras-chave em PT_BR
-\keyword{Palavrachave-um}
-\keyword{Palavrachave-dois}
-\keyword{Palavrachave-tres}
-\keyword{Palavrachave-quatro}
+%use letras minúsculas seguidas por ;
+%a última terminada por .
+\keyword{palavrachave-um;}
+\keyword{palavrachave-dois;}
+\keyword{palavrachave-tres;}
+\keyword{palavrachave-quatro.}
 
 %Palavras-chave em EN_US
-\keywordeng{Keyword-one}
-\keywordeng{Keyword-two}
-\keywordeng{Keyword-three}
-\keywordeng{Keyword-four}
+\keywordeng{keyword-one;}
+\keywordeng{keyword-two;}
+\keywordeng{keyword-three;}
+\keywordeng{keyword-four.}
 
 \begin{document}
 
@@ -152,28 +154,30 @@ blablabla bla.  Bla blabla blablabla bla.  Bla blabla blablabla bla.
 Bla blabla blablabla bla~\ref{tabela}.
 
 \begin{table}
-  \begin{center}
-    \caption{Nome da Tabela}\label{tabela}
-    \begin{tabular}{p{4cm}p{5cm}p{6cm}}
-      \hline
-      Blabla & Blabla & Blablabla\\
-      \hline
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      {\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
-        blablabla blabla blablabla.}\\
-      \hline
-    \end{tabular}
-  \end{center}
+\caption{Nome da Tabela}\label{tabela2}
+\centering\begin{tabular}{p{4cm}p{5cm}p{6cm}}
+\hline
+Blabla & Blabla & Blablabla\\
+\hline
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla.}\\
+{\small Bla} & {\small Blabla} & {\small\em Bla blabla blablabla blabla
+  blablabla blabla blablabla. Conforme a figura~\ref{figura}}\\
+\hline
+\end{tabular}
+\begin{flushleft}
+{\small Fonte: Elaborada pelo autor.}    
+\end{flushleft}
 \end{table}
+
 
 \subsection{Uma subseção}
 
@@ -224,8 +228,11 @@ Blabla & Blabla & Blablabla\\
 \end{table}
 
 \begin{figure}[htbp]
-  \centering \includegraphics[scale=.4]{figura}
-\caption{Nome da figura} 
+\caption{Nome da figura}   
+\centering \includegraphics[scale=.4]{figura}\\
+\begin{flushleft}
+{\small Fonte: Elaborada pelo autor.}    
+\end{flushleft}
 \label{figura}
 \end{figure}
 

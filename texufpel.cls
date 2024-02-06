@@ -1,7 +1,7 @@
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{02/07/2021}
+\def\currversion{06/02/2024}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -313,30 +313,30 @@ Versão: \currversion^^J
 }
 
 \newcommand{\@abstractkw}{%
-        \@ifundefined{keywa}{}{\expandafter \keywa.}%
-        \@ifundefined{keywb}{}{ \keywb.}%
-        \@ifundefined{keywc}{}{ \keywc.}%
-        \@ifundefined{keywd}{}{ \keywd.}%
-        \@ifundefined{keywe}{}{ \keywe.}%
-        \@ifundefined{keywf}{}{ \keywf.}%
-        \@ifundefined{keywg}{}{ \keywg.}%
-        \@ifundefined{keywh}{}{ \keywh.}%
-        \@ifundefined{keywi}{}{ \keywi.}%
-        \@ifundefined{keywj}{}{ \keywj.}%
+        \@ifundefined{keywa}{}{\expandafter \keywa}%
+        \@ifundefined{keywb}{}{ \keywb}%
+        \@ifundefined{keywc}{}{ \keywc}%
+        \@ifundefined{keywd}{}{ \keywd}%
+        \@ifundefined{keywe}{}{ \keywe}%
+        \@ifundefined{keywf}{}{ \keywf}%
+        \@ifundefined{keywg}{}{ \keywg}%
+        \@ifundefined{keywh}{}{ \keywh}%
+        \@ifundefined{keywi}{}{ \keywi}%
+        \@ifundefined{keywj}{}{ \keywj}%
 }
 
 
 \newcommand{\@abstractkweng}{%
-        \@ifundefined{keywenga}{}{\expandafter \keywenga.}%
-        \@ifundefined{keywengb}{}{ \keywengb.}%
-        \@ifundefined{keywengc}{}{ \keywengc.}%
-        \@ifundefined{keywengd}{}{ \keywengd.}%
-        \@ifundefined{keywenge}{}{ \keywenge.}%
-        \@ifundefined{keywengf}{}{ \keywengf.}%
-        \@ifundefined{keywengg}{}{ \keywengg.}%
-        \@ifundefined{keywengh}{}{ \keywengh.}%
-        \@ifundefined{keywengi}{}{ \keywengi.}%
-        \@ifundefined{keywengj}{}{ \keywengj.}%
+        \@ifundefined{keywenga}{}{\expandafter \keywenga}%
+        \@ifundefined{keywengb}{}{ \keywengb}%
+        \@ifundefined{keywengc}{}{ \keywengc}%
+        \@ifundefined{keywengd}{}{ \keywengd}%
+        \@ifundefined{keywenge}{}{ \keywenge}%
+        \@ifundefined{keywengf}{}{ \keywengf}%
+        \@ifundefined{keywengg}{}{ \keywengg}%
+        \@ifundefined{keywengh}{}{ \keywengh}%
+        \@ifundefined{keywengi}{}{ \keywengi}%
+        \@ifundefined{keywengj}{}{ \keywengj}%
 }
 
 
@@ -821,7 +821,7 @@ Versão: \currversion^^J
 	\mbox{}
 	\vfill
 	\begin{center}
-		\textbf{Insira AQUI a ficha catalogr\'afica\\(solicite em http://sisbi.ufpel.edu.br/?p=reqFicha)}
+		\textbf{Insira AQUI a ficha catalogr\'afica\\Quando finalizado o trabalho, deve ser\\solicitada através do Sistema Cobalto\\Biblioteca -- Cadastro -- Ficha catalográfica.}
 	\end{center}
 	\vfill
 }
