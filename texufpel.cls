@@ -636,6 +636,7 @@ Versão: \currversion^^J
   }%
 }
 
+
 \newcommand{\annex}{\appendix[\annexname]}
 
 %==============================================================================
@@ -714,9 +715,9 @@ Versão: \currversion^^J
 \setlength{\bibhang}{0pt}
 \let\cite\citep
 
-\renewcommand{\NAT@nmfmt}[1]{%
-  \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
-}
+% \renewcommand{\NAT@nmfmt}[1]{%
+%   \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
+% }
 
 %capa do CDROM
 \newcommand{\makecover}{%
