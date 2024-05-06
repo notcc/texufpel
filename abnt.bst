@@ -1085,7 +1085,8 @@ FUNCTION {misc}
 			if$
 		}
 	if$
-    
+	
+	format.year add.to.item
 	format.misc.publication add.to.item
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.howpublished add.to.item
