@@ -1,0 +1,28 @@
+Imediatamente antes de \begin{document} cola o seguinte código:
+
+\usepackage{newfloat}
+
+\DeclareFloatingEnvironment[
+    fileext=loq,
+    listname={Lista de Quadros},
+    name=Quadro,
+    autorefname=Quadro,
+    legendname=Quadro,
+    placement=ht,
+    within=chapter,
+]{quadro}
+
+\counterwithout{quadro}{chapter}
+
+\DeclareCaptionListFormat{quadroListFormat}{Quadro #2}
+\captionsetup[quadro]{listformat=quadroListFormat}
+
+Onde quiseres que apareça a Lista de Quadros, coloque:
+
+\listofquadros
+
+E o que quiseres colocar como quadro, coloca entre:
+
+\begin{quadro}[ht!]
+...
+\end{quadro}
