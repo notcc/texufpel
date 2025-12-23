@@ -1,0 +1,208 @@
+\documentclass[eq,capa]{texufpel}
+
+% -------------------------------
+% PACOTES BÁSICOS
+% -------------------------------
+
+\usepackage[utf8]{inputenc} % Permite acentuação direta (á, é, ç, etc.)
+\usepackage[T1]{fontenc}   % Melhora a saída de fontes em PDF
+\usepackage{graphicx}      % Inserção de figuras
+
+% Configurações de hyperlinks
+\hypersetup{
+    hidelinks,   % Remove caixas e cores dos links
+    unicode=true,% Permite acentuação nos bookmarks
+    linktoc=all  % Links no título e número do sumário
+}
+
+% -------------------------------
+% DADOS INSTITUCIONAIS
+% -------------------------------
+
+\unidade{Centro de Desenvolvimento Tecnológico}
+\programa{Programa de Pós-Graduação em Computação}
+\curso{Ciência da Computação}
+
+% Versões em inglês (obrigatórias em pós-graduação)
+\unidadeeng{Technology Development Center}
+\programaeng{Postgraduate Program in Computing}
+\cursoeng{Computer Science}
+
+% -------------------------------
+% DADOS DO TRABALHO
+% -------------------------------
+
+\title{Título da sua proposta de Qualificação}
+
+% Autor
+\author{Aguiar}{Marilton Sanchotene de}
+
+% Orientador, coorientador e colaborador
+\advisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+
+% -------------------------------
+% PALAVRAS-CHAVE
+% -------------------------------
+
+% Português: letras minúsculas, separadas por ;
+% a última termina com .
+\keyword{aprendizado de máquina;}
+\keyword{inteligência artificial;}
+\keyword{processamento de dados;}
+\keyword{classificação supervisionada.}
+
+% Inglês
+\keywordeng{machine learning;}
+\keywordeng{artificial intelligence;}
+\keywordeng{data processing;}
+\keywordeng{supervised classification.}
+
+\begin{document}
+
+% Caso a orientadora seja mulher, descomente:
+% \renewcommand{\advisorname}{Orientadora}
+% \renewcommand{\coadvisorname}{Coorientadora}
+
+\maketitle
+\sloppy
+
+% -------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS (OPCIONAIS)
+% -------------------------------
+
+\begin{dedicatoria}
+Dedique este trabalho a pessoas ou instituições que foram importantes
+na sua trajetória acadêmica ou pessoal.
+\end{dedicatoria}
+
+\begin{agradecimentos}
+Agradeça a orientadores, familiares, colegas, agências de fomento
+e demais pessoas que contribuíram direta ou indiretamente
+para o desenvolvimento do trabalho.
+\end{agradecimentos}
+
+\begin{epigrafe}
+Insira aqui uma citação curta que represente o espírito do trabalho.\\
+{\sc --- Autor da citação}
+\end{epigrafe}
+
+% -------------------------------
+% RESUMOS
+% -------------------------------
+
+\begin{abstract}
+O resumo deve apresentar de forma clara e objetiva o problema de pesquisa,
+os objetivos, a metodologia proposta e os principais resultados esperados.
+Deve conter no máximo 500 palavras e ser escrito em parágrafo único,
+sem citações ou referências bibliográficas.
+\end{abstract}
+
+\begin{englishabstract}{Title of the Work in English}
+The abstract in English must be a faithful translation of the Portuguese
+abstract, following the same structure and content, with a maximum
+of 500 words.
+\end{englishabstract}
+
+% -------------------------------
+% LISTAS E SUMÁRIO
+% -------------------------------
+
+\listoffigures
+\listoftables
+
+\begin{listofabbrv}{ABNT}
+  \item[ABNT] Associação Brasileira de Normas Técnicas
+  \item[IA] Inteligência Artificial
+  \item[ML] Machine Learning
+\end{listofabbrv}
+
+\tableofcontents
+
+% -------------------------------
+% TEXTO PRINCIPAL
+% -------------------------------
+
+\chapter{Introdução}
+
+Apresente o contexto geral da pesquisa, a motivação do estudo,
+a relevância acadêmica e prática do tema e uma visão geral
+do problema abordado.
+
+\section{Contextualização}
+
+Descreva o cenário em que o problema está inserido,
+incluindo conceitos fundamentais e trabalhos iniciais
+relacionados ao tema de pesquisa~\cite{Moore:1979:MAI,Aguiar:2005}.
+
+\section{Problema de Pesquisa}
+
+Delimite claramente o problema que será investigado,
+indicando lacunas existentes na literatura e justificando
+a necessidade do estudo~\cite{vonNeumann:1966:TSR}.
+
+\chapter{Desenvolvimento}
+
+Este capítulo deve detalhar a fundamentação teórica,
+a metodologia proposta, os materiais e métodos,
+bem como a organização das etapas do trabalho.
+
+\section{Metodologia}
+
+Explique o tipo de pesquisa, os métodos utilizados,
+as ferramentas, os dados e os procedimentos adotados.
+
+\begin{table}[ht]
+\caption{Exemplo de Tabela}
+\label{tabela2}
+\centering
+\begin{tabular}{p{4cm}p{5cm}p{6cm}}
+\hline
+Item & Descrição & Observação \\
+\hline
+A & Exemplo & Informação adicional \\
+B & Exemplo & Informação adicional \\
+\hline
+\end{tabular}
+\begin{flushleft}
+{\small Fonte: Elaborada pelo autor.}
+\end{flushleft}
+\end{table}
+
+\begin{figure}[htbp]
+\caption{Exemplo de Figura}
+\centering
+\includegraphics[scale=.4]{figura}
+\begin{flushleft}
+{\small Fonte: Elaborada pelo autor.}
+\end{flushleft}
+\label{figura}
+\end{figure}
+
+\chapter{Conclusão}
+
+Apresente as considerações finais do trabalho,
+retomando os objetivos propostos, destacando as contribuições,
+limitações do estudo e sugestões para trabalhos futuros.
+
+% -------------------------------
+% REFERÊNCIAS
+% -------------------------------
+
+\bibliographystyle{abnt}
+\bibliography{bibliografia}
+
+% -------------------------------
+% APÊNDICES E ANEXOS
+% -------------------------------
+
+\apendices
+\chapter{Exemplo de Apêndice}
+Material elaborado pelo próprio autor.
+
+\anexos
+\chapter{Exemplo de Anexo}
+Material produzido por terceiros (leis, documentos, manuais, etc.).
+
+\end{document}
