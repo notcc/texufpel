@@ -394,7 +394,7 @@ Versão: \currversion^^J
       \textbf{\@unidade}\\%
       \@ifundefined{@nomecurso}{\textbf{\@programa}}{\textbf{Curso de \@nomecurso}}\\%
       \vskip 1cm%
-      \includegraphics[width=3cm]{ufpelw}
+      \includegraphics[width=3cm]{imagens/ufpelw.pdf}
       \vskip 1cm%
       \@documento\\%
       \vskip 1cm%
@@ -498,7 +498,7 @@ Versão: \currversion^^J
         \leavevmode\bfseries\sffamily
         \advance\leftskip\@tempdima
         \hskip -\leftskip
-        \@dottedtocline{0}{0em}{\ei@chapnumindent}{\uppercase{#1}}{#2}
+        \@dottedtocline{0}{0em}{\ei@chapnumindent}{#1}{#2}
         \penalty\@highpenalty
         \endgroup
 }
@@ -604,8 +604,8 @@ Versão: \currversion^^J
 }
 
 \def\@makechapterhead#1{%
-  \vspace*{90pt}%
-  \reset@font\noindent{\ei@chapterfont\sffamily\textbf{\@chapapp\thechapter\hspace{1em}\MakeUppercase{#1}}\par}%
+  \vspace*{50pt}%
+  \reset@font\noindent{\ei@chapterfont\sffamily\textbf{\@chapapp\thechapter\hspace{1em} {#1}}\par}%
   \addvspace{42pt}%
   \thispagestyle{empty}%
 }
@@ -618,8 +618,8 @@ Versão: \currversion^^J
 }
 
 \def\@makeschapterhead#1{%
-  \vspace*{90pt}%
-  \reset@font\centerline{\ei@chapterfont\sffamily\textbf{\MakeUppercase{#1}}}%
+  \vspace*{50pt}%
+  \reset@font\centerline{\ei@chapterfont\sffamily\textbf{{#1}}}%
   \addvspace{42pt}%
   \thispagestyle{empty}%
 }
@@ -847,15 +847,18 @@ Versão: \currversion^^J
 
 %epígrafe
 \newenvironment{epigrafe}{
-	\clearpage
-	\onehalfspacing
-	\em\small
-	\mbox{}
-	\vfill
-  \begin{adjustwidth}{6cm}{0cm}
+  \clearpage
+  \thispagestyle{empty} % Remove page numbering
+  \vspace*{\fill}       % Push content to the bottom of the page
+  \onehalfspacing       % Line spacing 1.5
+  \itshape              % Italic text
+  \fontsize{10pt}{12pt}\selectfont % Font Arial, size 10
+  \noindent
+  \hspace*{6cm}         % Indent 6 cm
+  \begin{minipage}{9cm} % Maximum width of text, adjusted for indent
 }{
-  \end{adjustwidth}
-	\vfill
+  \end{minipage}
+  \vspace*{\fill}       % Additional spacing at the bottom if necessary
 }
 
 %nominata da banca
