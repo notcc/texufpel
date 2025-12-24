@@ -118,13 +118,6 @@ Contribuições são bem-vindas e incentivadas.
 - Melhorias na classe LaTeX  
 
 Utilize **issues** ou envie **pull requests**.
-
----
-
-## ⚠️ Aviso
-
-Este repositório é um **material de apoio** e não substitui as normas oficiais da UFPel nem as exigências específicas de cursos, programas de pós-graduação ou bancas examinadoras.
-
 ---
 
 ## 📜 Licença
