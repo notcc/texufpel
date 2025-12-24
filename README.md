@@ -117,7 +117,7 @@ Contribuições são bem-vindas e incentivadas.
 - Inclusão de novos exemplos  
 - Melhorias na classe LaTeX  
 
-Utilize **issues** ou envie **pull requests**.
+### Utilize **issues** ou envie **pull requests**.
 ---
 
 ## 📜 Licença
