@@ -122,5 +122,6 @@ Contribuições são bem-vindas e incentivadas.
 
 ## 📜 Licença
 
-Uso livre para fins acadêmicos e educacionais.
+This work may be distributed and/or modified under the conditions of the LaTeX Project Public License, either version 1.3c of this license or (at any option) any later version. The latest version of this license is at [https://www.latex-project.org/lppl.txt](url), version 1.3c or later.
 
+This work has the LPPL maintenance status _maintained_.
