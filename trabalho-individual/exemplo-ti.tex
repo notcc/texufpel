@@ -149,7 +149,7 @@ Bla blabla blablabla bla.
   blabla blablabla bla.  Bla blabla blablabla bla~\ref{tabela}.
 
 \begin{table}
-\caption{Nome da Tabela}\label{tabela2}
+\caption{Nome da Tabela}\label{tabela}
 \centering\begin{tabular}{p{4cm}p{5cm}p{6cm}}
 \hline
 Blabla & Blabla & Blablabla\\
@@ -168,9 +168,7 @@ Blabla & Blabla & Blablabla\\
   blablabla blabla blablabla. Conforme a figura~\ref{figura}}\\
 \hline
 \end{tabular}
-\begin{flushleft}
-{\small Fonte: Elaborada pelo autor.}    
-\end{flushleft}
+\caption*{Fonte: Elaborada pelo autor.}    
 \end{table}
 
 
@@ -217,15 +215,14 @@ Blabla & Blabla & Blablabla\\
   blablabla blabla blablabla. Conforme a figura~\ref{figura}}\\
 \hline
 \end{tabular}
+\caption*{Fonte: Elaborada pelo autor.}    
 \end{center}
 \end{table}
 
 \begin{figure}[htbp]
 \caption{Nome da figura}   
-\centering \includegraphics[scale=.4]{figura}\\
-\begin{flushleft}
-{\small Fonte: Elaborada pelo autor.}    
-\end{flushleft}
+\centering \includegraphics[scale=.4]{imagens/figura}\\
+\caption*{Fonte: Elaborada pelo autor.}    
 \label{figura}
 \end{figure}
 
