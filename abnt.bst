@@ -1,30 +1,6 @@
 %==============================================================================
 % abnt.bst
 % Estilo BibTeX de formatação de referências bibliográficas no padrão ABNT
-%
-% UFRGS TeX Users Group
-% Informatics Institute --- UFRGS
-% Porto Alegre, Brazil
-% http://www.inf.ufrgs.br/utug
-% Discussion list: utug-l@inf.ufrgs.br
-%
-% $Id: abnt.bst,v 5.6 2003/03/03 00:17:46 avila Exp $
-%
-% Copyright (C) 2001-2002 UFRGS TeX Users Group
-%
-% This program is free software; you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation; either version 2 of the License, or
-% (at your option) any later version.
-%
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-%
-% You should have received a copy of the GNU General Public License
-% along with this program; if not, write to the Free Software
-% Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 %==============================================================================
 
 %==============================================================================
@@ -334,12 +310,12 @@ FUNCTION {format.names}
 	{
 		duplicate$ duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-        n #20 >
+        n #3 >
         i #2 =
         and
         or
 		{
-			pop$ pop$ names " \MakeLowercase{et~al.}" *
+			pop$ pop$ names " \MakeLowercase{\em{et~al}.}" *
 			n 'i :=
 		}{
 			"u" change.case$ swap$
@@ -374,12 +350,12 @@ FUNCTION {format.family.names}
 	{
 		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-		n #20 >
+		n #3 >
 		i #2 =
 		and
 		or
 		{
-			pop$ names " \MakeLowercase{et~al.}" *
+			pop$ names " \MakeLowercase{\em{et~al}.}" *
 			n 'i :=
 		}{
 			"t" change.case$
@@ -408,7 +384,7 @@ FUNCTION {format.family.names.all}
 		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
 		{
-			pop$ names " \MakeLowercase{et~al.}" *
+			pop$ names " \MakeLowercase{\em{et~al}.}" *
 			n 'i :=
 		}{
 			"t" change.case$
