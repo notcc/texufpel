@@ -1,5 +1,15 @@
 Para incluir a ficha catalográfica (em PDF)
 
-\usepackage{pdfpages}
+Coloque o arquivo da ficha emitida pela biblioteca na pasta do trabalho e
+troque \fichacatalografica por
 
-no lugar de \fichacatalografica usar \includepdf{ficha.pdf}
+\fichacatalografica[ficha.pdf]
+
+A classe inclui a primeira página do PDF logo após a folha de rosto e não a
+conta na paginação, como pede o Manual de Normas UFPel (p. 12).
+
+Sem o argumento, \fichacatalografica gera a página provisória com o aviso
+"Insira AQUI a ficha catalográfica".
+
+Não use \includepdf diretamente: a página entraria na contagem e todos os
+números de página ficariam uma unidade acima do correto.
