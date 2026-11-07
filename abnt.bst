@@ -387,7 +387,6 @@ FUNCTION {format.family.names}
 			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
-			"t" change.case$
 			names swap$ add.to.namelist
 		} if$ 'names :=
 		#1 i + 'i :=
@@ -416,7 +415,6 @@ FUNCTION {format.family.names.all}
 			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
-			"t" change.case$
 			names swap$ add.to.namelist
 		} if$ 'names :=
 		#1 i + 'i :=
