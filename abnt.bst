@@ -1,6 +1,34 @@
 %==============================================================================
 % abnt.bst
 % Estilo BibTeX de formatação de referências bibliográficas no padrão ABNT
+%
+% UFRGS TeX Users Group
+% Informatics Institute --- UFRGS
+% Porto Alegre, Brazil
+% http://www.inf.ufrgs.br/utug
+% Discussion list: utug-l@inf.ufrgs.br
+%
+% $Id: abnt.bst,v 5.6 2003/03/03 00:17:46 avila Exp $
+%
+% Atualizado em 2026 para a NBR 6023:2018: URL sem < >, [...] apos o tipo do
+% evento, [S. l.] e [s. n.] com espaco, "4. ed.", "v. 1", "n. 2", "p. 10-20",
+% "(ed.)" em minusculas e impressao do DOI.
+%
+% Copyright (C) 2001-2002 UFRGS TeX Users Group
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 %==============================================================================
 
 %==============================================================================
@@ -32,6 +60,7 @@ ENTRY
 	volume
     url
     urldate
+    doi
 }
 {}
 {
@@ -310,12 +339,12 @@ FUNCTION {format.names}
 	{
 		duplicate$ duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-        n #3 >
+        n #20 >
         i #2 =
         and
         or
 		{
-			pop$ pop$ names " \MakeLowercase{\em{et~al}.}" *
+			pop$ pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
 			"u" change.case$ swap$
@@ -350,12 +379,12 @@ FUNCTION {format.family.names}
 	{
 		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-		n #3 >
+		n #20 >
 		i #2 =
 		and
 		or
 		{
-			pop$ names " \MakeLowercase{\em{et~al}.}" *
+			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
 			"t" change.case$
@@ -384,7 +413,7 @@ FUNCTION {format.family.names.all}
 		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
 		{
-			pop$ names " \MakeLowercase{\em{et~al}.}" *
+			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
 			"t" change.case$
@@ -420,22 +449,16 @@ FUNCTION {get.adjusted.pages}
 {
 	#1 'i :=
 	"" 'new.pages :=
-	pages #1 #1 substring$
-	{duplicate$ "" = not}
+	{pages i #1 substring$ "" = not}
 	{
-		duplicate$ "-" =
-		pages i #1 - #1 substring$ "-" = not
+		pages i #1 substring$ "-" =
+		pages i #1 - #1 substring$ "-" =
 		and
-		pages i #1 + #1 substring$ "-" = not
-		and
-			{"-" *}
 			'skip$
+			{new.pages pages i #1 substring$ * 'new.pages :=}
 		if$
-		new.pages swap$ * 'new.pages :=
 		#1 i + 'i :=
-		pages i #1 substring$
 	} while$
-	pop$
 	new.pages
 }
 
@@ -507,7 +530,7 @@ FUNCTION {format.editor}
 {
 	editor empty$
 		{""}
-		{editor format.names "~(Ed.)" *}
+		{editor format.names "~(ed.)" *}
 	if$
 }
 
@@ -515,7 +538,7 @@ FUNCTION {format.edition}
 {
 	edition empty$
 		{""}
-		{edition convert.to.number ".ed." *}
+		{edition convert.to.number ". ed." *}
 	if$
 }
 
@@ -523,7 +546,7 @@ FUNCTION {format.volume}
 {
 	volume empty$
 		{""}
-		{"v." volume *}
+		{"v.~" volume *}
 	if$
 }
 
@@ -531,7 +554,7 @@ FUNCTION {format.number}
 {
 	number empty$
 		{""}
-		{"n." number *}
+		{"n.~" number *}
 	if$
 }
 
@@ -603,7 +626,7 @@ FUNCTION {format.pages}
 {
 	pages empty$
 		{""}
-		{"p." get.adjusted.pages *}
+		{"p.~" get.adjusted.pages *}
 	if$
 }
 
@@ -611,7 +634,15 @@ FUNCTION {format.totalpages}
 {
 	pages empty$
 		{""}
-		{pages "p." *}
+		{pages "~p." *}
+	if$
+}
+
+FUNCTION {format.totalleaves}
+{
+	pages empty$
+		{""}
+		{pages "~f." *}
 	if$
 }
 
@@ -688,10 +719,17 @@ FUNCTION {format.urldate} {
    	if$
 }
 
+FUNCTION {format.doi} {
+	doi empty$
+		{""}
+		{"DOI: \url{" doi * "}" *}
+	if$
+}
+
 FUNCTION {format.url} {
 	url empty$
     	{""}
-        {"Dispon{\'\i}vel em: <" url * ">" *}
+        {"Dispon{\'\i}vel em: " url *}
 	if$
 }
 
@@ -857,16 +895,16 @@ FUNCTION {format.publication}
 	""
 	address empty$
 		{
-			"[S.l."
+			"[S.~l."
 			format.publisher empty$
-				{":~s.n.]" *}
+				{":~s.~n.]" *}
 				{"]: " format.publisher * *}
 			if$ add.year add.to.item
 		}
 		{
 			format.address
 			format.publisher empty$
-				{": [s.n.]" *}
+				{": [s.~n.]" *}
 				{": " format.publisher * *}
 			if$ add.year add.to.item
 		}
@@ -876,7 +914,7 @@ FUNCTION {format.publication}
 FUNCTION {format.proceedings.publication}
 {
 	publisher empty$
-		{"[S.l.:~s.n.]"}
+		{"[S.~l.:~s.~n.]"}
 		{publisher comma.to.colon}
 	if$ add.year
 }
@@ -922,7 +960,7 @@ FUNCTION {format.complementary.data.with.page.range}
 FUNCTION {format.proceedings.booktitle}
 {
 	process.proceedings.booktitle "" swap$ add.year add.address add.to.item
-	swap$ "{\ldots}" * emphasize " " swap$ * *
+	swap$ emphasize " [\ldots]." * " " swap$ * *
 }
 
 %==============================================================================
@@ -935,12 +973,16 @@ FUNCTION {article}
 	#0 title format.title add.to.item
 	journal emphasize
 		address empty$ {
-			"[S.l.]" add.to.list
+			"[S.~l.]" add.to.list
 		}{
 			add.address
 		} if$
 		add.volume add.number add.pages add.month.year add.to.item
 	format.note add.to.item
+
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
 
 	write.item
 }
@@ -958,6 +1000,10 @@ FUNCTION {book}
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.to.item
 
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
+
 	write.item
 }
 
@@ -973,6 +1019,10 @@ FUNCTION {inbook}
 	format.publication add.to.item
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
+
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
 
 	write.item
 }
@@ -993,6 +1043,10 @@ FUNCTION {incollection}
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
 
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
+
 	write.item
 }
 
@@ -1005,6 +1059,10 @@ FUNCTION {inproceedings}
 	format.proceedings.publication add.to.item
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
+
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
 
 	write.item
 }
@@ -1025,6 +1083,10 @@ FUNCTION {manual}
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.to.item
 
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
+
 	write.item
 }
 
@@ -1034,8 +1096,8 @@ FUNCTION {mastersthesis}
 	format.author add.to.item
 	#1 title format.title add.to.item
 	format.year add.to.item
-	format.totalpages add.to.item
-	str:mastersthesis format.type " --- " * format.publisher *
+	format.totalleaves add.to.item
+	str:mastersthesis format.type " -- " * format.publisher *
 		add.address add.to.item
 	format.note add.to.item
 	format.parenthised.number add.to.item
@@ -1067,6 +1129,7 @@ FUNCTION {misc}
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.howpublished add.to.item
 
+    format.doi add.to.item
     format.url add.to.item
     format.urldate add.to.item
         
@@ -1079,8 +1142,8 @@ FUNCTION {phdthesis}
 	format.author add.to.item
 	#1 title format.title add.to.item
 	format.year add.to.item
-	format.totalpages add.to.item
-	str:phdthesis format.type " --- " * format.publisher *
+	format.totalleaves add.to.item
+	str:phdthesis format.type " -- " * format.publisher *
 		add.address add.to.item
 	format.note add.to.item
 	format.parenthised.number add.to.item
@@ -1096,6 +1159,10 @@ FUNCTION {proceedings}
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
 
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
+
 	write.item
 }
 
@@ -1110,6 +1177,10 @@ FUNCTION {techreport}
 		{type}
 	if$ add.note add.to.item
 	format.parenthised.number add.to.item
+
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
 
 	write.item
 }
