@@ -339,7 +339,7 @@ FUNCTION {format.names}
 	{
 		duplicate$ duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-        n #20 >
+        n #3 >
         i #2 =
         and
         or
@@ -379,7 +379,7 @@ FUNCTION {format.family.names}
 	{
 		duplicate$ i "{ll}{~jj}" format.name$ 
 		duplicate$ "others" =
-		n #20 >
+		n #3 >
 		i #2 =
 		and
 		or
