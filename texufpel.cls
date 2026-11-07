@@ -523,7 +523,12 @@ Versão: \currversion^^J
 }
 \renewcommand*{\l@section}[2]
               {\@dottedtocline{1}{0em}{2.8em}{\textbf{#1}}{\hss #2}}
-\renewcommand*{\l@subsection}{\@dottedtocline{2}{0em}{3.7em}}
+% Mesmo destaque do texto: todos os níveis em negrito (Manual UFPel, p. 70;
+% NBR 6024 e NBR 6027)
+\renewcommand*{\l@subsection}[2]
+              {\@dottedtocline{2}{0em}{3.7em}{\textbf{#1}}{\hss #2}}
+\renewcommand*{\l@subsubsection}[2]
+              {\@dottedtocline{3}{0em}{4.6em}{\textbf{#1}}{\hss #2}}
 \newif\if@aftertoc
 \@aftertocfalse
 \renewcommand{\tableofcontents}{%
@@ -569,15 +574,18 @@ Versão: \currversion^^J
 %==============================================================================
 % Resumo (abstract) e Abstract (englishabstract)
 %==============================================================================
-% Resumo em espaco simples; a referencia do trabalho fica alinhada a' esquerda
-% (Manual UFPel, p. 15)
+% Referência do trabalho, usada no resumo, no abstract e na errata, em espaço
+% simples e alinhada à esquerda (Manual UFPel, p. 15). Recebe o título.
+\newcommand{\ei@referencia}[1]{%
+  {\singlespacing\raggedright\noindent\MakeUppercase{\@authoralast},
+    \@authorafirst. \textbf{#1}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
+    \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}}
+
+% Resumo em espaco simples (Manual UFPel, p. 15)
 \renewenvironment{abstract}{%
   \chapter*{\abstractname}
   \singlespacing
-  \@ifundefined{@nocipinfo}{%
-  {\raggedright\noindent\MakeUppercase{\@authoralast},
-    \@authorafirst. \textbf{\@title}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-    \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}}{}%
+  \@ifundefined{@nocipinfo}{\ei@referencia{\@title}}{}%
   \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
 }{%
   \par\vfill
@@ -596,9 +604,7 @@ Versão: \currversion^^J
 
       \chapter*{\abstractname}
       \singlespacing
-      {\raggedright\noindent\MakeUppercase{\@authoralast},
-        \@authorafirst. \textbf{\@englishtitle}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-        \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}%
+      \ei@referencia{\@englishtitle}%
       \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
     }{
       \par\vfill
@@ -894,6 +900,25 @@ Versão: \currversion^^J
 	\addtocounter{page}{-1}%
 }
 
+%errata (opcional; logo após a folha de rosto; modelo UFPel, p. 87)
+% Uso:
+%   \begin{errata}
+%   16 & 10 & auto-clavado & autoclavado \\
+%   \end{errata}
+\newenvironment{errata}{%
+  \chapter*{Errata}
+  \ei@referencia{\@title}%
+  \begin{center}
+  \begin{tabular}{c c p{5.4cm} p{5.4cm}}
+  \hline
+  \textbf{Folha} & \textbf{Linha} & \textbf{Onde se l\^e} & \textbf{Leia-se} \\
+  \hline
+}{%
+  \hline
+  \end{tabular}
+  \end{center}
+}
+
 %agradecimentos
 \newenvironment{agradecimentos}{
 	\chapter*{Agradecimentos}
@@ -964,6 +989,24 @@ Versão: \currversion^^J
 %==============================================================================
 \onehalfspacing
 \setlength{\parindent}{1.25cm}
+
+% Filete das notas de rodapé com 5 cm a partir da margem esquerda (NBR 14724)
+\renewcommand{\footnoterule}{\kern-3\p@\hrule\@width 5cm\kern 2.6\p@}
+
+% Alíneas e subalíneas (Manual UFPel, p. 71; NBR 6024):
+% enumerate de 1o nível -> a), b), ..., z), aa), bb), ...
+% enumerate de 2o nível -> subalíneas iniciadas por travessão
+\newcommand{\ei@alinea}[1]{%
+  \ifnum\value{#1}>26
+    \@alph{\numexpr\value{#1}-26\relax}\@alph{\numexpr\value{#1}-26\relax}%
+  \else
+    \@alph{\value{#1}}%
+  \fi}
+\renewcommand{\theenumi}{\ei@alinea{enumi}}
+\renewcommand{\labelenumi}{\theenumi)}
+\renewcommand{\theenumii}{\ei@alinea{enumii}}
+\renewcommand{\labelenumii}{--}
+\renewcommand{\p@enumii}{\theenumi)}
 \clubpenalty=10000
 \@clubpenalty=10000
 \widowpenalty=10000
