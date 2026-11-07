@@ -1,7 +1,24 @@
+%% texufpel.cls
+%% Copyright 2026 Marilton Sanchotene de Aguiar
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Marilton Sanchotene de Aguiar (marilton@inf.ufpel.edu.br).
+%
+% This work consists of the file texufpel.cls.
+
 %==============================================================================
 % Identificação
 %==============================================================================
-\def\currversion{06/02/2024}
+\def\currversion{11/07/2026}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
@@ -124,8 +141,10 @@ Versão: \currversion^^J
 \RequirePackage{geometry}
 \RequirePackage{hyperref}
 \RequirePackage{changepage}
+\RequirePackage{etoolbox}
+\RequirePackage{pdfpages}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[singlelinecheck=off, skip=2pt, font=small, justification=justified, format=plain, labelsep=endash]{caption}
+\RequirePackage[singlelinecheck=off, skip=2pt, font=footnotesize, justification=justified, format=plain, labelsep=endash]{caption}
 
 \DeclareCaptionListFormat{figuracf}{\figurename\ #1#2}
 \DeclareCaptionListFormat{tabelacf}{\tablename\ #1#2}
@@ -241,8 +260,8 @@ Versão: \currversion^^J
 \def\ps@texufpel{%
   \let\@oddfoot\@empty%
   \let\@evenfoot\@empty%
-  \def\@oddhead{\hspace*{\fill}{\small\thepage}}%
-  \def\@evenhead{\hspace*{\fill}{\small\thepage}}%
+  \def\@oddhead{\hspace*{\fill}{\footnotesize\thepage}}%
+  \def\@evenhead{\hspace*{\fill}{\footnotesize\thepage}}%
 } 
 
 \pagestyle{empty}%
@@ -367,22 +386,22 @@ Versão: \currversion^^J
 
 \location{Pelotas}{RS}
 
-\renewcommand{\maketitle}{
-\@ifundefined{@capa}{%
-\begin{titlepage}
-\thetitlepage
-\end{titlepage}
-\clearpage
-%\setcounter{page}{1}
-}{%
-\begin{titlepage}
-\thecoverpage
-\newpage
-\thetitlepage
-\end{titlepage}
-\clearpage
-\setcounter{page}{3}
-}
+% A contagem das folhas comeca na folha de rosto (folha 1); a capa nao e'
+% contada (Manual UFPel, p. 12 e 74). A capa recebe o rotulo ``capa'' para
+% que o hyperref nao gere ancoras duplicadas.
+\renewcommand{\maketitle}{%
+  \@ifundefined{@capa}{}{%
+    \begingroup
+    \def\thepage{capa}%
+    \begin{titlepage}
+    \thecoverpage
+    \end{titlepage}%
+    \endgroup
+  }%
+  \begin{titlepage}
+  \thetitlepage
+  \end{titlepage}%
+  \setcounter{page}{2}%
 }
 
 \newcommand{\thecoverpage}{%
@@ -396,7 +415,7 @@ Versão: \currversion^^J
       \vskip 1cm%
       \includegraphics[width=3cm]{imagens/ufpelw.pdf}
       \vskip 1cm%
-      \@documento\\%
+      \textbf{\@documento}\\%
       \vskip 1cm%
   \vskip 3cm%
   \noindent%
@@ -417,7 +436,7 @@ Versão: \currversion^^J
   \noindent%
       \centering%
       \vskip .1cm%
-      \@city, \ei@date%
+      \textbf{\@city, \ei@date}%
       \vskip .1cm%
 }
 
@@ -550,12 +569,16 @@ Versão: \currversion^^J
 %==============================================================================
 % Resumo (abstract) e Abstract (englishabstract)
 %==============================================================================
+% Resumo em espaco simples; a referencia do trabalho fica alinhada a' esquerda
+% (Manual UFPel, p. 15)
 \renewenvironment{abstract}{%
   \chapter*{\abstractname}
-  \@ifundefined{@nocipinfo}{
-  \noindent{\MakeUppercase{\@authoralast},
+  \singlespacing
+  \@ifundefined{@nocipinfo}{%
+  {\raggedright\noindent\MakeUppercase{\@authoralast},
     \@authorafirst. \textbf{\@title}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-    \universidadename, \@city, \@publyear.}\\~\\}{}
+    \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}}{}%
+  \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
 }{%
   \par\vfill
   \noindent\keywordsname: \@abstractkw
@@ -572,9 +595,11 @@ Versão: \currversion^^J
       }
 
       \chapter*{\abstractname}
-      \noindent{\MakeUppercase{\@authoralast},
+      \singlespacing
+      {\raggedright\noindent\MakeUppercase{\@authoralast},
         \@authorafirst. \textbf{\@englishtitle}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
-        \universidadename, \@city, \@publyear.}\\~\\
+        \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}%
+      \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
     }{
       \par\vfill
       \noindent\keywordsname: \@abstractkweng
@@ -586,17 +611,25 @@ Versão: \currversion^^J
 % Os comandos \@chapter e \@schapter são redefinidos para que a
 % numeração de páginas seja correta (deve aparecer somente a partir do
 % primeiro capítulo do texto, mas não nas páginas iniciais de
-% capítulos).
+% capítulos; Manual UFPel, p. 74).
+% Títulos em Arial 12, negrito, iniciando a 5 cm da borda superior
+% (Manual UFPel, p. 70, 73 e 74).
 % Os comandos \@makechapterhead e \@makeschapterhead fazem a
 % formatação dos títulos propriamente ditos.
 %==============================================================================
-\newcommand{\ei@chapterfont}{\@setfontsize\Large{16}{20}}
+\newcommand{\ei@chapterfont}{\normalsize}
+\newlength{\ei@chaptertopskip}\setlength{\ei@chaptertopskip}{36pt}
+\newif\if@ei@apx\@ei@apxfalse
 \def\@chapapp{}
 
 \def\@chapter[#1]#2{%
 	\onehalfspacing
   \refstepcounter{chapter}%
-  \addcontentsline{toc}{chapter}{\protect\numberline{\@chapapp\thechapter}#1}%
+  \if@ei@apx
+    \addcontentsline{toc}{chapter}{\@chapapp\thechapter\ --\ #1}%
+  \else
+    \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}%
+  \fi
   \addtocontents{lof}{\protect\addvspace{10\p@}}%
   \addtocontents{lot}{\protect\addvspace{10\p@}}%
   \pagestyle{texufpel}\let\ps@plain\ps@texufpel%
@@ -604,22 +637,29 @@ Versão: \currversion^^J
 }
 
 \def\@makechapterhead#1{%
-  \vspace*{50pt}%
-  \reset@font\noindent{\ei@chapterfont\sffamily\textbf{\@chapapp\thechapter\hspace{1em} {#1}}\par}%
+  \vspace*{\ei@chaptertopskip}%
+  \if@ei@apx
+    % apendices e anexos: ``Apêndice A – Título'', centralizado (modelo UFPel, p. 107)
+    {\centering\reset@font\ei@chapterfont\sffamily\bfseries
+      \@chapapp\thechapter\ --\ #1\par}%
+  \else
+    {\reset@font\noindent\ei@chapterfont\sffamily\bfseries
+      \thechapter\hspace{1em}#1\par}%
+    \thispagestyle{empty}%
+  \fi
   \addvspace{42pt}%
-  \thispagestyle{empty}%
 }
 
 \def\@schapter#1{%
-  \if@aftertoc\addcontentsline{toc}{chapter}{#1}\fi%
+  \if@aftertoc\phantomsection\addcontentsline{toc}{chapter}{#1}\fi%
   \addtocontents{lof}{\protect\addvspace{10\p@}}%
   \addtocontents{lot}{\protect\addvspace{10\p@}}%
   \@makeschapterhead{#1}\@afterheading%
 }
 
 \def\@makeschapterhead#1{%
-  \vspace*{50pt}%
-  \reset@font\centerline{\ei@chapterfont\sffamily\textbf{{#1}}}%
+  \vspace*{\ei@chaptertopskip}%
+  {\centering\reset@font\ei@chapterfont\sffamily\bfseries #1\par}%
   \addvspace{42pt}%
   \thispagestyle{empty}%
 }
@@ -634,23 +674,20 @@ Versão: \currversion^^J
   \xdef\theHchapter{apx\arabic{ei@apxset}.\noexpand\Alph{chapter}}%
   \setcounter{tocdepth}{0}%
   \@captionlistingfalse%
-  \gdef\@chapapp{\MakeUppercase{#1}\space}%
-  \addtocontents{toc}{%
-    \protect \settowidth{\ei@chapnumindent}{{\sffamily\textbf{\@chapapp}}}%
-    \addtolength{\ei@chapnumindent}{1.8em}%
-  }%
+  \global\@ei@apxtrue
+  \gdef\@chapapp{#1\space}%
 }
 
 
 \newcommand{\annex}{\appendix[\annexname]}
 
 %==============================================================================
-% Formatação das seções
+% Formatação das seções (todas em negrito, Arial 12; Manual UFPel, p. 70)
 %==============================================================================
 \setcounter{secnumdepth}{4} 
 
 \renewcommand{\section}{%
-  \@startsection{section}{1}{0pt}{18pt}{9pt}{\reset@font\large\bfseries}
+  \@startsection{section}{1}{0pt}{18pt}{9pt}{\reset@font\normalsize\bfseries}
 } 
 
 \renewcommand{\subsection}{%
@@ -658,15 +695,15 @@ Versão: \currversion^^J
 } 
 
 \renewcommand{\subsubsection}{%
-  \@startsection{subsubsection}{3}{0pt}{12pt}{6pt}{\reset@font\itshape}
+  \@startsection{subsubsection}{3}{0pt}{12pt}{6pt}{\reset@font\bfseries}
 } 
 
 \renewcommand{\paragraph}{%
-  \@startsection{paragraph}{4}{0pt}{12pt}{6pt}{\reset@font} 
+  \@startsection{paragraph}{4}{0pt}{12pt}{6pt}{\reset@font\bfseries}
 }
 
 \renewcommand{\subparagraph}{%
-  \@startsection{subparagraph}{5}{0pt}{1ex}{-1em}{\reset@font\bfseries}
+  \@startsection{subparagraph}{5}{0pt}{12pt}{6pt}{\reset@font\bfseries}
 }
 
 %==============================================================================
@@ -701,14 +738,22 @@ Versão: \currversion^^J
 }
 
 \renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
+
+% Conteúdo de figuras e tabelas (corpo, título e fonte) em tamanho 10
+% (Manual UFPel, p. 74). Dentro desses ambientes, \small também passa a
+% valer 10 pt, para que linhas como {\small Fonte: ...} fiquem no padrão.
+\AtBeginEnvironment{figure}{\footnotesize\let\small\footnotesize}
+\AtBeginEnvironment{table}{\footnotesize\let\small\footnotesize}
 \let\l@table\l@figure
 
 %==============================================================================
 % Redefinição do formato de citações longas
 %==============================================================================
+% Recuo de 4 cm, tamanho 10 e espaço simples (Manual UFPel, p. 63, 73 e 74)
 \renewenvironment{quote}{%
-  \small%
-  \begin{list}{}{\setlength{\leftmargin}{40mm}\item\relax}
+  \par\footnotesize\singlespacing%
+  \begin{list}{}{\setlength{\leftmargin}{40mm}\setlength{\rightmargin}{0pt}%
+    \setlength{\topsep}{12pt}\setlength{\parsep}{0pt}\item\relax}
   }{%
   \end{list}
 }
@@ -719,6 +764,10 @@ Versão: \currversion^^J
 %==============================================================================
 \setlength{\bibhang}{0pt}
 \let\cite\citep
+
+% Referências em espaço simples, alinhadas somente à margem esquerda e
+% separadas por uma linha em branco de espaço simples (Manual UFPel, p. 22 e 73)
+\renewcommand{\bibfont}{\singlespacing\raggedright\setlength{\bibsep}{\baselineskip}}
 
 % \renewcommand{\NAT@nmfmt}[1]{%
 %   \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
@@ -799,12 +848,12 @@ Versão: \currversion^^J
   \pagestyle{empty}
   \mbox{}
   \vfill
+  \phantomsection\addcontentsline{toc}{chapter}{Ap\^endices}%
   \begin{center}
     \textbf{Ap\^endices}
   \end{center}
   \vfill
   \appendix
-  \titleformat{\chapter}{\centering\normalfont}{\chaptertitlename\ \thechapter\ --\ }{0em}{}
 }
 
 %anexos
@@ -813,23 +862,36 @@ Versão: \currversion^^J
   \pagestyle{empty}
   \mbox{}
   \vfill
+  \phantomsection\addcontentsline{toc}{chapter}{Anexos}%
   \begin{center}
     \textbf{Anexos}
   \end{center}
   \vfill
   \annex
-  \titleformat{\chapter}{\centering\normalfont}{\chaptertitlename\ \thechapter\ --\ }{0em}{}
 }
 
 %ficha catalográfica
-\newcommand{\fichacatalografica}{
+% Uso: \fichacatalografica            (página provisória)
+%      \fichacatalografica[ficha.pdf] (ficha emitida pela biblioteca)
+% A ficha não é contada na paginação (Manual UFPel, p. 12).
+\newcommand{\fichacatalografica}[1][]{%
 	\clearpage
-	\mbox{}
-	\vfill
-	\begin{center}
-		\textbf{Insira AQUI a ficha catalogr\'afica\\Quando finalizado o trabalho, deve ser\\solicitada através do Sistema Cobalto\\Biblioteca -- Cadastro -- Ficha catalográfica.}
-	\end{center}
-	\vfill
+	\begingroup
+	\def\thepage{ficha}%
+	\if\relax\detokenize{#1}\relax
+		\thispagestyle{empty}%
+		\mbox{}
+		\vfill
+		\begin{center}
+			\textbf{Insira AQUI a ficha catalogr\'afica\\Quando finalizado o trabalho, deve ser\\solicitada através do Sistema Cobalto\\Biblioteca -- Cadastro -- Ficha catalográfica.}
+		\end{center}
+		\vfill
+		\clearpage
+	\else
+		\includepdf[pages=1]{#1}%
+	\fi
+	\endgroup
+	\addtocounter{page}{-1}%
 }
 
 %agradecimentos
@@ -892,3 +954,16 @@ Versão: \currversion^^J
 	\end{flushleft}
 	\vfill
 }
+
+%==============================================================================
+% Ajustes gerais (Manual UFPel, p. 73-74)
+% - entrelinhas de 1,5 em todo o trabalho (resumo, citações longas, notas,
+%   figuras, tabelas e referências usam espaço simples, definidos acima);
+% - recuo de parágrafo de 1,25 cm;
+% - no mínimo duas linhas de parágrafo no fim e no início da folha.
+%==============================================================================
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\clubpenalty=10000
+\@clubpenalty=10000
+\widowpenalty=10000
