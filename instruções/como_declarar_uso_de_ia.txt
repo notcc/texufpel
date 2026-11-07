@@ -1,0 +1,9 @@
+Na Metodologia, inclua um parágrafo nos seguintes moldes:
+
+Na elaboração deste trabalho, utilizou-se a ferramenta de inteligência artificial generativa 
+[NOME E VERSÃO, ex.: ChatGPT, modelo GPT-5, da OpenAI], entre [mês/ano] e [mês/ano], exclusivamente 
+para [FINALIDADES, ex.: revisão ortográfica e gramatical, sugestões de reformulação de trechos 
+previamente redigidos pelo autor e tradução do resumo para a língua inglesa]. A ferramenta não 
+foi utilizada para gerar dados, análises, interpretações ou conclusões. Todo o conteúdo sugerido 
+foi revisado, editado e validado pelo autor, que assume integral responsabilidade pelo texto final, 
+pela exatidão das informações e pela autoria intelectual do trabalho.
