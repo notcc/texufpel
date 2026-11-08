@@ -19,9 +19,6 @@ O objetivo é facilitar a escrita, padronização e formatação de documentos a
 - **`bibliografia.bib`**  
   Arquivo de exemplo para organização das referências bibliográficas.
 
-- **`Makefile`**  
-  Arquivo para automatizar o processo de compilação dos documentos LaTeX via linha de comando.
-
 ---
 
 ## 📄 Exemplos de documentos
@@ -40,7 +37,7 @@ Os arquivos abaixo são **modelos completos e funcionais**, prontos para adapta�
 
 - **`exemplo-qualificacao.tex`** – Exame de Qualificação  
 
-- **`exemplo-ti.tex`** – Trabalho de Iniciação Científica ou Trabalho Técnico  
+- **`exemplo-ti.tex`** – Trabalho Individual de mestrado (opção `ti`) ou doutorado (opção `tid`)  
 
 ---
 
@@ -88,13 +85,12 @@ Documentos explicativos com orientações sobre funcionalidades específicas e f
    - **Overleaf**
    - **TeXstudio**
    - **VS Code com LaTeX Workshop**
-   - **Linha de comando**:
+   - **Linha de comando**, a partir da pasta raiz do repositório (onde estão a classe, o `abnt.bst`, o `bibliografia.bib` e a pasta `imagens/`), por exemplo:
      ```bash
-     make
-     ```
-     ou
-     ```bash
-     pdflatex arquivo.tex
+     pdflatex tcc/exemplo-tcc
+     bibtex   exemplo-tcc
+     pdflatex tcc/exemplo-tcc
+     pdflatex tcc/exemplo-tcc
      ```
 
 ---
