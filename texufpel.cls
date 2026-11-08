@@ -221,6 +221,9 @@ Versão: \currversion^^J
 
 % Textos em cor preta (Manual, p. 72): links sem cor nem caixa
 \hypersetup{hidelinks,unicode=true,linktoc=all}
+% Endereços eletrônicos (\url) na mesma fonte do texto, Arial (Manual, p. 73),
+% e não em fonte monoespaçada
+\urlstyle{same}
 
 % Cores usadas só pelo \makecover (capa de estojo, não prevista no Manual)
 \definecolor{laranjaufpel}{rgb}{1,0.6,0}
@@ -329,6 +332,11 @@ Versão: \currversion^^J
   \def\ei@date{\@publyear}%
   % \def\ei@date{\@publmonth~\@publyear}%
 }
+
+% Data da capa e da folha de rosto: só o ano (Manual, p. 82-86). Definida
+% também fora dos ganchos de idioma, porque pacotes como o datetime2 (carregado
+% pelo pdfcomment) substituem \date<idioma> e o comando ficaria indefinido.
+\def\ei@date{\@publyear}
 
 \if@english%
 \selectlanguage{english}%
