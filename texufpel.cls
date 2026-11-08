@@ -78,6 +78,9 @@ Versão: \currversion^^J
 \newcommand{\programaeng}[1]{\gdef\@programaeng{#1}}
 \newcommand{\cursoeng}[1]{\gdef\@cursoeng{#1}}
 \newcommand{\nomecursoeng}[1]{\gdef\@nomecursoeng{#1}}
+\newcommand{\titulocursoeng}[1]{\gdef\@titulocursoeng{#1}}
+% Título do curso em inglês; sem \titulocursoeng, usa o português.
+\newcommand{\ei@titulocursoeng}{\@ifundefined{@titulocursoeng}{\@titulocurso}{\@titulocursoeng}}
 
 % Trabalhos que não são depositados na biblioteca (sem capa e sem referência
 % no resumo). Decisão da classe: o Manual trata só de tese, dissertação e TCC
@@ -94,21 +97,32 @@ Versão: \currversion^^J
 % Rótulo da data na folha de aprovação. O exame de qualificação não é uma
 % defesa, por isso a opção eq troca o rótulo (decisão da classe; o Manual não
 % trata do exame de qualificação).
-\newcommand{\ei@rotulodata}{Data da defesa}
+\newcommand{\ei@rotulodata}{\defensedatename}
 \newcommand{\descricaodocumento}[1]{\gdef\@descricaodocumento{#1}}
 \newcommand{\descricaoaprovacao}[1]{\gdef\@descricaoaprovacao{#1}}
+% Versões em inglês, usadas com a opção english na capa, na folha de rosto e
+% na folha de aprovação. O Manual não trata de trabalhos escritos em inglês:
+% a tradução segue o modelo de abstract da p. 95 ("Advisor", "Masters in",
+% "Thesis") e é decisão da classe.
+\newcommand{\documentoeng}[1]{\gdef\@documentoeng{#1}}
+\newcommand{\descricaodocumentoeng}[1]{\gdef\@descricaodocumentoeng{#1}}
+\newcommand{\descricaoaprovacaoeng}[1]{\gdef\@descricaoaprovacaoeng{#1}}
 
 \DeclareOption{tcc}{
 \documento{Trabalho de Conclus\~ao de Curso}
 \tipodocumento{\tccname\ (\nomecursoname) -- \unidadename}
 \descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado \ei@aounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
 \descricaoaprovacao{Trabalho de Conclus\~ao de Curso aprovado, como requisito parcial para obten{\c{c}}{\~a}o do grau de \@titulocurso, \@unidade, \@universidade.}
+\documentoeng{Undergraduate Thesis}
+\descricaodocumentoeng{Undergraduate Thesis presented to the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of \ei@titulocursoeng.}
+\descricaoaprovacaoeng{Undergraduate Thesis approved in partial fulfillment of the requirements for the degree of \ei@titulocursoeng, \@unidadeeng, \@universidadeeng.}
 }
 
 \DeclareOption{tcc-proposta}{
 \@ei@naodepositadotrue
 \tipodocumento{Proposta de Trabalho de Conclus\~ao de Curso (\@nomecurso) -- \@unidade}
 \descricaodocumento{Proposta de Trabalho de Conclus\~ao de Curso apresentada \ei@aounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
+\descricaodocumentoeng{Undergraduate Thesis Proposal presented to the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of \ei@titulocursoeng.}
 }
 
 \DeclareOption{diss}{
@@ -116,37 +130,51 @@ Versão: \currversion^^J
 \tipodocumento{\dissname\ (\masterin\ \cursoname) -- \unidadename}
 \descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 \descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Mestre em \@curso, \@programa, \@unidade, \@universidade.}
+\documentoeng{Dissertation}
+\descricaodocumentoeng{Dissertation presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Master in \@cursoeng.}
+\descricaoaprovacaoeng{Dissertation approved in partial fulfillment of the requirements for the degree of Master in \@cursoeng, \@programaeng, \@unidadeeng, \@universidadeeng.}
 }
 
 \DeclareOption{diss-proposta}{
 \@ei@naodepositadotrue
 \tipodocumento{Proposta de Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
 \descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumentoeng{Dissertation Proposal presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Master in \@cursoeng.}
 }
 
 \DeclareOption{tese}{
 \documento{Tese}
 \tipodocumento{\thesisname\ (\doctoratein\ \cursoname) -- \unidadename}
 \descricaodocumento{Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-\descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
+\descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}
+\documentoeng{Thesis}
+\descricaodocumentoeng{Thesis presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Doctor in \@cursoeng.}
+\descricaoaprovacaoeng{Thesis approved in partial fulfillment of the requirements for the degree of Doctor in \@cursoeng, \@programaeng, \@unidadeeng, \@universidadeeng.}
+}
 
 \DeclareOption{eq}{
-\renewcommand{\ei@rotulodata}{Data do exame}
+\renewcommand{\ei@rotulodata}{\examdatename}
 \documento{Exame de Qualifica{\c{c}}{\~a}o}
 \tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
 \descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-\descricaoaprovacao{Exame de Qualifica{\c{c}}{\~a}o aprovado, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
+\descricaoaprovacao{Exame de Qualifica{\c{c}}{\~a}o aprovado, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}
+\documentoeng{Qualification Exam}
+\descricaodocumentoeng{Qualification Exam presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Doctor in \@cursoeng.}
+\descricaoaprovacaoeng{Qualification Exam approved in partial fulfillment of the requirements for the degree of Doctor in \@cursoeng, \@programaeng, \@unidadeeng, \@universidadeeng.}
+}
 
 \DeclareOption{ti}{
 \@ei@naodepositadotrue
 \tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@unidade}
 \descricaodocumento{Trabalho Individual apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumentoeng{Individual Work presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Master in \@cursoeng.}
 }
 
 \DeclareOption{tid}{
 \@ei@naodepositadotrue
 \tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@unidade}
 \descricaodocumento{Trabalho Individual apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaodocumentoeng{Individual Work presented to the \@programaeng\ of the \@unidadeeng\ of the \@universidadeeng, in partial fulfillment of the requirements for the degree of Doctor in \@cursoeng.}
 }
 
 % Capa: elemento obrigatório da parte externa (Manual, p. 8 e 12)
@@ -260,6 +288,10 @@ Versão: \currversion^^J
   \def\appendicesname{Ap{\^e}ndices}%
   \def\annexesname{Anexos}%
   \def\citeandname{e}%
+  \def\defensedatename{Data da defesa}%
+  \def\examdatename{Data do exame}%
+  \def\committeename{Banca examinadora}%
+  \def\cursodename{Curso de\ }%
   \def\keywordsname{Palavras-chave}%
   \def\tccname{Trabalho de Conclus\~ao de Curso}%
   \def\thesisname{Tese}%
@@ -315,6 +347,10 @@ Versão: \currversion^^J
   \def\appendicesname{Appendices}%
   \def\annexesname{Annexes}%
   \def\citeandname{and}%
+  \def\defensedatename{Defense date}%
+  \def\examdatename{Exam date}%
+  \def\committeename{Examining committee}%
+  \def\cursodename{}%
   \def\keywordsname{Keywords}%
   \def\tccname{Undergraduate Thesis}%
   \def\eqname{Qualification Exam}%
@@ -348,6 +384,10 @@ Versão: \currversion^^J
 \if@english%
 \selectlanguage{english}%
 \AtBeginDocument{\selectlanguage{english}}%
+% capa, folha de rosto e folha de aprovação em inglês
+\@ifundefined{@documentoeng}{}{\let\@documento\@documentoeng}%
+\@ifundefined{@descricaodocumentoeng}{}{\let\@descricaodocumento\@descricaodocumentoeng}%
+\@ifundefined{@descricaoaprovacaoeng}{}{\let\@descricaoaprovacao\@descricaoaprovacaoeng}%
 \fi
 
 %==============================================================================
@@ -509,9 +549,9 @@ Versão: \currversion^^J
   \noindent%
       \centering%
       \vskip 1cm%
-      \MakeUppercase{\textbf{\@universidade}}\\%
-      \textbf{\@unidade}\\%
-      \@ifundefined{@nomecurso}{\textbf{\@programa}}{\textbf{Curso de \@nomecurso}}\\%
+      \MakeUppercase{\textbf{\universidadename}}\\%
+      \textbf{\unidadename}\\%
+      \@ifundefined{@nomecurso}{\textbf{\programaname}}{\textbf{\cursodename\nomecursoname}}\\%
       \vskip 1cm%
       \includegraphics[width=3cm]{imagens/ufpelw.pdf}
       \vskip 1cm%
@@ -988,9 +1028,9 @@ Versão: \currversion^^J
 \fcolorbox{black}{laranjaufpel}{%
 \parbox[b]{12cm}{%
 \begin{center}
-\MakeUppercase{\textbf{\@universidade}}\\%
-\@unidade\\%
-\@ifundefined{@nomecurso}{\@programa}{Curso de \@nomecurso}\\%
+\MakeUppercase{\textbf{\universidadename}}\\%
+\unidadename\\%
+\@ifundefined{@nomecurso}{\programaname}{\cursodename\nomecursoname}\\%
 \includegraphics[width=3cm]{imagens/ufpel.pdf}\\
 \@documento%
 \end{center}
@@ -1077,7 +1117,7 @@ Versão: \currversion^^J
 		\mbox{}
 		\vfill
 		\begin{center}
-			\textbf{Insira AQUI a ficha catalogr\'afica\\Quando finalizado o trabalho, deve ser\\solicitada através do Sistema Cobalto\\Biblioteca -- Cadastro -- Ficha catalográfica.}
+			\textbf{\if@english Insert the catalog card HERE\\When the work is finished, request it\\through the Cobalto system:\\Biblioteca -- Cadastro -- Ficha catalogr\'afica.\else Insira AQUI a ficha catalogr\'afica\\Quando finalizado o trabalho, deve ser\\solicitada através do Sistema Cobalto\\Biblioteca -- Cadastro -- Ficha catalográfica.\fi}
 		\end{center}
 		\vfill
 		\clearpage
@@ -1152,6 +1192,7 @@ Versão: \currversion^^J
 % trabalhos depositados, sem título, elementos centralizados em Arial 12;
 % natureza do trabalho em texto justificado e espaço simples; depois
 % "Data da defesa:" ("Data do exame:" na opção eq) e "Banca examinadora:"
+% (com a opção english, "Defense date", "Exam date" e "Examining committee")
 % com nome, titulação e instituição de cada membro (escritos pelo autor
 % dentro do ambiente).
 \newenvironment{aprovacao}[1]{
@@ -1174,7 +1215,7 @@ Versão: \currversion^^J
 	\mbox{}
 	\vfill
 	\begin{flushleft}
-		\textbf{Banca examinadora: }\\
+		\textbf{\committeename: }\\
 }{
 	\end{flushleft}
 	\vfill
