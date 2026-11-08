@@ -91,6 +91,10 @@ Versão: \currversion^^J
 
 \newcommand{\documento}[1]{\gdef\@documento{#1}}
 \newcommand{\tipodocumento}[1]{\gdef\@tipodocumento{#1}}
+% Rótulo da data na folha de aprovação. O exame de qualificação não é uma
+% defesa, por isso a opção eq troca o rótulo (decisão da classe; o Manual não
+% trata do exame de qualificação).
+\newcommand{\ei@rotulodata}{Data da defesa}
 \newcommand{\descricaodocumento}[1]{\gdef\@descricaodocumento{#1}}
 \newcommand{\descricaoaprovacao}[1]{\gdef\@descricaoaprovacao{#1}}
 
@@ -127,6 +131,7 @@ Versão: \currversion^^J
 \descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 \DeclareOption{eq}{
+\renewcommand{\ei@rotulodata}{Data do exame}
 \documento{Exame de Qualifica{\c{c}}{\~a}o}
 \tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
 \descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
@@ -1126,8 +1131,9 @@ Versão: \currversion^^J
 % Folha de aprovação (Manual, p. 13; modelos das p. 88-90): obrigatória nos
 % trabalhos depositados, sem título, elementos centralizados em Arial 12;
 % natureza do trabalho em texto justificado e espaço simples; depois
-% "Data da defesa:" e "Banca examinadora:" com nome, titulação e instituição
-% de cada membro (escritos pelo autor dentro do ambiente).
+% "Data da defesa:" ("Data do exame:" na opção eq) e "Banca examinadora:"
+% com nome, titulação e instituição de cada membro (escritos pelo autor
+% dentro do ambiente).
 \newenvironment{aprovacao}[1]{
 	\clearpage
 	\onehalfspacing
@@ -1144,7 +1150,7 @@ Versão: \currversion^^J
 		}
 	\end{center}
 	\vskip 2cm
-	\noindent\textbf{Data da defesa: }{#1}\\
+	\noindent\textbf{\ei@rotulodata: }{#1}\\
 	\mbox{}
 	\vfill
 	\begin{flushleft}
