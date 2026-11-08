@@ -16,6 +16,23 @@
 % This work consists of the file texufpel.cls.
 
 %==============================================================================
+% Fonte das regras
+%
+% As regras de formatação seguem o "Manual de normas UFPel para trabalhos
+% acadêmicos" (Coordenação de Bibliotecas, versão de 2023). Os comentários
+% indicam a página impressa no Manual: "Manual, p. 73" ou "Manual, p. 88-90
+% (modelos)". O Manual trata de tese, dissertação e TCC (Manual, p. 2).
+%
+% Quando uma escolha não vem do Manual, o comentário diz de onde vem:
+% "ABNT" (norma citada pela classe), "decisão técnica" (necessidade do
+% LaTeX) ou "decisão da classe" (convenção adotada pelo texufpel).
+%
+% Não implementados (opcionais no Manual): lombada (p. 83), indicação
+% "v. 1" na capa e na folha de rosto (p. 82-86), glossário e índice
+% (p. 22-24; use \chapter* e o pacote makeidx, que já entram no sumário).
+%==============================================================================
+
+%==============================================================================
 % Identificação
 %==============================================================================
 \def\currversion{11/07/2026}
@@ -43,6 +60,8 @@ Versão: \currversion^^J
 \universidade{Universidade Federal de Pelotas}
 \universidadeeng{Federal University of Pelotas}
 
+% Natureza do trabalho: "apresentado à Faculdade de ... ou Instituto de ..."
+% (Manual, p. 84-86, modelos de folha de rosto). O artigo concorda com a unidade:
 % \unidade[a]{Faculdade de Educação} -> "apresentado à Faculdade", "da Faculdade"
 % \unidade{Centro de ...}  (padrão [o]) -> "apresentado ao Centro", "do Centro"
 \newcommand{\unidade}[2][o]{\gdef\@unidade{#2}%
@@ -60,8 +79,15 @@ Versão: \currversion^^J
 \newcommand{\cursoeng}[1]{\gdef\@cursoeng{#1}}
 \newcommand{\nomecursoeng}[1]{\gdef\@nomecursoeng{#1}}
 
-% Trabalhos que não são depositados na biblioteca (sem capa, ficha e referência no resumo)
+% Trabalhos que não são depositados na biblioteca (sem capa e sem referência
+% no resumo). Decisão da classe: o Manual trata só de tese, dissertação e TCC
+% (Manual, p. 2) e a biblioteca recebe só o trabalho final (Manual, p. 9).
 \newif\if@ei@naodepositado
+
+% Textos da natureza do trabalho (folha de rosto: Manual, p. 84-86), da folha
+% de aprovação (Manual, p. 88-90) e do tipo de trabalho na referência do resumo
+% e do abstract (Manual, p. 94-95; para TCC, exemplo das p. 41-42:
+% "Trabalho de Conclusão de Curso (Bacharelado em ...) - Centro de ...").
 
 \newcommand{\documento}[1]{\gdef\@documento{#1}}
 \newcommand{\tipodocumento}[1]{\gdef\@tipodocumento{#1}}
@@ -100,7 +126,8 @@ Versão: \currversion^^J
 \descricaodocumento{Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 \descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
-%proposta de tese deixou de existir no PPGC - regimento de 2020
+% Proposta de tese deixou de existir no PPGC (regimento de 2020); mantida
+% para outros programas.
 \DeclareOption{tese-proposta}{
 \@ei@naodepositadotrue
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
@@ -125,9 +152,12 @@ Versão: \currversion^^J
 \descricaodocumento{Trabalho Individual apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
+% Capa: elemento obrigatório da parte externa (Manual, p. 8 e 12)
 \newcommand{\capa}[1]{\gdef\@capa{#1}}
 \DeclareOption{capa}{\capa{1}}
 
+% nocipinfo: omite a referência do trabalho no resumo e no abstract.
+% Nos trabalhos depositados a referência é obrigatória (Manual, p. 14-15).
 \newcommand{\nocipinfo}[1]{\gdef\@nocipinfo{#1}}
 \DeclareOption{nocipinfo}{\nocipinfo{1}}
 
@@ -139,7 +169,7 @@ Versão: \currversion^^J
 
 % Propostas (tcc-proposta, diss-proposta, tese-proposta) e trabalhos individuais
 % (ti, tid) não são depositados na biblioteca: não têm capa nem referência
-% do trabalho no resumo.
+% do trabalho no resumo (decisão da classe; ver o início do arquivo).
 \if@ei@naodepositado
   \@ifundefined{@capa}{}{%
     \ClassWarningNoLine{texufpel}{Opcao capa ignorada:
@@ -152,6 +182,9 @@ Versão: \currversion^^J
 %==============================================================================
 % Herança da classe `report' e inclusão de pacotes e arquivos necessários
 %==============================================================================
+% Papel A4 (Manual, p. 72), fonte tamanho 12 (Manual, p. 73) e impressão só no
+% anverso. O Manual permite anverso e verso conforme o curso (p. 72 e 74-75),
+% mas a classe ainda não implementa esse modo.
 \LoadClass[12pt,a4paper,oneside]{report}
 
 \RequirePackage[english,brazilian]{babel}
@@ -167,25 +200,43 @@ Versão: \currversion^^J
 \RequirePackage{etoolbox}
 \RequirePackage{pdfpages}
 \RequirePackage[T1]{fontenc}
+% Legendas de figuras e tabelas: tamanho 10, espaço simples e texto
+% justificado (Manual, p. 17, item c; p. 74), identificação com travessão
+% entre o número e o título: "Figura 1 – Título" (Manual, p. 16, item a; p. 18,
+% item e). O pacote caption usa espaço simples nas legendas.
 \RequirePackage[singlelinecheck=off, skip=2pt, font=footnotesize, justification=justified, format=plain, labelsep=endash]{caption}
 
+% Itens das listas designados pela palavra "Figura" ou "Tabela" seguida do
+% número (Manual, p. 16 e 17; modelos das p. 96 e 98)
 \DeclareCaptionListFormat{figuracf}{\figurename\ #1#2}
 \DeclareCaptionListFormat{tabelacf}{\tablename\ #1#2}
+% Identificação na parte superior (Manual, p. 16, item a; p. 18, item e).
+% position=top põe o espaço entre a legenda e o conteúdo.
 \captionsetup[figure]{position=top,listformat=figuracf}
 \captionsetup[table]{position=top,listformat=tabelacf}
 
+% Margens do anverso: esquerda e superior de 3 cm, direita e inferior de 2 cm
+% (Manual, p. 73)
 \geometry{top=3cm,right=2cm,left=3cm,bottom=2cm}
 
-% Texto em cor preta (Manual UFPel, p. 72): links sem cor nem caixa
+% Textos em cor preta (Manual, p. 72): links sem cor nem caixa
 \hypersetup{hidelinks,unicode=true,linktoc=all}
 
+% Cores usadas só pelo \makecover (capa de estojo, não prevista no Manual)
 \definecolor{laranjaufpel}{rgb}{1,0.6,0}
 \definecolor{verdeufpel}{rgb}{0.09,0.7,0.44}
 \definecolor{azulufpel}{rgb}{0.07,0.49,0.72}
 \definecolor{cinzaufpel}{rgb}{0.85,0.85,0.85}
 
 %
-% definições para textos em português
+% Definições para textos em português.
+% Títulos dos elementos conforme o Manual: Referências (p. 21), Resumo (p. 14),
+% Sumário (p. 19), Lista de Figuras e Lista de Tabelas (modelos das p. 96 e 98),
+% Apêndice e Anexo (p. 23-24), Palavras-chave (p. 14). Os modelos das p. 100-101
+% escrevem "Lista de abreviaturas e siglas" e "Lista de símbolos" com
+% minúsculas; a classe usa iniciais maiúsculas, como nas listas de figuras.
+% Orientador e Coorientador: folha de rosto (Manual, p. 84-86) e referência
+% do trabalho (Manual, p. 27 e 94).
 %
 \@namedef{captionsbrazilian}{%
   \def\bibname{Refer{\^e}ncias}%
@@ -232,7 +283,8 @@ Versão: \currversion^^J
 }
 
 %
-% definições para textos em inglês
+% Definições para textos em inglês, usadas no abstract (Manual, p. 15 e
+% modelo da p. 95: "Advisor", "Dissertation (Masters in ...)", "Keywords").
 %
 \@namedef{captionsenglish}{%
   \def\bibname{References}%
@@ -284,14 +336,21 @@ Versão: \currversion^^J
 \fi
 
 %==============================================================================
-% O uso de fonte Arial, 12 pt, é mandatório
+% Fonte Arial, tamanho 12, em todo o trabalho (Manual, p. 73).
+% Decisão técnica: o pdfLaTeX não tem Arial livre; a classe usa Helvetica
+% (phv), que tem as mesmas métricas.
 %==============================================================================
 \renewcommand*\familydefault{\sfdefault}%
 \renewcommand{\rmdefault}{phv}%
 \renewcommand{\sfdefault}{phv}
 
 %==============================================================================
-% Numeração das páginas
+% Numeração das páginas (Manual, p. 74-75)
+% - todas as folhas são contadas a partir da folha de rosto, mas o número só
+%   é impresso a partir da parte textual (p. 74);
+% - as páginas iniciais de cada capítulo são contadas e não numeradas (p. 74);
+% - número no canto superior direito, a 2 cm da borda superior, em
+%   algarismos arábicos (p. 75), tamanho 10 (p. 74).
 %==============================================================================
 \def\ps@texufpel{%
   \let\@oddfoot\@empty%
@@ -304,7 +363,9 @@ Versão: \currversion^^J
 \let\ps@plain\ps@empty
 
 %==============================================================================
-% Definição de autor(es), orientador e co-orientador
+% Definição de autor(es), orientador(es), coorientador(es) e colaborador(es).
+% Orientador e coorientador aparecem na folha de rosto (Manual, p. 84-86).
+% Colaborador não consta dos modelos do Manual; é um campo opcional da classe.
 %==============================================================================
 \newcounter{ei@authorcount}
 \renewcommand{\author}[2]{
@@ -340,7 +401,9 @@ Versão: \currversion^^J
 
 
 %==============================================================================
-% Definição das palavras-chave (máx. 10)
+% Palavras-chave (máx. 10). Separadas por ponto e vírgula, a última terminada
+% por ponto, com iniciais minúsculas, exceto nomes próprios e científicos
+% (Manual, p. 15). A pontuação é escrita pelo autor em cada \keyword.
 %==============================================================================
 \newcounter{kwcounter}
 \newcommand{\keyword}[1]{
@@ -383,7 +446,8 @@ Versão: \currversion^^J
 
 
 %==============================================================================
-% Redefinição da data (para ter mês e ano separados)
+% Redefinição da data (para ter mês e ano separados). Capa e folha de rosto
+% trazem só "Pelotas, ano" (Manual, p. 82-86).
 %==============================================================================
 \renewcommand{\date}[2]{
         \gdef\@publmonth{#1}
@@ -392,7 +456,7 @@ Versão: \currversion^^J
 \date{\monthname}{\number\year}
 
 %==============================================================================
-% Capa e folha de rosto (Manual UFPel, p. 12 e 82-86)
+% Capa e folha de rosto (Manual, p. 12; modelos das p. 82 e 84-86)
 %==============================================================================
 
 \newcommand{\location}[2]{
@@ -402,9 +466,9 @@ Versão: \currversion^^J
 
 \location{Pelotas}{RS}
 
-% A contagem das folhas comeca na folha de rosto (folha 1); a capa nao e'
-% contada (Manual UFPel, p. 12 e 74). A capa recebe o rotulo ``capa'' para
-% que o hyperref nao gere ancoras duplicadas.
+% A contagem das folhas começa na folha de rosto (folha 1); a capa não é
+% contada (Manual, p. 12 e 74). Decisão técnica: a capa recebe o rótulo
+% ``capa'' para que o hyperref não gere âncoras duplicadas.
 \renewcommand{\maketitle}{%
   \@ifundefined{@capa}{}{%
     \begingroup
@@ -420,6 +484,11 @@ Versão: \currversion^^J
   \setcounter{page}{2}%
 }
 
+% Capa (Manual, p. 12; modelo da p. 82): todos os elementos em Arial 12,
+% centralizados, em negrito, com entrelinha de 1,5. Elementos do modelo, nesta
+% ordem: UNIVERSIDADE FEDERAL DE PELOTAS (em maiúsculas), unidade, programa ou
+% "Curso de ...", tipo do trabalho, título, autor, "Pelotas, ano". O modelo
+% também traz o logotipo da UFPel.
 \newcommand{\thecoverpage}{%
   \onehalfspacing%
   \noindent%
@@ -456,6 +525,10 @@ Versão: \currversion^^J
       \vskip .1cm%
 }
 
+% Folha de rosto (Manual, p. 12; modelos das p. 84-86): Arial 12, centralizada,
+% só autor e título em negrito, entrelinha de 1,5; natureza do trabalho em
+% espaço simples, recuada 7 cm da margem esquerda; depois orientador(es),
+% coorientador(es) e "Pelotas, ano".
 \newcommand{\thetitlepage}{%
   \noindent%
     \centering%
@@ -519,7 +592,9 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Ajuste do sumário (nada indentado) 
+% Sumário (Manual, p. 19; modelo da p. 102): último elemento pré-textual,
+% título centralizado sem indicativo numérico, Arial 12, entrelinha de 1,5.
+% As entradas não são recuadas, como no modelo.
 %==============================================================================
 \newlength{\ei@chapnumindent}\setlength{\ei@chapnumindent}{1.8em}
 
@@ -539,25 +614,33 @@ Versão: \currversion^^J
 }
 \renewcommand*{\l@section}[2]
               {\@dottedtocline{1}{0em}{2.8em}{\textbf{#1}}{\hss #2}}
-% Mesmo destaque do texto: todos os níveis em negrito (Manual UFPel, p. 70;
-% NBR 6024 e NBR 6027)
+% O sumário enumera as seções "na mesma ordem e grafia do texto" (Manual,
+% p. 19, citando a NBR 6027). Como todo indicativo de seção é em negrito
+% (Manual, p. 70), todos os níveis ficam em negrito.
 \renewcommand*{\l@subsection}[2]
               {\@dottedtocline{2}{0em}{3.7em}{\textbf{#1}}{\hss #2}}
 \renewcommand*{\l@subsubsection}[2]
               {\@dottedtocline{3}{0em}{4.6em}{\textbf{#1}}{\hss #2}}
 \renewcommand*{\l@paragraph}[2]
               {\@dottedtocline{4}{0em}{5.6em}{\textbf{#1}}{\hss #2}}
-% Sumário com todas as seções, até a quinária (NBR 6027; Manual UFPel, p. 19 e 102)
+% Sumário com todas as seções, até a quinária (Manual, p. 19 e 70; o modelo
+% da p. 102 mostra a seção quaternária)
 \setcounter{tocdepth}{4}
 \newif\if@aftertoc
 \@aftertocfalse
+% Elementos que vêm antes do sumário (resumo, listas) não constam nele
+% (Manual, p. 14-19); os que vêm depois (referências, glossário, apêndices,
+% anexos, índice) constam (Manual, p. 22-24). O \@schapter usa \if@aftertoc.
 \renewcommand{\tableofcontents}{%
         \chapter*{\contentsname}
         \@starttoc{toc}\@aftertoctrue%
 }
 
 %==============================================================================
-% Definição das listas de abreviaturas e siglas e de símbolos
+% Lista de abreviaturas e siglas (Manual, p. 18; modelo da p. 100), em ordem
+% alfabética, e lista de símbolos (Manual, p. 19; modelo da p. 101), na ordem
+% em que aparecem no texto. Título centralizado, sem indicativo numérico,
+% fora do sumário. A ordem dos itens é responsabilidade do autor.
 %==============================================================================
 \newenvironment{listofabbrv}[1]{
   \chapter*{\listabbrvname}
@@ -594,9 +677,15 @@ Versão: \currversion^^J
 %==============================================================================
 % Resumo (abstract) e Abstract (englishabstract)
 %==============================================================================
-% Referência do trabalho, usada no resumo, no abstract e na errata, em espaço
-% simples e alinhada à esquerda (Manual UFPel, p. 15). Recebe o título.
-% Nomes de orientadores ou coorientadores separados por ``;''. #1 = advisor/coadvisor
+% Referência do trabalho, usada no resumo, no abstract e na errata: Arial 12,
+% espaço simples, alinhada à esquerda (Manual, p. 15). A referência vem antes
+% do resumo por decisão do Comitê Técnico (Manual, p. 15, nota 1).
+% Formato dos modelos das p. 94-95 e do exemplo das p. 41-42:
+%   SOBRENOME, Nome. Título. Orientador: Nome. Coorientador: Nome. Ano.
+%   N f. Tipo (Curso) – Unidade, Universidade, Cidade, Ano.
+% Orientador e coorientador entram após o título (Manual, p. 26-27 e 42).
+% Nomes de orientadores ou coorientadores separados por ``;'' (Manual, p. 24).
+% #1 = advisor/coadvisor
 \newcommand{\ei@nomes}[1]{%
   \csname @#1afirst\endcsname\ \csname @#1alast\endcsname
   \@ifundefined{@#1b}{}{; \csname @#1bfirst\endcsname\ \csname @#1blast\endcsname}%
@@ -610,7 +699,10 @@ Versão: \currversion^^J
     \@publyear. \pageref{LastPage}~f. \@tipodocumento,
     \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}}
 
-% Resumo em espaco simples (Manual UFPel, p. 15)
+% Resumo (Manual, p. 14-15; modelo da p. 94): título centralizado sem
+% indicativo numérico, fora do sumário, Arial 12, espaço simples, texto
+% justificado em parágrafo único. Referência do trabalho antes do texto e
+% "Palavras-chave:" depois.
 \renewenvironment{abstract}{%
   \chapter*{\abstractname}
   \singlespacing
@@ -618,11 +710,14 @@ Versão: \currversion^^J
   \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
 }{%
   % palavras-chave logo após o texto, separadas por uma linha em branco
-  % (Manual UFPel, p. 14-15 e modelo da p. 94)
+  % (Manual, p. 14-15 e modelo da p. 94)
   \par\vspace{\baselineskip}%
   \noindent\keywordsname: \@abstractkw
 }
 
+% Resumo em língua estrangeira (Manual, p. 15; modelo da p. 95): mesma
+% formatação do resumo, com todos os seus dados traduzidos, inclusive a
+% referência.
 \newenvironment{englishabstract}[1]{%
   \if@openright\cleardoublepage\else\clearpage\fi%
   \gdef\@englishtitle{{#1}}%
@@ -645,11 +740,14 @@ Versão: \currversion^^J
 %==============================================================================
 % Formatação dos capítulos.
 % Os comandos \@chapter e \@schapter são redefinidos para que a
-% numeração de páginas seja correta (deve aparecer somente a partir do
+% numeração de páginas seja correta: aparece somente a partir do
 % primeiro capítulo do texto, mas não nas páginas iniciais de
-% capítulos; Manual UFPel, p. 74).
-% Títulos em Arial 12, negrito, iniciando a 5 cm da borda superior
-% (Manual UFPel, p. 70, 73 e 74).
+% capítulos (Manual, p. 74).
+% Títulos em Arial 12, negrito (Manual, p. 70 e 73), iniciando a 5 cm da
+% borda superior (Manual, p. 73): 3 cm de margem + \ei@chaptertopskip.
+% Títulos de elementos textuais alinhados à esquerda, com numeração
+% progressiva; títulos de elementos pré e pós-textuais centralizados, sem
+% numeração (Manual, p. 70 e 73).
 % Os comandos \@makechapterhead e \@makeschapterhead fazem a
 % formatação dos títulos propriamente ditos.
 %==============================================================================
@@ -675,11 +773,13 @@ Versão: \currversion^^J
 \def\@makechapterhead#1{%
   \vspace*{\ei@chaptertopskip}%
   \if@ei@apx
-    % apendices e anexos: ``Apêndice A – Título'', centralizado (modelo UFPel, p. 107)
+    % apêndices e anexos: ``Apêndice A – Título'', centralizado (Manual, p. 23-24;
+    % modelos das p. 107 e 109); primeira folha contada e não numerada (p. 74)
     {\centering\reset@font\ei@chapterfont\sffamily\bfseries
       \@chapapp\thechapter\ --\ #1\par}%
     \thispagestyle{empty}%
   \else
+    % indicativo numérico e título separados apenas por um espaço (Manual, p. 70)
     {\reset@font\noindent\ei@chapterfont\sffamily\bfseries
       \thechapter\space#1\par}%
     \thispagestyle{empty}%
@@ -701,8 +801,12 @@ Versão: \currversion^^J
   \thispagestyle{empty}%
 }
 
-% Contador de conjuntos de apendices/anexos: garante ancoras unicas no hyperref
-% (sem ele, o Apendice A e o Capitulo 1 geram a mesma ancora chapter.1)
+% Decisão técnica: contador de conjuntos de apêndices/anexos, que garante
+% âncoras únicas no hyperref (sem ele, o Apêndice A e o Capítulo 1 geram a
+% mesma âncora chapter.1).
+% Cada apêndice e anexo recebe uma letra em sequência alfabética (Manual, p. 23-24).
+% Decisão da classe: figuras e tabelas de apêndices e anexos ficam fora das
+% listas (o Manual não trata do assunto).
 \newcounter{ei@apxset}
 \renewcommand{\appendix}[1][\appendixname]{%
   \setcounter{chapter}{0}%
@@ -719,11 +823,16 @@ Versão: \currversion^^J
 \newcommand{\annex}{\appendix[\annexname]}
 
 %==============================================================================
-% Formatação das seções (todas em negrito, Arial 12; Manual UFPel, p. 70)
+% Formatação das seções (Manual, p. 69-70; modelo da p. 103): número e título
+% em negrito, alinhados à esquerda, apenas a primeira letra maiúscula (o autor
+% escreve assim), texto começando em outra linha.
+% Numeração até a seção quinária (Manual, p. 70): capítulo = primária,
+% \section = secundária, ..., \paragraph = quinária.
 %==============================================================================
 \setcounter{secnumdepth}{4}
 
-% Indicativo da seção separado do título apenas por um espaço (Manual UFPel, p. 70)
+% Indicativo da seção separado do título apenas por um espaço, sem ponto,
+% hífen ou travessão (Manual, p. 70)
 \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\space}
 
 \renewcommand{\section}{%
@@ -747,25 +856,33 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Formatação das legendas
+% Numeração de figuras, tabelas e equações: sequencial em todo o trabalho, em
+% algarismos arábicos, pela ordem de ocorrência no texto (Manual, p. 16 e 18);
+% equações com o número entre parênteses, à direita (Manual, p. 76).
 %==============================================================================
 \counterwithout{figure}{chapter}
 \counterwithout{equation}{chapter}
 \counterwithout{table}{chapter}
 
 %==============================================================================
-% Redefinição do conteúdo das listas de figuras e tabelas
+% Listas de figuras e de tabelas (Manual, p. 15-17; modelos das p. 96 e 98):
+% título centralizado, sem indicativo numérico, fora do sumário; itens com a
+% palavra designativa, o número, a legenda e a página.
 %==============================================================================
 \renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
 
 % Conteúdo de figuras e tabelas (corpo, título e fonte) em tamanho 10
-% (Manual UFPel, p. 74). Dentro desses ambientes, \small também passa a
+% (Manual, p. 74). Dentro desses ambientes, \small também passa a
 % valer 10 pt, para que linhas como {\small Fonte: ...} fiquem no padrão.
+% A fonte consultada vai abaixo, é obrigatória mesmo quando for produção do
+% próprio autor (Manual, p. 17, item b; p. 18, item f) e é escrita pelo autor
+% com \caption*{Fonte: ...}.
 \AtBeginEnvironment{figure}{\footnotesize\let\small\footnotesize}
 \AtBeginEnvironment{table}{\footnotesize\let\small\footnotesize}
 
-% Quadros. O Manual UFPel (p. 15-16) designa todas as ilustrações como
-% ``Figura'', mas recomenda lista própria por tipo quando forem muitas.
+% Quadros. O Manual designa todas as ilustrações como ``Figura'', por decisão
+% do Comitê Técnico (Manual, p. 16, nota 1), mas recomenda lista própria por
+% tipo de figura quando forem muitas, como a Lista de quadros (Manual, p. 16).
 % O ambiente quadro numera junto com as figuras (Figura 1, Figura 2...),
 % usa a mesma formatação e vai para a Lista de Quadros (\listofquadros).
 \DeclareFloatingEnvironment[fileext=loq,name=\figurename,placement=htbp,within=none]{quadro}
@@ -779,9 +896,10 @@ Versão: \currversion^^J
 \let\l@table\l@figure
 
 %==============================================================================
-% Redefinição do formato de citações longas
+% Citação direta com mais de três linhas (ambiente quote): recuo de 4 cm da
+% margem esquerda, letra menor que a do texto, espaço simples, sem aspas
+% (Manual, p. 63). Tamanho 10 (Manual, p. 74) e recuo de 4 cm (Manual, p. 73).
 %==============================================================================
-% Recuo de 4 cm, tamanho 10 e espaço simples (Manual UFPel, p. 63, 73 e 74)
 \renewenvironment{quote}{%
   \par\footnotesize\singlespacing%
   \begin{list}{}{\setlength{\leftmargin}{40mm}\setlength{\rightmargin}{0pt}%
@@ -792,22 +910,27 @@ Versão: \currversion^^J
 
 
 %==============================================================================
-% Ajuste do formato das citações e referências
+% Citações e referências
 %==============================================================================
+% Referências alinhadas à margem esquerda, sem recuo nas linhas seguintes
+% (Manual, p. 22)
 \setlength{\bibhang}{0pt}
+% Sistema autor-data (Manual, p. 62). O natbib escreve o sobrenome em
+% maiúsculas e minúsculas, inclusive dentro dos parênteses (Manual, p. 62), e
+% separa várias obras por ponto e vírgula (Manual, p. 67). \cite = \citep:
+% (Autor, ano); \citet: Autor (ano).
 \let\cite\citep
 
-% Referências em espaço simples, alinhadas somente à margem esquerda e
-% separadas por uma linha em branco de espaço simples (Manual UFPel, p. 22 e 73)
+% Referências em Arial 12, espaço simples, alinhadas somente à margem esquerda
+% e separadas por uma linha em branco de espaço simples (Manual, p. 22 e 74).
+% O título "Referências" é centralizado, sem indicativo numérico, e consta do
+% sumário (Manual, p. 21-22).
 \renewcommand{\bibfont}{\singlespacing\raggedright\setlength{\bibsep}{\baselineskip}}
 
-% \renewcommand{\NAT@nmfmt}[1]{%
-%   \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
-% }
-
 %==============================================================================
-% Citação de citação (apud), Manual UFPel, p. 65 (NBR 10520).
-% A obra original não entra na lista de referências; só a consultada.
+% Citação de citação (apud), Manual, p. 65: autoria e ano da fonte citada,
+% a expressão apud e autoria, ano e página da fonte consultada. Na lista de
+% referências entra somente a fonte consultada (Manual, p. 65).
 %   \apud{Silva}{2000}{Abreu:2011:XYZ}          -> Silva (2000 apud Abreu, 2011)
 %   \apud[p.~45]{Silva}{2000}{Abreu:2011:XYZ}   -> Silva (2000 apud Abreu, 2011, p. 45)
 %   \apudp{Silva}{2000}{Abreu:2011:XYZ}         -> (Silva, 2000 apud Abreu, 2011)
@@ -815,7 +938,8 @@ Versão: \currversion^^J
 \newcommand{\apud}[4][]{#2 (#3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
 \newcommand{\apudp}[4][]{(#2, #3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
 
-%capa do CDROM
+% Capa de estojo de CD-ROM. Não prevista no Manual: a biblioteca recebe só a
+% versão digital (Manual, p. 9). Mantida por compatibilidade.
 \newcommand{\makecover}{%
 \singlespacing
 \thispagestyle{empty}
@@ -884,7 +1008,9 @@ Versão: \currversion^^J
 \vfill
 }
 
-%apendices
+% Apêndices (Manual, p. 23 e 75; modelo da p. 106): folha em branco só com o
+% termo "Apêndices", centralizado no meio da folha, contada e não numerada,
+% e incluída no sumário. A numeração das folhas segue contínua (p. 75).
 \newcommand{\apendices}{
   \clearpage
   \pagestyle{empty}
@@ -898,7 +1024,7 @@ Versão: \currversion^^J
   \appendix
 }
 
-%anexos
+% Anexos (Manual, p. 23-24 e 75; modelo da p. 108): mesma regra dos apêndices.
 \newcommand{\anexos}{
   \clearpage
   \pagestyle{empty}
@@ -912,10 +1038,11 @@ Versão: \currversion^^J
   \annex
 }
 
-%ficha catalográfica
+% Ficha catalográfica (Manual, p. 12): obrigatória, logo após a folha de rosto
+% na versão digital, não contada na paginação. É solicitada à biblioteca pelo
+% Sistema Cobalto e já vem formatada (Arial 10, espaço simples).
 % Uso: \fichacatalografica            (página provisória)
 %      \fichacatalografica[ficha.pdf] (ficha emitida pela biblioteca)
-% A ficha não é contada na paginação (Manual UFPel, p. 12).
 \newcommand{\fichacatalografica}[1][]{%
 	\clearpage
 	\begingroup
@@ -936,7 +1063,9 @@ Versão: \currversion^^J
 	\addtocounter{page}{-1}%
 }
 
-%errata (opcional; logo após a folha de rosto; modelo UFPel, p. 87)
+% Errata (Manual, p. 13; modelo da p. 87): opcional, logo após a folha de
+% rosto, com a referência do trabalho e o texto da errata; título
+% centralizado, sem indicativo numérico.
 % Uso:
 %   \begin{errata}
 %   16 & 10 & auto-clavado & autoclavado \\
@@ -955,13 +1084,16 @@ Versão: \currversion^^J
   \end{center}
 }
 
-%agradecimentos
+% Agradecimentos (Manual, p. 13-14; modelo da p. 92): opcional, título
+% centralizado sem indicativo numérico, texto justificado, entrelinha de 1,5,
+% parágrafo de 1,25 cm.
 \newenvironment{agradecimentos}{
 	\chapter*{Agradecimentos}
 }{
 }
 
-%dedicatória
+% Dedicatória (Manual, p. 13; modelo da p. 91): opcional, sem título, Arial 12.
+% Se curta, recuada 6 cm da margem e no meio da folha (formato deste ambiente).
 \newenvironment{dedicatoria}{
 	\clearpage
   \onehalfspacing
@@ -973,23 +1105,29 @@ Versão: \currversion^^J
 	\vfill
 }
 
-%epígrafe
+% Epígrafe (Manual, p. 14; modelo da p. 93): opcional, sem título, Arial 10,
+% itálico, entrelinha de 1,5, recuada 6 cm da margem e no meio da folha,
+% seguida da indicação de autoria.
 \newenvironment{epigrafe}{
   \clearpage
-  \thispagestyle{empty} % Remove page numbering
-  \vspace*{\fill}       % Push content to the bottom of the page
-  \onehalfspacing       % Line spacing 1.5
-  \itshape              % Italic text
-  \fontsize{10pt}{12pt}\selectfont % Font Arial, size 10
+  \thispagestyle{empty} % folha sem número (elemento pré-textual)
+  \vspace*{\fill}       % centraliza na vertical (com o \vspace*{\fill} do fim)
+  \onehalfspacing       % entrelinha de 1,5
+  \itshape              % itálico
+  \fontsize{10pt}{12pt}\selectfont % tamanho 10
   \noindent
-  \hspace*{6cm}         % Indent 6 cm
-  \begin{minipage}{9cm} % Maximum width of text, adjusted for indent
+  \hspace*{6cm}         % recuo de 6 cm
+  \begin{minipage}{9cm} % largura restante da mancha
 }{
   \end{minipage}
-  \vspace*{\fill}       % Additional spacing at the bottom if necessary
+  \vspace*{\fill}
 }
 
-%nominata da banca
+% Folha de aprovação (Manual, p. 13; modelos das p. 88-90): obrigatória nos
+% trabalhos depositados, sem título, elementos centralizados em Arial 12;
+% natureza do trabalho em texto justificado e espaço simples; depois
+% "Data da defesa:" e "Banca examinadora:" com nome, titulação e instituição
+% de cada membro (escritos pelo autor dentro do ambiente).
 \newenvironment{aprovacao}[1]{
 	\clearpage
 	\onehalfspacing
@@ -1017,28 +1155,40 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Ajustes gerais (Manual UFPel, p. 73-74)
-% - entrelinhas de 1,5 em todo o trabalho (resumo, citações longas, notas,
-%   figuras, tabelas e referências usam espaço simples, definidos acima);
-% - recuo de parágrafo de 1,25 cm;
-% - no mínimo duas linhas de parágrafo no fim e no início da folha.
+% Ajustes gerais
+% - entrelinhas de 1,5 no texto (Manual, p. 74); resumo, citações longas,
+%   notas, figuras, tabelas e referências usam espaço simples (Manual, p. 74),
+%   definido acima em cada ambiente;
+% - recuo de parágrafo de 1,25 cm (Manual, p. 73);
+% - texto justificado, exceto as referências (Manual, p. 72-73): é o padrão
+%   do LaTeX;
+% - no mínimo duas linhas de parágrafo no fim e no início da folha
+%   (Manual, p. 73).
 %==============================================================================
 \onehalfspacing
 \setlength{\parindent}{1.25cm}
 
-% Filete das notas de rodapé com 5 cm a partir da margem esquerda (NBR 14724)
+% Filete das notas de rodapé com 5 cm a partir da margem esquerda. O Manual
+% não fixa o tamanho; a regra vem da ABNT (NBR 14724).
+% Notas em Arial 10 e espaço simples (Manual, p. 68 e 74): tamanho padrão das
+% notas na classe report com fonte 12. A numeração recomeça a cada capítulo
+% (Manual, p. 68), como já faz a classe report.
 \renewcommand{\footnoterule}{\kern-3\p@\hrule\@width 5cm\kern 2.6\p@}
 
 % Notas alinhadas a partir da segunda linha abaixo da primeira letra da
-% primeira palavra, destacando o expoente (Manual UFPel, p. 68)
+% primeira palavra, destacando o expoente (Manual, p. 68)
 \renewcommand\@makefntext[1]{%
   \setbox\@tempboxa\hbox{\@makefnmark\space}%
   \hangindent\wd\@tempboxa\hangafter\@ne
   \noindent\box\@tempboxa#1}
 
-% Alíneas e subalíneas (Manual UFPel, p. 71; NBR 6024):
-% enumerate de 1o nível -> a), b), ..., z), aa), bb), ...
-% enumerate de 2o nível -> subalíneas iniciadas por travessão
+% Alíneas e subalíneas (Manual, p. 70-72; modelo da p. 104):
+% enumerate de 1º nível -> a), b), ..., z), aa), bb), ... (letra minúscula
+%   seguida de parêntese, letras dobradas quando esgotado o alfabeto, com recuo
+%   em relação à margem e linhas seguintes sob a primeira letra do texto);
+% enumerate de 2º nível -> subalíneas iniciadas por travessão seguido de
+%   espaço, com recuo em relação à alínea (Manual, p. 71-72).
+% A pontuação (ponto e vírgula, dois pontos, ponto final) é escrita pelo autor.
 \newcommand{\ei@alinea}[1]{%
   \ifnum\value{#1}>26
     \@alph{\numexpr\value{#1}-26\relax}\@alph{\numexpr\value{#1}-26\relax}%
@@ -1050,6 +1200,8 @@ Versão: \currversion^^J
 \renewcommand{\theenumii}{\ei@alinea{enumii}}
 \renewcommand{\labelenumii}{--}
 \renewcommand{\p@enumii}{\theenumi)}
+% Pelo menos duas linhas de um parágrafo no fim e no início da folha
+% (Manual, p. 73)
 \clubpenalty=10000
 \@clubpenalty=10000
 \widowpenalty=10000
