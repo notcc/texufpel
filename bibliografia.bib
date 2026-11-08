@@ -1,42 +1,527 @@
-@BOOK{Moore:1979:MAI,
-  Address =	 {Philadelphia, PA, USA},
-  Author =	 {Moore, R. E.},
-  Pages =	 {xi + 190},
-  Publisher =	 {Society for Industrial and Applied Mathematics},
-  Title =	 {Methods and Applications of Interval Analysis},
-  Year =	 {1979}
+%==============================================================================
+% bibliografia.bib -- base de exemplo da classe texufpel
+%
+% Mostra como cadastrar os tipos de documento mais citados em trabalhos de
+% Computação, usando clássicos da área. Cada entrada traz, acima, um
+% comentário dizendo quando usar aquele tipo. O estilo abnt.bst formata as
+% referências conforme o Manual de normas UFPel para trabalhos acadêmicos
+% (2023); as páginas citadas nos comentários são as do Manual.
+%
+% Convenções
+% - Chaves de citação: Sobrenome:Ano:Sigla (sigla = iniciais do título).
+% - Autores: "Sobrenome, Prenomes". Partículas no fim dos prenomes ficam em
+%   minúsculas ("Cruz, Tamara Meneghetti da") e não são abreviadas.
+% - Entidades (pessoa jurídica) entre chaves duplas e com iniciais
+%   maiúsculas: author = {{Associação Brasileira de Normas Técnicas}}. A lista
+%   de referências põe o nome em maiúsculas; a citação no texto o mantém como
+%   está escrito (Manual, p. 27 e 62).
+% - Acentos podem ser digitados em UTF-8. O BibTeX, porém, ordena por bytes:
+%   "Ávila" iria para depois do Z, e "Associação" para depois de
+%   "Association". Quando o acento afetar a ordem, escreva a letra como
+%   comando, como na entrada ABNT:2018:NBR6023:
+%       author = {{\'A}vila, Maria}
+% - Meses: as macros jan, feb, ..., dec geram as abreviaturas em inglês do
+%   Anexo A do Manual (p. 79). Para publicação em português, escreva o mês
+%   como texto: month = {abr.}. O mês segue o idioma da publicação (p. 33).
+% - Edição: só a partir da 2ª (p. 18). Número ("4") vira "4. ed."; texto no
+%   idioma do documento é transcrito ("2nd" -> "2nd ed.", p. 28-29).
+% - Documentos online: url e urldate (data de acesso, já no formato
+%   "8 nov. 2026"). DOI sem o prefixo https://doi.org/ (o estilo acrescenta).
+% - Campos extras deste estilo:
+%     titleaddon  responsabilidade após o título (Orientador, Tradução etc.)
+%     editortype  tipo de participação do editor: org., coord., comp., ed.
+%     eventtitle, eventnumber, eventyear, venue   dados de eventos
+% - "% VERIFICAR": dado que não foi possível confirmar na fonte e por isso
+%   ficou de fora da entrada.
+%
+% Dados conferidos em novembro de 2026 nas fontes indicadas em cada entrada.
+%==============================================================================
+
+
+%------------------------------------------------------------------------------
+% Tipo article -- artigo de periódico (revista científica). Título do periódico em
+% negrito; local, volume, número, páginas e data (Manual, p. 46-47). Sem local
+% conhecido, o estilo escreve [s. l.].
+%------------------------------------------------------------------------------
+
+% Fonte: DOI 10.1112/plms/s2-42.1.230. Escrito e apresentado em 1936, mas o
+% registro do periódico data a publicação de 1937 (s2-42, 1936-1937).
+@article{Turing:1937:OCN,
+  author  = {Turing, Alan Mathison},
+  title   = {On computable numbers, with an application to the {Entscheidungsproblem}},
+  journal = {Proceedings of the London Mathematical Society},
+  volume  = {s2-42},
+  number  = {1},
+  pages   = {230--265},
+  year    = {1937},
+  doi     = {10.1112/plms/s2-42.1.230}
 }
 
-@BOOK{vonNeumann:1966:TSR,
-  Author =	 {von Neumann, J. and Marilton Aguiar},
-  _Editor =	 {Burks, A. W.},
-  Pages =	 {xix + 388},
-  Title =	 {Theory of Self-Reproducing Automata},
-  Year =	 {1966}
+% Fonte: Oxford Academic, Mind, v. LIX, n. 236, out. 1950.
+@article{Turing:1950:CMI,
+  author  = {Turing, Alan Mathison},
+  title   = {Computing machinery and intelligence},
+  journal = {Mind},
+  volume  = {59},
+  number  = {236},
+  pages   = {433--460},
+  month   = oct,
+  year    = {1950},
+  doi     = {10.1093/mind/LIX.236.433}
 }
 
-@MastersThesis{Aguiar:2005,
-   author =       "Marilton Aguiar and Aguiar Marilton",
-   title =        "Título da Monografia",
-   school =       "Centro de Desenvolvimento Tecnológico, Universidade Federal de Pelotas",
-   year =         "2005",
-   type =         "Trabalho de Conclusão (Curso de Ciência da Computação)",
-   pages =        "85",
-   address =      "Pelotas"}
-
-@Book{Cormen,
-  author =	"T. Cormen and C. Leiserson and R. Rivest",
-  title =	"Introduction to Algorithms",
-  publisher =	"{MIT} Press",
-  year = 	"1990",
+% Fonte: Bell System Technical Journal, parte 1 (julho de 1948). A parte 2
+% saiu no v. 27, n. 4, p. 623-656, em outubro de 1948.
+@article{Shannon:1948:MTC,
+  author  = {Shannon, Claude Elwood},
+  title   = {A mathematical theory of communication},
+  journal = {Bell System Technical Journal},
+  volume  = {27},
+  number  = {3},
+  pages   = {379--423},
+  month   = jul,
+  year    = {1948},
+  doi     = {10.1002/j.1538-7305.1948.tb01338.x}
 }
 
-@online{society_factsheet_2012,
-	title = {Factsheet 417: {The} later stages of dementia},
-	url = {https://www.alzheimers.org.uk/site/scripts/documents\_info.php?documentID=101},
-	abstract = {An Alzheimer's Society factsheet on the later stages of dementia.},
-	urldate = {2016-11-13},
-	author = {Society, Alzheimer's},
-	month = mar,
-	year = {2012}
+% Fonte: Springer, Numerische Mathematik, v. 1, dez. 1959.
+@article{Dijkstra:1959:NTP,
+  author  = {Dijkstra, Edsger Wybe},
+  title   = {A note on two problems in connexion with graphs},
+  journal = {Numerische Mathematik},
+  volume  = {1},
+  pages   = {269--271},
+  month   = dec,
+  year    = {1959},
+  doi     = {10.1007/BF01386390}
+}
+
+% Carta ao editor (seção de um periódico, Manual, p. 46). O título publicado
+% inclui o nome da seção. Fonte: DOI 10.1145/362929.362947.
+@article{Dijkstra:1968:GTS,
+  author  = {Dijkstra, Edsger Wybe},
+  title   = {Letters to the editor: go to statement considered harmful},
+  journal = {Communications of the ACM},
+  volume  = {11},
+  number  = {3},
+  pages   = {147--148},
+  year    = {1968},
+  doi     = {10.1145/362929.362947}
+}
+
+% Artigo em páginas não contínuas. Fonte: Communications of the ACM, v. 12,
+% n. 10, out. 1969; DOI 10.1145/363235.363259.
+@article{Hoare:1969:ABC,
+  author  = {Hoare, Charles Antony Richard},
+  title   = {An axiomatic basis for computer programming},
+  journal = {Communications of the ACM},
+  volume  = {12},
+  number  = {10},
+  pages   = {576--580, 583},
+  month   = oct,
+  year    = {1969},
+  doi     = {10.1145/363235.363259}
+}
+
+% Fonte: Communications of the ACM, v. 13, n. 6, jun. 1970.
+@article{Codd:1970:RMD,
+  author  = {Codd, Edgar Frank},
+  title   = {A relational model of data for large shared data banks},
+  journal = {Communications of the ACM},
+  volume  = {13},
+  number  = {6},
+  pages   = {377--387},
+  month   = jun,
+  year    = {1970},
+  doi     = {10.1145/362384.362685}
+}
+
+% Fonte: Microsoft Research (página do autor) e DOI 10.1145/359545.359563.
+@article{Lamport:1978:TCO,
+  author  = {Lamport, Leslie},
+  title   = {Time, clocks, and the ordering of events in a distributed system},
+  journal = {Communications of the ACM},
+  volume  = {21},
+  number  = {7},
+  pages   = {558--565},
+  month   = jul,
+  year    = {1978},
+  doi     = {10.1145/359545.359563}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo mastersthesis -- dissertação de mestrado e trabalho de conclusão de curso
+% (TCC). O campo type traz o tipo, o grau e o curso; school traz a unidade e
+% a universidade; year é o ano de depósito e de defesa (Manual, p. 41-44).
+% Orientador e coorientador vão em titleaddon.
+%------------------------------------------------------------------------------
+
+% TCC da UFPel. Dados do exemplo de elementos complementares do Manual
+% (p. 42).
+@mastersthesis{Cruz:2015:FCS,
+  author     = {Cruz, Tamara Meneghetti da},
+  title      = {Uma ferramenta computacional para a simulação da dispersão de poluentes na atmosfera},
+  titleaddon = {Orientadora: Daniela Buske. Coorientador: Marilton Sanchotene de Aguiar},
+  year       = {2015},
+  pages      = {65},
+  type       = {Trabalho de Conclusão de Curso (Bacharelado em Engenharia de Computação)},
+  school     = {Centro de Desenvolvimento Tecnológico, Universidade Federal de Pelotas},
+  address    = {Pelotas}
+}
+
+% Trabalho estrangeiro: o tipo é transcrito no idioma do documento.
+% Fonte: DSpace do MIT (handle 1721.1/11173): "Thesis (M.S.)--Massachusetts
+% Institute of Technology, Dept. of Electrical Engineering, 1940". Escrita em
+% 1937; o registro do MIT data o trabalho de 1940.
+% VERIFICAR: número de folhas (o registro não informa).
+@mastersthesis{Shannon:1940:SAR,
+  author     = {Shannon, Claude Elwood},
+  title      = {A symbolic analysis of relay and switching circuits},
+  titleaddon = {Orientador: Frank L. Hitchcock},
+  year       = {1940},
+  type       = {Thesis (M.S.)},
+  school     = {Department of Electrical Engineering, Massachusetts Institute of Technology},
+  address    = {Cambridge, MA},
+  url        = {https://dspace.mit.edu/handle/1721.1/11173},
+  urldate    = {8 nov. 2026}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo phdthesis -- tese de doutorado. Mesmos campos da dissertação.
+%------------------------------------------------------------------------------
+
+% Fonte: Wikipedia, "Systems of Logic Based on Ordinals" (tese de doutorado
+% em Princeton, 1938, orientada por Alonzo Church).
+% VERIFICAR: número de folhas.
+@phdthesis{Turing:1938:SLO,
+  author     = {Turing, Alan Mathison},
+  title      = {Systems of logic based on ordinals},
+  titleaddon = {Orientador: Alonzo Church},
+  year       = {1938},
+  type       = {Thesis (Ph.D.)},
+  school     = {Princeton University},
+  address    = {Princeton}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo techreport -- relatório técnico, nota técnica, RFC. A instituição faz o
+% papel de editora; type e number identificam a série do relatório.
+%------------------------------------------------------------------------------
+
+% Fonte: Internet Archive (cópia da Smithsonian Libraries): Philadelphia,
+% Moore School of Electrical Engineering, University of Pennsylvania, 1945.
+% VERIFICAR: número do contrato (W-670-ORD-4926) e número de páginas; as
+% fontes consultadas não confirmam esses dados.
+@techreport{vonNeumann:1945:FDR,
+  author      = {von Neumann, John},
+  title       = {First draft of a report on the {EDVAC}},
+  institution = {Moore School of Electrical Engineering, University of Pennsylvania},
+  address     = {Philadelphia},
+  year        = {1945}
+}
+
+% RFC: relatório técnico da série Request for Comments. O número vai junto
+% com o nome da série, em type.
+% Fonte: RFC Editor (info/rfc791): J. Postel, set. 1981, DOI 10.17487/RFC791.
+@techreport{Postel:1981:IP,
+  author      = {Postel, Jon},
+  title       = {Internet protocol},
+  institution = {RFC Editor},
+  type        = {Request for Comments 791},
+  year        = {1981},
+  doi         = {10.17487/RFC791},
+  url         = {https://www.rfc-editor.org/info/rfc791},
+  urldate     = {8 nov. 2026}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo book -- livro (monografia no todo): autor, título, edição, local, editora,
+% ano (Manual, p. 41-43). Elementos complementares: páginas (pages),
+% série e volume (series, volume).
+%------------------------------------------------------------------------------
+
+% Obra póstuma editada e completada por outra pessoa: a entrada é pelo autor e
+% a responsabilidade do editor vai em titleaddon (Manual, p. 26).
+% Fonte: catálogo TUAT: Urbana, University of Illinois Press, 1966, xix, 388 p.
+@book{vonNeumann:1966:TSR,
+  author     = {von Neumann, John},
+  title      = {Theory of self-reproducing automata},
+  titleaddon = {Edited and completed by Arthur W. Burks},
+  address    = {Urbana},
+  publisher  = {University of Illinois Press},
+  year       = {1966},
+  pages      = {xix, 388}
+}
+
+% Obra em vários volumes, citando um deles, com edição (Manual, p. 35-36).
+% Fonte: página do autor (Stanford): Reading, Massachusetts, Addison-Wesley,
+% 1997, xx+650 p.
+@book{Knuth:1997:ACP,
+  author    = {Knuth, Donald Ervin},
+  title     = {The art of computer programming: fundamental algorithms},
+  volume    = {1},
+  edition   = {3},
+  address   = {Reading, MA},
+  publisher = {Addison-Wesley},
+  year      = {1997},
+  pages     = {xx, 650}
+}
+
+% Quatro ou mais autores: a lista mostra o primeiro seguido de et al.
+% (Manual, p. 25). Fonte: Wikipedia, "Introduction to Algorithms" (4. ed.,
+% MIT Press, 2022, 1312 p.). Local da MIT Press: Cambridge, MA (página de
+% rosto de outras obras da editora).
+@book{Cormen:2022:IA,
+  author    = {Cormen, Thomas H. and Leiserson, Charles E. and Rivest, Ronald L. and Stein, Clifford},
+  title     = {Introduction to algorithms},
+  edition   = {4},
+  address   = {Cambridge, MA},
+  publisher = {MIT Press},
+  year      = {2022},
+  pages     = {1312}
+}
+
+% Livro com subtítulo (só o título fica em negrito, Manual, p. 28).
+% Fonte: catálogo NIFS: Reading, Mass., Addison-Wesley, c1975, xi, 195 p.
+@book{Brooks:1975:MMM,
+  author    = {Brooks, Frederick Phillips},
+  title     = {The mythical man-month: essays on software engineering},
+  address   = {Reading, MA},
+  publisher = {Addison-Wesley},
+  year      = {1975},
+  pages     = {xi, 195}
+}
+
+% Dois autores e um colaborador indicado após o título (Manual, p. 26).
+% Fonte: página de rosto da 2. ed.: The MIT Press, Cambridge, Massachusetts,
+% 1996, "with Julie Sussman".
+@book{Abelson:1996:SIC,
+  author     = {Abelson, Harold and Sussman, Gerald Jay},
+  title      = {Structure and interpretation of computer programs},
+  titleaddon = {With Julie Sussman},
+  edition    = {2},
+  address    = {Cambridge, MA},
+  publisher  = {MIT Press},
+  year       = {1996}
+}
+
+% Livro de uma série numerada (Manual, p. 37-38).
+% Fonte: CiNii: Philadelphia, SIAM, 1979, xi, 190 p. (SIAM studies in applied
+% mathematics, 2).
+@book{Moore:1979:MAI,
+  author    = {Moore, Ramon E.},
+  title     = {Methods and applications of interval analysis},
+  address   = {Philadelphia},
+  publisher = {Society for Industrial and Applied Mathematics},
+  year      = {1979},
+  pages     = {xi, 190},
+  series    = {SIAM Studies in Applied Mathematics},
+  volume    = {2}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo inbook -- parte (capítulo) de livro do mesmo autor. Se chapter traz o título
+% da parte, o estilo gera "Parte. In: AUTOR. Livro" (Manual, p. 44-45); se traz
+% só um número, gera "cap. N".
+%------------------------------------------------------------------------------
+
+% Fonte: InformIT (sumário: Chapter 2, Information Structures).
+% VERIFICAR: páginas inicial e final do capítulo.
+@inbook{Knuth:1997:IS,
+  author    = {Knuth, Donald Ervin},
+  chapter   = {Information structures},
+  title     = {The art of computer programming: fundamental algorithms},
+  volume    = {1},
+  edition   = {3},
+  address   = {Reading, MA},
+  publisher = {Addison-Wesley},
+  year      = {1997}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo incollection -- capítulo de livro organizado por outra pessoa: "In:
+% ORGANIZADOR (org.). Título do livro" (Manual, p. 44-45). Use editortype
+% para org., coord., comp.; o padrão é ed.
+%------------------------------------------------------------------------------
+
+% Duas editoras em locais diferentes, separadas por ponto e vírgula
+% (Manual, p. 30). Fonte: Wellcome Collection: Cerebral mechanisms in
+% behavior: the Hixon Symposium, ed. Lloyd A. Jeffress, New York: John Wiley;
+% London: Chapman & Hall, 1951.
+% VERIFICAR: páginas do capítulo no livro.
+@incollection{vonNeumann:1951:GLT,
+  author     = {von Neumann, John},
+  title      = {The general and logical theory of automata},
+  editor     = {Jeffress, Lloyd A.},
+  editortype = {ed.},
+  booktitle  = {Cerebral mechanisms in behavior: the {Hixon} Symposium},
+  address    = {New York},
+  publisher  = {John Wiley; London: Chapman \& Hall},
+  year       = {1951}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo inproceedings -- trabalho publicado em anais de evento (Manual, p. 50-51):
+% "In: NOME DO EVENTO, número., ano, local. Anais [...]. Local: Editora, ano."
+% Use eventtitle, eventnumber e venue (cidade do evento); type traz Anais
+% (padrão), Anais eletrônicos, Proceedings etc.; address e publisher são os
+% dados da publicação.
+%------------------------------------------------------------------------------
+
+% Fonte: Wikipedia, "Cook-Levin theorem" (Proceedings of the Third Annual
+% ACM Symposium on Theory of Computing, p. 151-158, DOI) e bibtex.github.io
+% (STOC 1971, Shaker Heights, Ohio).
+@inproceedings{Cook:1971:CTP,
+  author      = {Cook, Stephen A.},
+  title       = {The complexity of theorem-proving procedures},
+  eventtitle  = {Annual ACM Symposium on Theory of Computing},
+  eventnumber = {3},
+  venue       = {Shaker Heights},
+  type        = {Proceedings},
+  address     = {New York},
+  publisher   = {ACM},
+  year        = {1971},
+  pages       = {151--158},
+  doi         = {10.1145/800157.805047}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo proceedings -- anais do evento no todo (Manual, p. 48-49). Mesmos campos
+% de evento, sem autor.
+%------------------------------------------------------------------------------
+
+@proceedings{ACM:1971:STOC,
+  eventtitle  = {Annual ACM Symposium on Theory of Computing},
+  eventnumber = {3},
+  venue       = {Shaker Heights},
+  type        = {Proceedings},
+  address     = {New York},
+  publisher   = {ACM},
+  year        = {1971}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo manual -- normas técnicas, manuais, guias e documentos de entidades
+% (pessoa jurídica como autor, Manual, p. 27).
+%------------------------------------------------------------------------------
+
+% Os acentos de "Associação" estão escritos como comandos para que a entrada
+% seja ordenada antes de "Association" (o BibTeX ordena por bytes).
+% Fonte: referências do Manual UFPel (p. 111).
+@manual{ABNT:2018:NBR6023,
+  author    = {{Associa{\c{c}}{\~a}o Brasileira de Normas T{\'e}cnicas}},
+  title     = {{ABNT NBR} 6023: informação e documentação: referências: elaboração},
+  edition   = {2},
+  address   = {Rio de Janeiro},
+  publisher = {ABNT},
+  year      = {2018},
+  pages     = {74}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo booklet -- folheto ou documento curto sem editora comercial. O abnt.bst o
+% formata como misc. Sem local conhecido, o estilo escreve [S. l.].
+%------------------------------------------------------------------------------
+
+% Oito organizadores: a lista mostra o primeiro seguido de et al.
+% Fonte: seção "Como citar" do próprio documento (SBC, 2017, 153 p.,
+% ISBN 978-85-7669-424-3).
+% VERIFICAR: local de publicação (o documento não informa).
+@booklet{Zorzo:2017:RFC,
+  author    = {Zorzo, Avelino Francisco and Nunes, Daltro and Matos, Ecivaldo and Steinmacher, Igor and Leite, Jair and Araujo, Renata Mendes and Correia, Ronaldo and Martins, Simone},
+  title     = {Referenciais de formação para os cursos de graduação em computação},
+  publisher = {Sociedade Brasileira de Computação},
+  year      = {2017},
+  pages     = {153}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo unpublished -- documento não publicado formalmente (manuscrito, nota
+% interna). O abnt.bst o formata como misc; descreva o documento em
+% howpublished.
+%------------------------------------------------------------------------------
+
+% Fonte: E. W. Dijkstra Archive (UT Austin), EWD 1036, Austin, 2 dez. 1988.
+@unpublished{Dijkstra:1988:CRT,
+  author       = {Dijkstra, Edsger Wybe},
+  title        = {On the cruelty of really teaching computing science},
+  year         = {1988},
+  howpublished = {Manuscrito (EWD 1036)},
+  url          = {https://www.cs.utexas.edu/~EWD/transcriptions/EWD10xx/EWD1036.html},
+  urldate      = {8 nov. 2026}
+}
+
+
+%------------------------------------------------------------------------------
+% Tipo misc -- tudo o que não se encaixa nos tipos acima. O abnt.bst não define
+% os tipos online, software, dataset nem tipos para legislação: use o tipo misc com
+% howpublished para a descrição física ("Programa de computador",
+% "Conjunto de dados", "Preprint"). Online, inclua url e urldate (Manual,
+% p. 39 e 61).
+%------------------------------------------------------------------------------
+
+% Preprint do arXiv (8 autores: et al. na lista). Fonte: arXiv:1706.03762
+% (v1 de 12 jun. 2017).
+@misc{Vaswani:2017:AIA,
+  author       = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+  title        = {Attention is all you need},
+  year         = {2017},
+  howpublished = {Preprint arXiv:1706.03762},
+  doi          = {10.48550/arXiv.1706.03762},
+  url          = {https://arxiv.org/abs/1706.03762},
+  urldate      = {8 nov. 2026}
+}
+
+% Página da web de uma entidade. Página sem data: ano entre colchetes
+% (Manual, p. 32), protegido por chaves duplas. Fonte: awards.acm.org/turing.
+@misc{ACM:2026:TA,
+  author       = {{Association for Computing Machinery}},
+  title        = {About {ACM A.M. Turing Award}},
+  year         = {{[2026]}},
+  url          = {https://awards.acm.org/turing},
+  urldate      = {8 nov. 2026}
+}
+
+% Programa de computador ou repositório de código (Manual, p. 61).
+@misc{Aguiar:2026:TEX,
+  author       = {Aguiar, Marilton Sanchotene de},
+  title        = {texufpel: formatação de documentos {LaTeX} da {UFPel}},
+  year         = {2026},
+  howpublished = {Classe LaTeX},
+  url          = {https://github.com/notcc/texufpel},
+  urldate      = {8 nov. 2026}
+}
+
+% Legislação (Manual, p. 53-55): jurisdição em maiúsculas como autor,
+% epígrafe e ementa no título. Dados do exemplo do Manual (p. 54).
+@misc{Brasil:2015:LBI,
+  author       = {{Brasil}},
+  title        = {Lei nº 13.146, de 6 de julho de 2015. Institui a Lei brasileira de inclusão da pessoa com deficiência (Estatuto da pessoa com deficiência)},
+  address      = {Brasília},
+  publisher    = {Presidência da República},
+  year         = {2015},
+  url          = {http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2015/Lei/L13146.htm},
+  urldate      = {30 ago. 2023}
+}
+
+% Conjunto de dados. Fonte: UCI Machine Learning Repository (citação
+% sugerida: Fisher, R. (1936). Iris [Dataset]; DOI 10.24432/C56C76).
+@misc{Fisher:1936:IRI,
+  author       = {Fisher, R. A.},
+  title        = {Iris},
+  publisher    = {UCI Machine Learning Repository},
+  year         = {1936},
+  howpublished = {Conjunto de dados},
+  doi          = {10.24432/C56C76}
 }
