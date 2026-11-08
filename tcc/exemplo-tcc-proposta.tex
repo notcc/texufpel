@@ -1,128 +1,285 @@
+%==============================================================================
+% Exemplo de Proposta de Trabalho de Conclusão de Curso com a classe texufpel
+%
+% A proposta tem o mesmo tema do exemplo de TCC (tcc/exemplo-tcc.tex): é o
+% projeto que, depois de executado, resultaria naquele trabalho. Troque os
+% dados do preâmbulo (os comentários "ALTERE" indicam o que mudar) e o texto
+% dos capítulos.
+%
+% Compilação (a partir da pasta raiz do repositório):
+%   pdflatex tcc/exemplo-tcc-proposta
+%   bibtex   exemplo-tcc-proposta
+%   pdflatex tcc/exemplo-tcc-proposta
+%   pdflatex tcc/exemplo-tcc-proposta
+%
+% As páginas citadas nos comentários são as do Manual de normas UFPel para
+% trabalhos acadêmicos (2023).
+%==============================================================================
+
+% Opção tcc-proposta: a proposta não é depositada na biblioteca, por isso a
+% classe não gera capa (a opção capa é ignorada), nem referência do trabalho
+% no resumo, e não há ficha catalográfica nem folha de aprovação.
 \documentclass[tcc-proposta]{texufpel}
 
-\usepackage[utf8]{inputenc} % acentuacao
-\usepackage{graphicx} % para inserir figuras
-\usepackage[T1]{fontenc}
-
-\hypersetup{
-    hidelinks, % Remove coloração e caixas
-    unicode=true,   %Permite acentuação no bookmark
-    linktoc=all %Habilita link no nome e página do sumário
-}
-
+%------------------------------------------------------------------------------
+% Dados institucionais. ALTERE para o seu curso.
+% Unidade feminina (Faculdade, Escola): \unidade[a]{...}.
+%------------------------------------------------------------------------------
 \unidade{Centro de Desenvolvimento Tecnológico}
 \curso{Ciência da Computação}
 \nomecurso{Bacharelado em Ciência da Computação}
 \titulocurso{Bacharel em Ciência da Computação}
 
-\title{Um Blabla Blablabla com Aplicações em Blablabla}
+%------------------------------------------------------------------------------
+% Dados do trabalho. ALTERE.
+% Os nomes abaixo são de grandes nomes da Computação e servem só de exemplo.
+% Substitua pelos nomes da sua orientação.
+%------------------------------------------------------------------------------
+\title{Rotas de coleta seletiva com algoritmos de caminho mínimo: um estudo de caso em Pelotas}
 
-\author{UltimoNome}{Nome Sobrenome de}
-\advisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
-%\coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
-%\collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\author{Lovelace}{Ada}                          % ALTERE: autor(a)
+\advisor[Prof.~Dr.]{Dijkstra}{Edsger W.}        % ALTERE: orientador(a)
+\coadvisor[Prof.ª~Dr.ª]{Hopper}{Grace}          % ALTERE: coorientador(a), opcional
 
 \begin{document}
 
-%\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
-%\renewcommand{\coadvisorname}{Coorientadora}      %descomente caso tenhas co-orientadora
+% Orientadora ou coorientadora: troque o rótulo da folha de rosto.
+% \renewcommand{\advisorname}{Orientadora}
+\renewcommand{\coadvisorname}{Coorientadora}
 
-\maketitle 
-\sloppy
+\sloppy      % evita linhas que ultrapassam a margem, inclusive na folha de rosto
+\maketitle   % folha de rosto (sem capa, por ser proposta)
 
+%==============================================================================
 \chapter{Dados de Identificação}
+%==============================================================================
 
 \section{Nome do Projeto}
-Titulo do Projeto
+Rotas de coleta seletiva com algoritmos de caminho mínimo: um estudo de caso em
+Pelotas.
 
 \section{Local de Realização}
-Laboratório/Departamento/Instituto/Universidade
+Centro de Desenvolvimento Tecnológico, Universidade Federal de Pelotas (UFPel).
 
 \section{Responsável pelo Projeto}
-Nome do Aluno
+Ada Lovelace
 
-e-mail do aluno
+ada.lovelace@example.com % ALTERE: seu e-mail
 
 \section{Professor Orientador}
-Prof. (Nome do Professor)
+Prof. Dr. Edsger W. Dijkstra
 
-\section{Professor Co-orientador}
-Prof. (Nome do Professor)
+\section{Professora Coorientadora}
+% Sem coorientação, apague esta seção.
+Prof.ª Dr.ª Grace Hopper
 
+%==============================================================================
 \chapter{Sumário Executivo}
-% (NO MÁXIMO 1 PÁGINA)
+% No máximo uma página.
+%==============================================================================
 
-Apresentar aqui uma breve Introdução ao Problema que está se
-pretendendo resolver ou abordar. Além disso, nesta seção,
-apresenta(m)-se o(s) principal(is) objetivo(s) do projeto e, portanto,
-a(s) principal(is) contribuição(ções)~\citet{Moore:1979:MAI,Cruz:2015:FCS}.
+A coleta seletiva de Pelotas segue rotas definidas pela experiência das
+equipes, sem apoio de ferramentas de otimização. Em bairros com muitas ruas de
+mão única, a ordem em que o caminhão visita os pontos de coleta pode aumentar
+bastante a distância rodada por dia. Este projeto propõe tratar o problema
+como um problema de caminho mínimo em grafos: a malha viária de cada setor de
+coleta será modelada como um grafo ponderado, e o algoritmo de
+\citet{Dijkstra:1959:NTP} calculará a menor rota entre a garagem e a
+cooperativa de reciclagem, passando pelos pontos do setor.
 
+O objetivo principal é verificar se as rotas calculadas são mais curtas do que
+as rotas praticadas hoje. A contribuição esperada é um protótipo em Python,
+aplicado a quatro setores da cidade, e uma comparação, setor a setor, entre a
+distância das rotas calculadas e a das rotas atuais. Se o ganho se confirmar,
+o protótipo pode servir de ponto de partida para uma ferramenta de apoio ao
+planejamento da coleta.
+
+%==============================================================================
 \chapter{Histórico e Justificativa}
-% (NO MÍNIMO 1 PÁGINA)
+% No mínimo uma página.
+%==============================================================================
 
-Nesta seção, apresenta-se um breve histórico da área de concentração
-do Projeto, partindo do tema mais abrangente até chegar
-especificamente no assunto do Projeto. Além disso, apresenta-se a
-justificativa para a realização do trabalho, sua importância acadêmica
-ou para comunidade e grau de inovação. Poderá também apresentar as
-distinções entre o trabalho atual e outros trabalhos já
-realizados~\cite{vonNeumann:1966:TSR}.
+O problema do caminho mínimo é um dos mais antigos da teoria dos grafos
+aplicada à computação. Em 1959, Dijkstra publicou, em uma nota de três
+páginas, o algoritmo que leva seu nome, para encontrar o menor caminho entre
+dois vértices de um grafo com arestas de comprimento conhecido
+\citep{Dijkstra:1959:NTP}. No mesmo período surgiram outras soluções, como a
+de Bellman, que admite pesos negativos \citep{Cormen:2022:IA}. Desde então, o
+algoritmo de Dijkstra é tema obrigatório dos livros de algoritmos e base de
+sistemas de navegação e de roteamento em redes de computadores
+\citep{Knuth:1997:ACP,Cormen:2022:IA}.
 
+A coleta seletiva é um caso em que esse problema aparece de forma direta. O
+caminhão parte da garagem, passa por pontos de coleta e leva o material até a
+cooperativa de reciclagem. Cada quilômetro a mais na rota é combustível,
+tempo da equipe e desgaste do veículo. Em cidades de porte médio, como
+Pelotas, é comum que as rotas sejam definidas pela experiência de quem
+dirige, o que funciona bem em traçados simples, mas tende a gerar desvios em
+áreas com muitas ruas de mão única, como o centro histórico.
+
+A justificativa do projeto é, portanto, prática. Um algoritmo conhecido, de
+implementação simples e de custo computacional baixo, pode indicar rotas
+melhores sem exigir equipamentos nem programas comerciais. O trabalho também
+tem valor acadêmico para o curso: aplica conteúdos das disciplinas de
+estruturas de dados e de algoritmos a um problema real da cidade, na mesma
+linha de outros trabalhos da UFPel que usam a Computação para apoiar decisões
+ambientais, como o de \citet{Cruz:2015:FCS}.
+
+O que distingue esta proposta de um uso direto de aplicativos de navegação é
+o foco na coleta: os pontos de coleta, a garagem e a cooperativa são vértices
+fixos, e a comparação será feita com as rotas que a equipe já usa. Assim, o
+resultado mede o ganho real que uma ferramenta desse tipo traria para o
+serviço.
+
+%==============================================================================
 \chapter{Objetivos e Metas}
-Nesta seção, apresentam-se o objetivo Geral e os objetivos Específicos
-do Projeto. Os objetivos não devem ser confundidos com as
-atividades. Para a definição das atividades, deve-se partir dos
-objetivos determinados nesta seção. O objetivo Geral do Projeto
-necessariamente deve ser algum resultado prático (implementação) ou
-teórico (modelos formais ou especificações ou validações) produto da
-pesquisa realizada no período de Projeto de Conclusão de Curso. Assim
-como os objetivos específicos, que são considerados como subprodutos
-do Objetivo Geral.
+%==============================================================================
 
+O objetivo geral é verificar se o algoritmo de Dijkstra reduz a distância
+percorrida nas rotas de coleta seletiva de Pelotas.
+
+Os objetivos específicos são:
+
+\begin{enumerate}
+  \item modelar a malha viária de quatro setores de coleta como grafos
+        ponderados;
+  \item implementar o algoritmo de Dijkstra e validá-lo em um grafo pequeno,
+        com resultado conhecido;
+  \item calcular as rotas mínimas de cada setor;
+  \item comparar as rotas calculadas com as rotas praticadas pela equipe de
+        coleta.
+\end{enumerate}
+
+As metas, que permitem acompanhar a execução do projeto, são:
+
+\begin{enumerate}
+  \item ter os grafos dos quatro setores conferidos com a equipe de coleta até
+        maio;
+  \item ter o protótipo validado até julho, junto com a entrega da monografia
+        intermediária;
+  \item ter a comparação dos quatro setores concluída até setembro.
+\end{enumerate}
+
+Os objetivos são resultados do trabalho, e não atividades: as atividades que
+levam a cada um deles estão no Capítulo~\ref{cap:atividades}. As duas listas
+acima usam alíneas, como pede o Manual (p. 71): o texto que as antecede termina
+em dois pontos, cada alínea termina em ponto e vírgula e a última, em ponto.
+
+%==============================================================================
 \chapter{Metodologia}
-Nesta seção, apresenta-se a metodologia proposta para o
-desenvolvimento do Projeto. O proponente do Projeto deve descrever
-superficialmente as atividades necessárias para a conclusão dos
-objetivos propostos, normalmente utilizando um parágrafo para cada
-objetivo.
+%==============================================================================
 
+O projeto será desenvolvido em quatro etapas, uma para cada objetivo
+específico.
+
+Na primeira, os setores de coleta serão escolhidos com a equipe responsável,
+procurando incluir traçados diferentes: o centro, com quarteirões regulares e
+muitas ruas de mão única, e bairros com loteamentos mais recentes. Para cada
+setor, a malha viária será modelada como um grafo ponderado, com a garagem, os
+pontos de coleta e a cooperativa como vértices e os trechos de rua como
+arestas, com a distância em quilômetros como peso. O sentido das vias será
+representado por arestas dirigidas.
+
+Na segunda etapa, o algoritmo de Dijkstra será implementado em Python, com a
+fila de prioridade do módulo \texttt{heapq}, seguindo a descrição de
+\citet{Cormen:2022:IA}. A implementação será validada em um grafo pequeno,
+cujas distâncias mínimas podem ser calculadas à mão.
+
+Na terceira, o protótipo calculará a rota mínima de cada setor. Na quarta, as
+rotas calculadas serão comparadas com as rotas praticadas, informadas pela
+equipe de coleta, pela distância total percorrida em cada setor.
+
+%==============================================================================
 \chapter{Plano de Atividades e Cronograma}
-% (PARA 1 ANO)
+\label{cap:atividades}
+% Para um ano.
+%==============================================================================
 
-Nesta seção, apresenta-se a relação numerada de atividades (de estudo,
-modelagem, especificação, implementação ou validação) que deverão ser
-realizadas durante o Projeto de Conclusão de Curso. Dentre estas
-atividades, constam como obrigatórias as atividades de Escrita da
-Monografia, Entrega das Monografias Intermediária e Final e
-Apresentação Final (Banca), nos meses definidos pelo professor
-responsável do Projeto de Conclusão de Curso. Pode constar,
-opcionalmente, atividades para publicação de trabalhos e apresentação
-em eventos.
+As atividades previstas são:
 
-\bibliography{bibliografia}
+\begin{enumerate}
+  \item revisão da literatura sobre caminho mínimo e roteamento;
+  \item levantamento dos setores e das rotas praticadas, com a equipe de
+        coleta;
+  \item modelagem dos grafos dos setores;
+  \item implementação e validação do algoritmo de Dijkstra;
+  \item cálculo das rotas e comparação com as rotas praticadas;
+  \item escrita da monografia;
+  \item entrega da monografia intermediária;
+  \item entrega da monografia final;
+  \item apresentação final (banca);
+  \item submissão de artigo a evento de iniciação científica (opcional).
+\end{enumerate}
+
+A Tabela~\ref{tab:cronograma} distribui as atividades ao longo de 2026,
+identificadas pela letra da alínea. As
+atividades de escrita, entrega e apresentação da monografia são obrigatórias,
+e os meses de entrega e da banca seguem o calendário definido pelo professor
+responsável pelo Trabalho de Conclusão de Curso.
+
+% Cronograma em tabela: uma coluna para a atividade e uma para cada mês.
+% A coluna da atividade usa só a letra da alínea da lista acima, para caber
+% na página.
+% Os meses vão abreviados conforme o Anexo A do Manual (p. 79).
+\begin{table}[htbp]
+  \caption{Cronograma de atividades em 2026}
+  \label{tab:cronograma}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{l*{12}{c}}
+    \hline
+    Atividade & jan. & fev. & mar. & abr. & maio & jun. & jul. & ago. & set. & out. & nov. & dez. \\
+    \hline
+    a) & X & X & X &   &   &   &   &   &   &   &   &   \\
+    b) &   & X & X & X &   &   &   &   &   &   &   &   \\
+    c) &   &   &   & X & X &   &   &   &   &   &   &   \\
+    d) &   &   &   &   & X & X & X &   &   &   &   &   \\
+    e) &   &   &   &   &   &   &   & X & X &   &   &   \\
+    f) &   &   & X & X & X & X & X & X & X & X & X &   \\
+    g) &   &   &   &   &   &   & X &   &   &   &   &   \\
+    h) &   &   &   &   &   &   &   &   &   &   & X &   \\
+    i) &   &   &   &   &   &   &   &   &   &   &   & X \\
+    j) &  &   &   &   &   &   &   &   &   & X &   &   \\
+    \hline
+  \end{tabular}
+  \caption*{Fonte: Elaborada pela autora (2026).}
+\end{table}
+
+A tabela segue o padrão do Instituto Brasileiro de Geografia e Estatística
+indicado pelo Manual (p. 17): título em cima, fonte embaixo, traços
+horizontais no cabeçalho e no fim, sem traços verticais. A especificação
+\verb|l*{12}{c}| cria uma coluna à esquerda e doze colunas centralizadas, uma
+por mês.
+
+%------------------------------------------------------------------------------
+% Bibliografia: estilo abnt.bst e base bibliografia.bib, na raiz. Só as obras
+% citadas no texto entram na lista. O título da seção segue o Manual, que usa
+% a expressão "Referências" (p. 21).
+%------------------------------------------------------------------------------
 \bibliographystyle{abnt}
+\bibliography{bibliografia}
 
-\chapter{Assinaturas}
+%------------------------------------------------------------------------------
+% Assinaturas da proponente e do orientador.
+%------------------------------------------------------------------------------
+\chapter*{Assinaturas}
+
 \vspace{2cm}
 
 \begin{center}
 \rule{8cm}{.3mm}
-\medskip
 
-	Coloque aqui o seu nome\\
-	Proponente
-
+Ada Lovelace\\          % ALTERE
+Proponente
 \end{center}
 
-\vspace{4cm}
+\vspace{3cm}
 
 \begin{center}
 \rule{8cm}{.3mm}
-\medskip
 
-	Coloque aqui o nome do professor\\
-	Prof. Orientador
-
+Prof. Dr. Edsger W. Dijkstra\\   % ALTERE
+Orientador
 \end{center}
-\end{document}
 
+\end{document}
