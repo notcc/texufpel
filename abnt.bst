@@ -14,6 +14,14 @@
 % evento, [S. l.] e [s. n.] com espaco, "4. ed.", "v. 1", "n. 2", "p. 10-20",
 % "(ed.)" em minusculas e impressao do DOI.
 %
+% Atualizado em nov. 2026 para o Manual de normas UFPel para trabalhos
+% acadêmicos (2023). Os comentários indicam a página impressa do Manual de
+% cada regra. Campos novos: titleaddon (orientador, tradutor etc. após o
+% título), editortype (org., coord., comp.; padrão ed.), eventtitle,
+% eventnumber, eventyear e venue (eventos). Nomes de entidades devem ser
+% escritos com iniciais maiúsculas no .bib, entre chaves: a lista os põe em
+% maiúsculas e a chamada no texto os mantém como escritos.
+%
 % Copyright (C) 2001-2002 UFRGS TeX Users Group
 %
 % This program is free software; you can redistribute it and/or modify
@@ -61,6 +69,12 @@ ENTRY
     url
     urldate
     doi
+    titleaddon
+    editortype
+    eventtitle
+    eventnumber
+    eventyear
+    venue
 }
 {}
 {
@@ -68,8 +82,9 @@ ENTRY
 	year.char
 }
 
-INTEGERS {i j n}
+INTEGERS {i j n fn.i fn.j fn.depth inbook.part}
 STRINGS {s t last.label last.year.char current.letter names new.pages}
+STRINGS {nl fn.s fn.w fn.out fn.c fn.t}
 
 %==============================================================================
 % Definicao dos nomes dos meses
@@ -90,8 +105,10 @@ MACRO {dec} {"Dec."}
 %==============================================================================
 % Definicao de strings usados na elaboracao das referencias
 %==============================================================================
-FUNCTION {str:mastersthesis} {"Disserta{\c{c}}{\~a}o (Mestrado em Ci{\^e}ncia da Computa{\c{c}}{\~a}o)"}
-FUNCTION {str:phdthesis} {"Tese (Doutorado em Ci{\^e}ncia da Computa{\c{c}}{\~a}o)"}
+% Tipo padrão de teses e dissertações. O campo type deve trazer o tipo, o
+% grau e o curso: "Dissertação (Mestrado em ...)" (Manual UFPel, p. 41-42).
+FUNCTION {str:mastersthesis} {"Disserta{\c{c}}{\~a}o (Mestrado)"}
+FUNCTION {str:phdthesis} {"Tese (Doutorado)"}
 FUNCTION {str:chapter} {"Cap."}
 
 %==============================================================================
@@ -329,31 +346,126 @@ FUNCTION {add.to.namelist}
 % Parm:
 %	 os nomes a serem formatados
 %==============================================================================
+%==============================================================================
+% Abrevia os prenomes guardados em fn.s: "Tamara Meneghetti da" -> "T. M. da".
+% Palavras iniciadas por minúscula (da, de, do, dos, das, e) são partículas e
+% ficam por extenso (Manual UFPel, p. 39 e 42: "SANTOS, E. F. dos").
+% A inicial pode ser um caractere especial ({\'E}) ou UTF-8 (É).
+%==============================================================================
+FUNCTION {abbrev.word}
+{
+	fn.w empty$
+		'skip$
+		{
+			fn.w #1 #1 substring$ 'fn.c :=
+			fn.c chr.to.int$ #96 >
+			fn.c chr.to.int$ #123 <
+			and
+				{ fn.out fn.w * 'fn.out := }
+				{
+					fn.c "{" =
+						{ fn.out fn.w #1 text.prefix$ * "." * 'fn.out := }
+						{
+							fn.c chr.to.int$ #127 >
+								{
+									fn.w " " * 'fn.t :=
+									#2 'fn.j :=
+									{
+										fn.t fn.j #1 substring$ chr.to.int$ #127 >
+										fn.t fn.j #1 substring$ chr.to.int$ #192 <
+										and
+									}
+									{ fn.j #1 + 'fn.j := }
+									while$
+									fn.out fn.w #1 fn.j #1 - substring$ * "." * 'fn.out :=
+								}
+								{ fn.out fn.c * "." * 'fn.out := }
+							if$
+						}
+					if$
+				}
+			if$
+		}
+	if$
+	"" 'fn.w :=
+}
+
+FUNCTION {abbrev.first}
+{
+	"" 'fn.out :=
+	"" 'fn.w :=
+	#0 'fn.depth :=
+	#1 'fn.i :=
+	{ fn.s fn.i #1 substring$ "" = not }
+	{
+		fn.s fn.i #1 substring$ 'fn.c :=
+		fn.c "{" = { fn.depth #1 + 'fn.depth := } 'skip$ if$
+		fn.c "}" = { fn.depth #1 - 'fn.depth := } 'skip$ if$
+		fn.depth #0 =
+		fn.c " " = fn.c "~" = or fn.c "-" = or
+		and
+			{
+				abbrev.word
+				fn.c "-" =
+					{ fn.out "-" * 'fn.out := }
+					{ fn.out " " * 'fn.out := }
+				if$
+			}
+			{ fn.w fn.c * 'fn.w := }
+		if$
+		fn.i #1 + 'fn.i :=
+	}
+	while$
+	abbrev.word
+	fn.out
+}
+
+%==============================================================================
+% Formata o i-ésimo nome de nl: SOBRENOME, P. N. partícula.
+% O sobrenome vai para maiúsculas com \MakeUppercase, que converte também
+% letras acentuadas em UTF-8 (Manual UFPel, p. 24) e o nome de entidades
+% escrito com iniciais maiúsculas no .bib (Manual UFPel, p. 27).
+%==============================================================================
+FUNCTION {format.one.name}
+{
+	"\MakeUppercase{" nl i "{ll}{~jj}" format.name$ * "}" *
+	nl i "{ff}" format.name$ 'fn.s :=
+	fn.s empty$
+		'skip$
+		{ ", " * abbrev.first * }
+	if$
+	nl i "{vv}" format.name$ 'fn.w :=
+	fn.w empty$
+		'skip$
+		{ " " * fn.w * }
+	if$
+}
+
+%==============================================================================
+% Formata uma lista de nomes: até três autores, todos; quatro ou mais, o
+% primeiro seguido de et al. (Manual UFPel, p. 25 e 41). Separados por ";".
+%==============================================================================
 FUNCTION {format.names}
 {
-	duplicate$ num.names$ 'n :=
+	'nl :=
+	nl num.names$ 'n :=
 	#1 'i :=
 	"" 'names :=
-
 	{i n #1 + <}
 	{
-		duplicate$ duplicate$ i "{ll}{~jj}" format.name$ 
-		duplicate$ "others" =
-        n #3 >
-        i #2 =
-        and
-        or
-		{
-			pop$ pop$ names " \MakeLowercase{et~al.}" *
-			n 'i :=
-		}{
-			"u" change.case$ swap$
-			i "{, f.}{~vv}" format.name$ * 
-			names swap$ add.to.namelist
-		} if$ 'names :=
+		nl i "{ll}" format.name$ "others" =
+		n #3 >
+		i #2 =
+		and
+		or
+			{
+				names " \MakeLowercase{et~al.}" * 'names :=
+				n 'i :=
+			}
+			{ names format.one.name add.to.namelist 'names := }
+		if$
 		#1 i + 'i :=
 	} while$
-	pop$
 	names
 	duplicate$ #-1 #1 substring$ "." = {
 		#-2 global.max$ substring$
@@ -361,6 +473,26 @@ FUNCTION {format.names}
 	}
 		'skip$
 	if$
+}
+
+%==============================================================================
+% Nomes para ordenação (sem comandos LaTeX): "sobrenome prenomes; ..."
+%==============================================================================
+FUNCTION {format.sort.names}
+{
+	'nl :=
+	nl num.names$ 'n :=
+	#1 'i :=
+	"" 'names :=
+	{i n #1 + <}
+	{
+		nl i "{ll}" format.name$ "others" =
+			{ names " et al" * 'names := }
+			{ names nl i "{ll}{ jj}{ ff}{ vv}" format.name$ * "   " * 'names := }
+		if$
+		#1 i + 'i :=
+	} while$
+	names
 }
 
 %==============================================================================
@@ -465,11 +597,68 @@ FUNCTION {get.adjusted.pages}
 % minusculas. Esta funcao e' usada para gerar referencias cuja entrada e' pelo
 % titulo.
 %==============================================================================
+%==============================================================================
+% Artigos definidos e indefinidos (pt, en, es, fr, it, de). Recebe a palavra
+% em minúsculas; devolve 1 se for artigo.
+%==============================================================================
+FUNCTION {is.article}
+{
+	'fn.t :=
+	fn.t "o" = fn.t "a" = or fn.t "os" = or fn.t "as" = or
+	fn.t "um" = or fn.t "uma" = or fn.t "uns" = or fn.t "umas" = or
+	fn.t "the" = or fn.t "an" = or
+	fn.t "el" = or fn.t "la" = or fn.t "los" = or fn.t "las" = or fn.t "lo" = or
+	fn.t "le" = or fn.t "les" = or fn.t "un" = or fn.t "une" = or fn.t "des" = or
+	fn.t "il" = or fn.t "der" = or fn.t "die" = or fn.t "das" = or
+	fn.t "ein" = or fn.t "eine" = or
+}
+
+%==============================================================================
+% Separa do título as palavras de entrada: a primeira e, se ela for artigo,
+% também a seguinte (Manual UFPel, p. 22 e 28: "OS GRANDES julgamentos").
+% Empilha o resto e as palavras de entrada, nessa ordem.
+%==============================================================================
+FUNCTION {split.entry.words}
+{
+	extract.first.word
+	duplicate$ purify$ "l" change.case$ is.article
+		{
+			swap$
+			duplicate$ #1 #1 substring$ " " =
+				{ #2 global.max$ substring$ }
+				'skip$
+			if$
+			extract.first.word
+			'fn.t :=
+			swap$ " " * fn.t *
+		}
+		'skip$
+	if$
+}
+
+%==============================================================================
+% Entrada pelo título: palavras de entrada em maiúsculas, sem negrito
+% (Manual UFPel, p. 22 e 27-28: "EXPERIÊNCIAS de química: técnicas...").
+%==============================================================================
 FUNCTION {format.entrytitle}
 {
-	#0 title format.title
-	extract.first.word "u" change.case$
-	swap$ * 
+	title split.entry.words
+	"\MakeUppercase{" swap$ * "}" *
+	swap$ *
+}
+
+%==============================================================================
+% Chamada no texto para entrada pelo título: palavras de entrada seguidas de
+% reticências, em maiúsculas e minúsculas (Manual UFPel, p. 62-63:
+% "(O anteprojeto..., 2009, p. 69)").
+%==============================================================================
+FUNCTION {format.title.label}
+{
+	title split.entry.words
+	swap$ duplicate$ empty$
+		{ pop$ }
+		{ pop$ "..." * }
+	if$
 }
 
 %==============================================================================
@@ -524,19 +713,67 @@ FUNCTION {format.author}
 	if$
 }
 
+%==============================================================================
+% Responsável pelo conjunto da obra seguido do tipo de participação, em
+% minúsculas e no singular, entre parênteses: (org.), (coord.), (ed.), (comp.)
+% (Manual UFPel, p. 26). O campo editortype traz a abreviatura; padrão: ed.
+%==============================================================================
 FUNCTION {format.editor}
 {
 	editor empty$
 		{""}
-		{editor format.names "~(ed.)" *}
+		{
+			editor format.names "~(" *
+			editortype empty$ {"ed."} {editortype} if$ * ")" *
+		}
 	if$
+}
+
+%==============================================================================
+% Edição (Manual UFPel, p. 18 e 28-29): indicada a partir da 2ª; número
+% seguido de "ed." (2. ed.). Se o campo já trouxer texto no idioma do
+% documento ("2nd", "2nd ed.", "3. ed. rev. ampl."), é transcrito como está.
+%==============================================================================
+% Devolve 1 se a cadeia (abaixo na pilha) contém o trecho (no topo)
+FUNCTION {str.contains}
+{
+	'fn.w :=
+	'fn.s :=
+	#0 'fn.j :=
+	#1 'fn.depth :=
+	{ fn.s fn.depth fn.w text.length$ substring$ "" = not fn.j not and }
+	{
+		fn.s fn.depth fn.w text.length$ substring$ fn.w =
+			{ #1 'fn.j := }
+			'skip$
+		if$
+		fn.depth #1 + 'fn.depth :=
+	}
+	while$
+	fn.j
 }
 
 FUNCTION {format.edition}
 {
 	edition empty$
 		{""}
-		{edition convert.to.number ". ed." *}
+		{
+			edition convert.to.number 'fn.t :=
+			fn.t "1" =
+				{""}
+				{
+					fn.t #-1 #1 substring$ is.numeric.char
+						{ fn.t ". ed." * }
+						{
+							fn.t "ed." str.contains
+								{ fn.t }
+								{ fn.t " ed." * }
+							if$
+						}
+					if$
+				}
+			if$
+		}
 	if$
 }
 
@@ -717,17 +954,30 @@ FUNCTION {format.urldate} {
    	if$
 }
 
+%==============================================================================
+% DOI como endereço: "DOI: https://doi.org/10..." (Manual UFPel, p. 47).
+% Aceita o campo com ou sem o prefixo https://doi.org/.
+%==============================================================================
 FUNCTION {format.doi} {
 	doi empty$
 		{""}
-		{"DOI: \url{" doi * "}" *}
+		{
+			doi #1 #4 substring$ "http" =
+				{ "DOI: \url{" doi * "}" * }
+				{ "DOI: \url{https://doi.org/" doi * "}" * }
+			if$
+		}
 	if$
 }
 
+%==============================================================================
+% "Disponível em:" seguido do endereço (Manual UFPel, p. 39). O \url{} evita
+% erro com _, %, # e & e permite quebrar endereços longos.
+%==============================================================================
 FUNCTION {format.url} {
 	url empty$
-    	{""}
-        {"Dispon{\'\i}vel em: " url *}
+		{""}
+		{"Dispon{\'\i}vel em: \url{" url * "}" *}
 	if$
 }
 
@@ -909,6 +1159,47 @@ FUNCTION {format.publication}
 	if$
 }
 
+%==============================================================================
+% Responsabilidade e título de monografias. Com autor, entra pelo autor (o
+% editor, se houver, é ignorado: use titleaddon para "Organização de ...").
+% Sem autor, entra pelo editor. Sem nenhum dos dois, entra pelo título
+% (Manual UFPel, p. 24-28). Recebe o item na pilha.
+%==============================================================================
+FUNCTION {add.head.and.title}
+{
+	author empty$ not
+		{
+			editor empty$ not
+				{ "o editor de " cite$ * " foi ignorado porque a entrada tem autor" * warning$ }
+				'skip$
+			if$
+			format.author add.to.item
+			#1 title format.title add.to.item
+		}
+		{
+			editor empty$ not
+				{
+					format.editor add.to.item
+					#1 title format.title add.to.item
+				}
+				{ format.entrytitle add.to.item }
+			if$
+		}
+	if$
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
+}
+
+%==============================================================================
+% DOI, endereço eletrônico e data de acesso, nesta ordem, no fim da
+% referência (Manual UFPel, p. 39 e 47).
+%==============================================================================
+FUNCTION {add.online}
+{
+	format.doi add.to.item
+	format.url add.to.item
+	format.urldate add.to.item
+}
+
 FUNCTION {format.proceedings.publication}
 {
 	publisher empty$
@@ -962,69 +1253,120 @@ FUNCTION {format.proceedings.booktitle}
 }
 
 %==============================================================================
+% Evento com campos próprios (Manual UFPel, p. 48-51):
+%   NOME DO EVENTO, número., ano, local. Tipo [...]. Local: Editora, ano.
+% eventtitle = nome; eventnumber = número; eventyear = ano de realização
+% (padrão: year); venue = cidade de realização; type = Anais (padrão),
+% Anais eletrônicos, Proceedings etc.; address e publisher = publicação.
+%==============================================================================
+FUNCTION {format.event.head}
+{
+	"\MakeUppercase{" eventtitle * "}" *
+	eventnumber empty$ 'skip$ { ", " * eventnumber * "." * } if$
+	eventyear empty$ { year } { eventyear } if$ add.to.list
+	venue empty$ 'skip$ { venue add.to.list } if$
+	"" swap$ add.to.item
+	type empty$ { "Anais" } { type } if$ emphasize " [\ldots]" * add.to.item
+	format.publication add.to.item
+}
+
+%==============================================================================
 % Formatacao das entradas
+%==============================================================================
+%==============================================================================
+% Artigo de periódico (Manual UFPel, p. 46-47): AUTOR. Título. Periódico,
+% local, v., n., p., mês ano. "[s. l.]" em minúsculas, porque não abre os
+% dados de publicação (Manual UFPel, p. 30 e 47). Sem autor, entra pelo título
+% (Manual UFPel, p. 48: "NETFLIX reúne...").
 %==============================================================================
 FUNCTION {article}
 {
 	""
-	format.author add.to.item
-	#0 title format.title add.to.item
+	author empty$
+		{ format.entrytitle add.to.item }
+		{
+			format.author add.to.item
+			#0 title format.title add.to.item
+		}
+	if$
 	journal emphasize
 		address empty$ {
-			"[S.~l.]" add.to.list
+			"[s.~l.]" add.to.list
 		}{
 			add.address
 		} if$
 		add.volume add.number add.pages add.month.year add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Monografia no todo (Manual UFPel, p. 41-43)
+%==============================================================================
 FUNCTION {book}
 {
 	""
-	editor empty$
-		{format.author}
-		{format.editor}
-	if$ add.to.item
-	#1 title format.title add.to.item
+	add.head.and.title
 	format.edition add.to.item
 	format.publication add.to.item
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Parte de monografia do mesmo autor (Manual UFPel, p. 44-45): AUTOR. Título
+% da parte. In: AUTOR. Título da obra. Local: Editora, ano. p. x-y.
+% O título da parte vai em chapter; se chapter for só um número, a parte é
+% indicada como "cap. N" antes das páginas.
+%==============================================================================
 FUNCTION {inbook}
 {
 	""
-	editor empty$
-		{format.author}
-		{format.editor}
-	if$ add.to.item
-	#1 title format.title add.to.item
+	chapter empty$
+		{ #0 'inbook.part := }
+		{ chapter #1 #1 substring$ is.numeric.char
+			{ #0 'inbook.part := }
+			{ #1 'inbook.part := }
+		if$ }
+	if$
+	inbook.part
+		{
+			format.author add.to.item
+			chapter add.to.item
+			"In:"
+				editor empty$
+					{ format.author add.to.item }
+					{ format.editor add.to.item }
+				if$
+				#1 title format.title add.to.item
+			add.to.item
+			titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
+		}
+		{ add.head.and.title }
+	if$
 	format.edition add.to.item
 	format.publication add.to.item
-	format.complementary.data.with.page.range add.to.item
+	"" format.volume add.to.list
+	inbook.part
+		{ "" }
+		{ chapter empty$ { "" } { "cap.~" chapter * } if$ }
+	if$
+	add.to.list
+	format.pages add.to.list
+	series empty$ 'skip$ { format.series.info add.to.item } if$
+	add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Parte de monografia (Manual UFPel, p. 44-45): AUTOR. Título da parte. In:
+% RESPONSÁVEL (org.). Título da obra. Local: Editora, ano. p. x-y.
+%==============================================================================
 FUNCTION {incollection}
 {
 	""
@@ -1036,15 +1378,12 @@ FUNCTION {incollection}
 			{format.editor add.to.item}
 		if$ 
 		#1 booktitle format.title add.to.item add.to.item
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
 	format.edition add.to.item
 	format.publication add.to.item
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
@@ -1053,56 +1392,61 @@ FUNCTION {inproceedings}
 	""
 	format.author add.to.item
 	#0 title format.title add.to.item
-	" In: " booktitle format.proceedings.booktitle * *
-	format.proceedings.publication add.to.item
+	eventtitle empty$
+		{
+			" In: " booktitle format.proceedings.booktitle * *
+			format.proceedings.publication add.to.item
+		}
+		{ "In:" format.event.head add.to.item add.to.item }
+	if$
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
 FUNCTION {manual}
 {
 	""
-	author empty$
-		{format.entrytitle add.to.item}
-		{
-			format.author add.to.item
-			#1 title format.title add.to.item
-		}
-	if$
-
+	add.head.and.title
 	format.edition add.to.item
 	format.publication add.to.item
 	format.complementary.data.with.totalpages add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Trabalho acadêmico (Manual UFPel, p. 41-44):
+%   AUTOR. Título. Orientador: Nome. Ano. N f. Tipo (Grau em Curso) – Unidade,
+%   Universidade, Local, ano da defesa. Disponível em: ... Acesso em: ...
+% Orientador e coorientador vão no campo titleaddon
+% ("Orientadora: Nome. Coorientador: Nome"). O ano de defesa, no fim, é o
+% campo year.
+%==============================================================================
 FUNCTION {mastersthesis}
 {
 	""
 	format.author add.to.item
 	#1 title format.title add.to.item
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
 	format.year add.to.item
 	format.totalleaves add.to.item
 	str:mastersthesis format.type " -- " * format.publisher *
-		add.address add.to.item
+		add.address add.year add.to.item
 	format.note add.to.item
 	format.parenthised.number add.to.item
-
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Outros documentos: páginas da web, programas, legislação, preprints etc.
+% (Manual UFPel, p. 53-62). AUTOR (ou TÍTULO). Título. Edição. Local: Editora,
+% ano (ou só o ano). Descrição (howpublished). Nota. DOI. Disponível em: ...
+% Acesso em: ... O ano aparece uma única vez.
+%==============================================================================
 FUNCTION {misc}
 {
 	""
@@ -1121,46 +1465,56 @@ FUNCTION {misc}
 			if$
 		}
 	if$
-	
-	format.year add.to.item
-	format.misc.publication add.to.item
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
+	format.edition add.to.item
+	address empty$ publisher empty$ and
+		{ format.year add.to.item }
+		{ format.publication add.to.item }
+	if$
 	format.complementary.data.with.totalpages add.to.item
-	format.note add.howpublished add.to.item
-
-    format.doi add.to.item
-    format.url add.to.item
-    format.urldate add.to.item
-        
+	format.howpublished add.to.item
+	format.note add.to.item
+	add.online
 	write.item
 }
 
+%==============================================================================
+% Trabalho acadêmico (Manual UFPel, p. 41-44):
+%   AUTOR. Título. Orientador: Nome. Ano. N f. Tipo (Grau em Curso) – Unidade,
+%   Universidade, Local, ano da defesa. Disponível em: ... Acesso em: ...
+% Orientador e coorientador vão no campo titleaddon
+% ("Orientadora: Nome. Coorientador: Nome"). O ano de defesa, no fim, é o
+% campo year.
+%==============================================================================
 FUNCTION {phdthesis}
 {
 	""
 	format.author add.to.item
 	#1 title format.title add.to.item
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
 	format.year add.to.item
 	format.totalleaves add.to.item
 	str:phdthesis format.type " -- " * format.publisher *
-		add.address add.to.item
+		add.address add.year add.to.item
 	format.note add.to.item
 	format.parenthised.number add.to.item
-
+	add.online
 	write.item
 }
 
 FUNCTION {proceedings}
 {
 	""
-	title format.proceedings.booktitle *
-	format.proceedings.publication add.to.item
+	eventtitle empty$
+		{
+			title format.proceedings.booktitle *
+			format.proceedings.publication add.to.item
+		}
+		{ format.event.head add.to.item }
+	if$
 	format.complementary.data.with.page.range add.to.item
 	format.note add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
@@ -1169,17 +1523,14 @@ FUNCTION {techreport}
 	""
 	format.author add.to.item
 	#1 title format.title add.to.item
+	titleaddon empty$ 'skip$ { titleaddon add.to.item } if$
 	format.publication add.to.item
 	type empty$
 		{""}
 		{type}
 	if$ add.note add.to.item
 	format.parenthised.number add.to.item
-
-	format.doi add.to.item
-	format.url add.to.item
-	format.urldate add.to.item
-
+	add.online
 	write.item
 }
 
@@ -1199,10 +1550,15 @@ FUNCTION {init}
 %==============================================================================
 % Retorna na pilha o string a ser usado para a ordenacao das entradas.
 %==============================================================================
+%==============================================================================
+% Chave de ordenação: autoria (ou título), depois título. Documentos do mesmo
+% autor são ordenados pelo título (Manual UFPel, p. 40).
+%==============================================================================
 FUNCTION {get.sortstring}
 {
-	author empty$ not {format.author " AAA" *}{
-	editor empty$ not {format.editor " AAA" *}{
+	author empty$ not {author format.sort.names}{
+	editor empty$ not {editor format.sort.names}{
+	eventtitle empty$ not {eventtitle}{
 	title empty$ not {title}{
 	note empty$ not {note}{
 	key empty$ not {key}{
@@ -1212,25 +1568,19 @@ FUNCTION {get.sortstring}
 	} if$
 	} if$
 	} if$
+	} if$
 
-	type$ "inbook" =
-	booktitle empty$ not
-	and
-		{
-			booktitle title = not
-				{pop$ title}
-				'skip$
-			if$
-		}
-		'skip$
-	if$
-
-	type$ "proceedings" = {
+	type$ "proceedings" = eventtitle empty$ and {
 		pop$
 		title process.proceedings.booktitle
 		swap$ pop$
 	}
 		'skip$
+	if$
+	"    " *
+	author empty$ editor empty$ and eventtitle empty$ and
+		'skip$
+		{ title empty$ 'skip$ { title * } if$ }
 	if$
 	purify$ "l" change.case$
 }
@@ -1241,7 +1591,7 @@ FUNCTION {get.sortstring}
 FUNCTION {set.sortkeys}
 {
 	get.sortstring
-	format.year *
+	"    " * format.year *
 	#1 entry.max$ substring$
 	#1 global.max$ substring$
 	'sort.key$ :=
@@ -1288,8 +1638,11 @@ FUNCTION {get.labelstring}
 			editor empty$ not
 				{editor format.family.names}
 				{
+					eventtitle empty$ not
+						{eventtitle}
+					{
 					title empty$ not
-						{title "u" change.case$}
+						{format.title.label}
 						{
 							key empty$ not
 								{key}
@@ -1297,21 +1650,11 @@ FUNCTION {get.labelstring}
 							if$
 						}
 					if$
+					}
+					if$
 				}
 			if$
 		}
-	if$
-
-	type$ "inbook" =
-	booktitle empty$ not
-	and
-		{
-			booktitle title = not
-				{pop$ title "u" change.case$}
-				'skip$
-			if$
-		}
-		'skip$
 	if$
 }
 
@@ -1330,8 +1673,11 @@ FUNCTION {get.labelstring.all}
 			editor empty$ not
 				{editor format.family.names.all}
 				{
+					eventtitle empty$ not
+						{eventtitle}
+					{
 					title empty$ not
-						{title "u" change.case$}
+						{format.title.label}
 						{
 							key empty$ not
 								{key}
@@ -1339,21 +1685,11 @@ FUNCTION {get.labelstring.all}
 							if$
 						}
 					if$
+					}
+					if$
 				}
 			if$
 		}
-	if$
-
-	type$ "inbook" =
-	booktitle empty$ not
-	and
-		{
-			booktitle title = not
-				{pop$ title "u" change.case$}
-				'skip$
-			if$
-		}
-		'skip$
 	if$
 }
 
@@ -1363,7 +1699,9 @@ FUNCTION {get.labelstring.all}
 FUNCTION {prepare.label.sorting}
 {
 	get.labelstring.all format.year *
-	duplicate$ 'label := 'sort.key$ :=
+	duplicate$ 'label :=
+	"    " * title empty$ { "" } { title purify$ "l" change.case$ } if$ *
+	'sort.key$ :=
 }
 FUNCTION {make.label}
 {
