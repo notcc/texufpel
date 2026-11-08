@@ -548,10 +548,10 @@ Versão: \currversion^^J
     {\textbf{\@title}}%
   \vskip 8cm%
         \singlespacing%
+  % \sloppy: a caixa tem só 9 cm; sem ele, palavras longas como "Desenvolvimento"
+  % podem passar da margem direita
   \begin{adjustwidth}{7cm}{0cm}
-%        \begin{hyphenrules}{nohyphenation}%
-        \@descricaodocumento%
- %     	\end{hyphenrules}%
+        \sloppy\@descricaodocumento%
   \end{adjustwidth}
     \vfill%
   \vfill%
@@ -1145,7 +1145,7 @@ Versão: \currversion^^J
 		\noindent\textbf{\@title}\\
 		\vskip 2cm
 		\noindent\parbox[b]{16cm}{
-		\singlespacing
+		\singlespacing\sloppy
 		\begin{hyphenrules}{nohyphenation}
 			\@descricaoaprovacao
 		\end{hyphenrules}
