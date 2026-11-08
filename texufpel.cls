@@ -126,14 +126,6 @@ Versão: \currversion^^J
 \descricaodocumento{Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 \descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
-% Proposta de tese deixou de existir no PPGC (regimento de 2020); mantida
-% para outros programas.
-\DeclareOption{tese-proposta}{
-\@ei@naodepositadotrue
-\tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-}
-
 \DeclareOption{eq}{
 \documento{Exame de Qualifica{\c{c}}{\~a}o}
 \tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
@@ -167,7 +159,7 @@ Versão: \currversion^^J
 \ProcessOptions
 \relax
 
-% Propostas (tcc-proposta, diss-proposta, tese-proposta) e trabalhos individuais
+% Propostas (tcc-proposta, diss-proposta) e trabalhos individuais
 % (ti, tid) não são depositados na biblioteca: não têm capa nem referência
 % do trabalho no resumo (decisão da classe; ver o início do arquivo).
 \if@ei@naodepositado

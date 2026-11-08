@@ -37,7 +37,6 @@ Os arquivos abaixo são **modelos completos e funcionais**, prontos para adapta�
 - **`exemplo-diss-proposta.tex`** – Proposta de Dissertação  
 
 - **`exemplo-tese.tex`** – Tese de Doutorado  
-- **`exemplo-tese-proposta.tex`** – Proposta de Tese  
 
 - **`exemplo-qualificacao.tex`** – Exame de Qualificação  
 
