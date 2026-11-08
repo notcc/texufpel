@@ -340,6 +340,30 @@ FUNCTION {add.to.namelist}
 	swap$ *
 }
 
+
+%==============================================================================
+% Junta um sobrenome à lista do rótulo de citação. Entre os sobrenomes vai
+% \citesep (antes do último, \citelastsep); a classe escreve "; " dentro dos
+% parênteses e ", " ou " e " quando os nomes fazem parte da frase (ABNT NBR
+% 10520:2023). Na ordenação (cite.labels = 0) o separador é sempre "; ".
+% Usa i e n de format.family.names.
+%==============================================================================
+INTEGERS {cite.labels}
+FUNCTION {add.to.citelist}
+{
+	cite.labels #0 =
+		{ add.to.namelist }
+		{
+			swap$
+			duplicate$ empty$
+				'skip$
+				{ i n = { "\citelastsep{}" * } { "\citesep{}" * } if$ }
+			if$
+			swap$ *
+		}
+	if$
+}
+
 %==============================================================================
 % Formata uma lista de nomes.
 %
@@ -519,7 +543,7 @@ FUNCTION {format.family.names}
 			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
-			names swap$ add.to.namelist
+			names swap$ add.to.citelist
 		} if$ 'names :=
 		#1 i + 'i :=
 	} while$
@@ -547,7 +571,7 @@ FUNCTION {format.family.names.all}
 			pop$ names " \MakeLowercase{et~al.}" *
 			n 'i :=
 		}{
-			names swap$ add.to.namelist
+			names swap$ add.to.citelist
 		} if$ 'names :=
 		#1 i + 'i :=
 	} while$
@@ -1705,6 +1729,7 @@ FUNCTION {prepare.label.sorting}
 }
 FUNCTION {make.label}
 {
+	#1 'cite.labels :=
 	get.labelstring
 	"(" *
 	year empty$ {

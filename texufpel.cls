@@ -257,6 +257,9 @@ Versão: \currversion^^J
   \def\listabbrvname{Lista de Abreviaturas e Siglas}%
   \def\listsymbolname{Lista de S{\'\i}mbolos}%
   \def\annexname{Anexo}%
+  \def\appendicesname{Ap{\^e}ndices}%
+  \def\annexesname{Anexos}%
+  \def\citeandname{e}%
   \def\keywordsname{Palavras-chave}%
   \def\tccname{Trabalho de Conclus\~ao de Curso}%
   \def\thesisname{Tese}%
@@ -285,6 +288,10 @@ Versão: \currversion^^J
 %
 % Definições para textos em inglês, usadas no abstract (Manual, p. 15 e
 % modelo da p. 95: "Advisor", "Dissertation (Masters in ...)", "Keywords").
+% Com a opção english, valem também para o corpo do trabalho. O Manual não
+% trata de trabalhos escritos em inglês; os termos abaixo que não estão no
+% modelo da p. 95 são decisão da classe. "Quadro" vira "Box" (quadro de
+% texto, como os boxes de periódicos), e não "Chart", que em inglês é gráfico.
 %
 \@namedef{captionsenglish}{%
   \def\bibname{References}%
@@ -301,10 +308,13 @@ Versão: \currversion^^J
   \def\advisorsname{Advisors}%
   \def\coadvisorsname{Coadvisors}%
   \def\collaboratorsname{Collaborators}%
-  \def\listquadroname{List of Charts}%
+  \def\listquadroname{List of Boxes}%
   \def\listabbrvname{List of Abbreviations and Acronyms}%
   \def\listsymbolname{List of Symbols}%
   \def\annexname{Annex}%
+  \def\appendicesname{Appendices}%
+  \def\annexesname{Annexes}%
+  \def\citeandname{and}%
   \def\keywordsname{Keywords}%
   \def\tccname{Undergraduate Thesis}%
   \def\eqname{Qualification Exam}%
@@ -926,6 +936,16 @@ Versão: \currversion^^J
 % (Autor, ano); \citet: Autor (ano).
 \let\cite\citep
 
+% Separador dos sobrenomes na chamada (ABNT NBR 10520:2023): dentro dos
+% parênteses, ponto e vírgula, (Sousa; Lima, 2022); com os nomes na frase,
+% vírgula e "e" antes do último, Luz, Cardoso e Carvalho (2023); com a
+% opção english, "and" (\citeandname). O abnt.bst
+% escreve \citesep e \citelastsep entre os sobrenomes do rótulo; o natbib
+% marca as chamadas entre parênteses (\citep, \citealp) com \ifNAT@swa.
+\newif\ifei@citeparen
+\DeclareRobustCommand{\citesep}{\ifei@citeparen;\space\else\ifNAT@swa;\space\else,\space\fi\fi}
+\DeclareRobustCommand{\citelastsep}{\ifei@citeparen;\space\else\ifNAT@swa;\space\else\space\citeandname\space\fi\fi}
+
 % Referências em Arial 12, espaço simples, alinhadas somente à margem esquerda
 % e separadas por uma linha em branco de espaço simples (Manual, p. 22 e 74).
 % O título "Referências" é centralizado, sem indicativo numérico, e consta do
@@ -940,8 +960,8 @@ Versão: \currversion^^J
 %   \apud[p.~45]{Silva}{2000}{Abreu:2011:XYZ}   -> Silva (2000 apud Abreu, 2011, p. 45)
 %   \apudp{Silva}{2000}{Abreu:2011:XYZ}         -> (Silva, 2000 apud Abreu, 2011)
 %==============================================================================
-\newcommand{\apud}[4][]{#2 (#3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
-\newcommand{\apudp}[4][]{(#2, #3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
+\newcommand{\apud}[4][]{#2 (#3 apud {\ei@citeparentrue\citeauthor{#4}}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
+\newcommand{\apudp}[4][]{(#2, #3 apud {\ei@citeparentrue\citeauthor{#4}}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
 
 % Capa de estojo de CD-ROM. Não prevista no Manual: a biblioteca recebe só a
 % versão digital (Manual, p. 9). Mantida por compatibilidade.
@@ -1021,9 +1041,9 @@ Versão: \currversion^^J
   \pagestyle{empty}
   \mbox{}
   \vfill
-  \phantomsection\addcontentsline{toc}{chapter}{Ap\^endices}%
+  \phantomsection\addcontentsline{toc}{chapter}{\appendicesname}%
   \begin{center}
-    \textbf{Ap\^endices}
+    \textbf{\appendicesname}
   \end{center}
   \vfill
   \appendix
@@ -1035,9 +1055,9 @@ Versão: \currversion^^J
   \pagestyle{empty}
   \mbox{}
   \vfill
-  \phantomsection\addcontentsline{toc}{chapter}{Anexos}%
+  \phantomsection\addcontentsline{toc}{chapter}{\annexesname}%
   \begin{center}
-    \textbf{Anexos}
+    \textbf{\annexesname}
   \end{center}
   \vfill
   \annex
