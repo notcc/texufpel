@@ -1,7 +1,22 @@
-APUD
-\newcommand{\apud}[2]{\citeauthor{#1} (\citeyear{#1} apud \citeauthor{#2}, \citeyear{#2})}
+APUD (citação de citação)
 
-FOOTCITE
+A classe já define os comandos \apud e \apudp. Não é preciso acrescentar
+nada ao preâmbulo.
+
+Pelo Manual de normas UFPel (p. 65), só a obra consultada entra na lista de
+referências. Por isso o autor e o ano da obra original são escritos à mão, e
+só a obra consultada é indicada pela chave do .bib:
+
+\apud{Silva}{2000}{Abreu:2011:XYZ}          -> Silva (2000 apud Abreu, 2011)
+\apud[p.~45]{Silva}{2000}{Abreu:2011:XYZ}   -> Silva (2000 apud Abreu, 2011, p. 45)
+\apudp{Silva}{2000}{Abreu:2011:XYZ}         -> (Silva, 2000 apud Abreu, 2011)
+
+FOOTCITE (referência completa em nota de rodapé)
+
+O Manual UFPel adota o sistema autor-data para as citações. Use a referência
+em nota de rodapé só quando o curso ou o programa pedir. Nesse caso, coloque
+no preâmbulo:
+
 \usepackage{bibentry}
 \nobibliography*
 \newcommand{\footcite}[1]{\footnote{\bibentry{#1}}}

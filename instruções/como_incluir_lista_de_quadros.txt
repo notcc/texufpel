@@ -1,28 +1,28 @@
-Imediatamente antes de \begin{document} cola o seguinte código:
+Quadros e Lista de Quadros
 
-\usepackage{newfloat}
+A classe já define o ambiente quadro. Não é preciso acrescentar nada ao
+preâmbulo.
 
-\DeclareFloatingEnvironment[
-    fileext=loq,
-    listname={Lista de Quadros},
-    name=Quadro,
-    autorefname=Quadro,
-    legendname=Quadro,
-    placement=ht,
-    within=chapter,
-]{quadro}
+O Manual de normas UFPel (p. 15-16) designa todas as ilustrações com a
+palavra "Figura", inclusive os quadros, e recomenda uma lista própria para
+cada tipo quando forem muitos. Por isso o quadro é numerado junto com as
+figuras (Figura 1, Figura 2, ...) e aparece na Lista de Quadros, e não na
+Lista de Figuras.
 
-\counterwithout{quadro}{chapter}
+Para criar um quadro:
 
-\DeclareCaptionListFormat{quadroListFormat}{Quadro #2}
-\captionsetup[quadro]{listformat=quadroListFormat}
+\begin{quadro}[htbp]
+  \caption{Quadro comparativo das ferramentas avaliadas}
+  \label{qua:ferramentas}
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    ... & ... \\
+    \hline
+  \end{tabular}
+  \caption*{Fonte: Elaborado pelo autor (2026).}
+\end{quadro}
 
-Onde quiseres que apareça a Lista de Quadros, coloque:
+Onde quiser a Lista de Quadros (depois da Lista de Figuras), coloque:
 
 \listofquadros
-
-E o que quiseres colocar como quadro, coloca entre:
-
-\begin{quadro}[ht!]
-...
-\end{quadro}

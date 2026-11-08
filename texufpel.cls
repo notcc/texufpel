@@ -38,15 +38,18 @@ Versão: \currversion^^J
 % Declaração de opções
 %==============================================================================
 
-% \newcommand{\bibliotecario}[1]{\gdef\@nomebibliotecario{#1}}
-% \newcommand{\cipdata}[2]{\gdef\@codigocip{#1}\gdef\@codigocdd{#2}}
-
 \newcommand{\universidade}[1]{\gdef\@universidade{#1}}
 \newcommand{\universidadeeng}[1]{\gdef\@universidadeeng{#1}}
 \universidade{Universidade Federal de Pelotas}
 \universidadeeng{Federal University of Pelotas}
 
-\newcommand{\unidade}[1]{\gdef\@unidade{#1}}
+% \unidade[a]{Faculdade de Educação} -> "apresentado à Faculdade", "da Faculdade"
+% \unidade{Centro de ...}  (padrão [o]) -> "apresentado ao Centro", "do Centro"
+\newcommand{\unidade}[2][o]{\gdef\@unidade{#2}%
+  \def\@tempa{#1}\def\@tempb{a}%
+  \ifx\@tempa\@tempb\gdef\ei@aounidade{\`a}\gdef\ei@dounidade{da}%
+  \else\gdef\ei@aounidade{ao}\gdef\ei@dounidade{do}\fi}
+\gdef\ei@aounidade{ao}\gdef\ei@dounidade{do}
 \newcommand{\programa}[1]{\gdef\@programa{#1}}
 \newcommand{\curso}[1]{\gdef\@curso{#1}}
 \newcommand{\nomecurso}[1]{\gdef\@nomecurso{#1}}
@@ -55,6 +58,10 @@ Versão: \currversion^^J
 \newcommand{\unidadeeng}[1]{\gdef\@unidadeeng{#1}}
 \newcommand{\programaeng}[1]{\gdef\@programaeng{#1}}
 \newcommand{\cursoeng}[1]{\gdef\@cursoeng{#1}}
+\newcommand{\nomecursoeng}[1]{\gdef\@nomecursoeng{#1}}
+
+% Trabalhos que não são depositados na biblioteca (sem capa, ficha e referência no resumo)
+\newif\if@ei@naodepositado
 
 \newcommand{\documento}[1]{\gdef\@documento{#1}}
 \newcommand{\tipodocumento}[1]{\gdef\@tipodocumento{#1}}
@@ -63,54 +70,59 @@ Versão: \currversion^^J
 
 \DeclareOption{tcc}{
 \documento{Trabalho de Conclus\~ao de Curso}
-\tipodocumento{\tccname\ (\cursoname) -- \unidadename}
-\descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
-\descricaoaprovacao{Trabalho de Conclus\~ao de Curso aprovado, como requisito parcial, para obten{\c{c}}{\~a}o do grau de \@titulocurso, \@unidade, \@universidade.}
+\tipodocumento{\tccname\ (\nomecursoname) -- \unidadename}
+\descricaodocumento{Trabalho de Conclus\~ao de Curso apresentado \ei@aounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
+\descricaoaprovacao{Trabalho de Conclus\~ao de Curso aprovado, como requisito parcial para obten{\c{c}}{\~a}o do grau de \@titulocurso, \@unidade, \@universidade.}
 }
 
 \DeclareOption{tcc-proposta}{
+\@ei@naodepositadotrue
 \tipodocumento{Proposta de Trabalho de Conclus\~ao de Curso (\@nomecurso) -- \@unidade}
-\descricaodocumento{Proposta de Trabalho de Conclus\~ao de Curso apresentada ao \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
+\descricaodocumento{Proposta de Trabalho de Conclus\~ao de Curso apresentada \ei@aounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de \@titulocurso.}
 }
 
 \DeclareOption{diss}{
 \documento{Disserta\c c\~ao}
 \tipodocumento{\dissname\ (\masterin\ \cursoname) -- \unidadename}
-\descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
-\descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Mestre em \@curso, \@programa, \@unidade, \@universidade.}
+\descricaodocumento{Disserta{\c{c}}{\~a}o apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaoaprovacao{Disserta{\c{c}}{\~a}o aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Mestre em \@curso, \@programa, \@unidade, \@universidade.}
 }
 
 \DeclareOption{diss-proposta}{
+\@ei@naodepositadotrue
 \tipodocumento{Proposta de Disserta\c c\~ao (Mestrado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumento{Proposta de Disserta{\c{c}}{\~a}o apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tese}{
 \documento{Tese}
 \tipodocumento{\thesisname\ (\doctoratein\ \cursoname) -- \unidadename}
-\descricaodocumento{Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-\descricaoaprovacao{Tese aprovada, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
+\descricaodocumento{Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaoaprovacao{Tese aprovada, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 %proposta de tese deixou de existir no PPGC - regimento de 2020
 \DeclareOption{tese-proposta}{
+\@ei@naodepositadotrue
 \tipodocumento{Proposta de Tese (Doutorado em \@curso) -- \@programa, \@unidade}
-\descricaodocumento{Proposta de Tese apresentada ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaodocumento{Proposta de Tese apresentada ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \DeclareOption{eq}{
 \documento{Exame de Qualifica{\c{c}}{\~a}o}
 \tipodocumento{\eqname\ (\doctoratein\ \cursoname) -- \unidadename}
-\descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
-\descricaoaprovacao{Exame de Qualifica{\c{c}}{\~a}o aprovado, como requisito parcial, para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
+\descricaodocumento{Exame de Qualifica{\c{c}}{\~a}o apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaoaprovacao{Exame de Qualifica{\c{c}}{\~a}o aprovado, como requisito parcial para obten{\c{c}}{\~a}o do grau de Doutor em \@curso, \@programa, \@unidade, \@universidade.}}
 
 \DeclareOption{ti}{
+\@ei@naodepositadotrue
 \tipodocumento{Trabalho Individual (Mestrado em \@curso) -- \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Mestre em \@curso.}
 }
 
 \DeclareOption{tid}{
+\@ei@naodepositadotrue
 \tipodocumento{Trabalho Individual (Doutorado em \@curso) -- \@unidade}
-\descricaodocumento{Trabalho Individual apresentado ao \@programa\ do \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
+\descricaodocumento{Trabalho Individual apresentado ao \@programa\ \ei@dounidade\ \@unidade\ da \@universidade, como requisito parcial \`a obten{\c{c}}{\~a}o do t\'itulo de Doutor em \@curso.}
 }
 
 \newcommand{\capa}[1]{\gdef\@capa{#1}}
@@ -125,6 +137,18 @@ Versão: \currversion^^J
 \ProcessOptions
 \relax
 
+% Propostas (tcc-proposta, diss-proposta, tese-proposta) e trabalhos individuais
+% (ti, tid) não são depositados na biblioteca: não têm capa nem referência
+% do trabalho no resumo.
+\if@ei@naodepositado
+  \@ifundefined{@capa}{}{%
+    \ClassWarningNoLine{texufpel}{Opcao capa ignorada:
+      propostas e trabalhos individuais nao sao depositados
+      na biblioteca}%
+    \global\let\@capa\@undefined}%
+  \nocipinfo{1}%
+\fi
+
 %==============================================================================
 % Herança da classe `report' e inclusão de pacotes e arquivos necessários
 %==============================================================================
@@ -134,12 +158,11 @@ Versão: \currversion^^J
 \RequirePackage{lastpage}
 \RequirePackage{indentfirst}
 \RequirePackage{natbib}
-\RequirePackage{chngcntr}
-\RequirePackage{titlesec}
-\RequirePackage{color}
+\RequirePackage{xcolor}
 \RequirePackage{setspace}
 \RequirePackage{geometry}
 \RequirePackage{hyperref}
+\RequirePackage{newfloat}
 \RequirePackage{changepage}
 \RequirePackage{etoolbox}
 \RequirePackage{pdfpages}
@@ -148,10 +171,13 @@ Versão: \currversion^^J
 
 \DeclareCaptionListFormat{figuracf}{\figurename\ #1#2}
 \DeclareCaptionListFormat{tabelacf}{\tablename\ #1#2}
-\captionsetup[figure]{position=bottom,listformat=figuracf}
+\captionsetup[figure]{position=top,listformat=figuracf}
 \captionsetup[table]{position=top,listformat=tabelacf}
 
 \geometry{top=3cm,right=2cm,left=3cm,bottom=2cm}
+
+% Texto em cor preta (Manual UFPel, p. 72): links sem cor nem caixa
+\hypersetup{hidelinks,unicode=true,linktoc=all}
 
 \definecolor{laranjaufpel}{rgb}{1,0.6,0}
 \definecolor{verdeufpel}{rgb}{0.09,0.7,0.44}
@@ -173,6 +199,10 @@ Versão: \currversion^^J
   \def\advisorname{Orientador}%
   \def\coadvisorname{Coorientador}%
   \def\collaboratorname{Colaborador}%
+  \def\advisorsname{Orientadores}%
+  \def\coadvisorsname{Coorientadores}%
+  \def\collaboratorsname{Colaboradores}%
+  \def\listquadroname{Lista de Quadros}%
   \def\listabbrvname{Lista de Abreviaturas e Siglas}%
   \def\listsymbolname{Lista de S{\'\i}mbolos}%
   \def\annexname{Anexo}%
@@ -187,6 +217,7 @@ Versão: \currversion^^J
   \def\unidadename{\@unidade}%
   \def\programaname{\@programa}%
   \def\cursoname{\@curso}%
+  \def\nomecursoname{\@ifundefined{@nomecurso}{\@curso}{\@nomecurso}}%
 }
 
 \@namedef{datebrazilian}{%
@@ -215,6 +246,10 @@ Versão: \currversion^^J
   \def\advisorname{Advisor}%
   \def\coadvisorname{Coadvisor}%
   \def\collaboratorname{Collaborator}%
+  \def\advisorsname{Advisors}%
+  \def\coadvisorsname{Coadvisors}%
+  \def\collaboratorsname{Collaborators}%
+  \def\listquadroname{List of Charts}%
   \def\listabbrvname{List of Abbreviations and Acronyms}%
   \def\listsymbolname{List of Symbols}%
   \def\annexname{Annex}%
@@ -229,6 +264,7 @@ Versão: \currversion^^J
   \def\unidadename{\@unidadeeng}%
   \def\programaname{\@programaeng}%
   \def\cursoname{\@cursoeng}%
+  \def\nomecursoname{\@ifundefined{@nomecursoeng}{\@cursoeng}{\@nomecursoeng}}%
 }
 
 \@namedef{dateenglish}{%
@@ -318,19 +354,6 @@ Versão: \currversion^^J
         \expandafter\gdef\csname keyweng\alph{kwcountereng}\endcsname{#1}
 }
 
-\newcommand{\@cipkw}{%
-       \@ifundefined{keywa}{}{1.~\expandafter\MakeUppercase\keywa\@. }%
-       \@ifundefined{keywb}{}{2.~\expandafter\MakeUppercase\keywb\@. }%
-       \@ifundefined{keywc}{}{3.~\expandafter\MakeUppercase\keywc\@. }%
-       \@ifundefined{keywd}{}{4.~\expandafter\MakeUppercase\keywd\@. }%
-       \@ifundefined{keywe}{}{5.~\expandafter\MakeUppercase\keywe\@. }%
-       \@ifundefined{keywf}{}{6.~\expandafter\MakeUppercase\keywf\@. }%
-       \@ifundefined{keywg}{}{7.~\expandafter\MakeUppercase\keywg\@. }%
-       \@ifundefined{keywh}{}{8.~\expandafter\MakeUppercase\keywh\@. }%
-       \@ifundefined{keywi}{}{9.~\expandafter\MakeUppercase\keywi\@. }%
-       \@ifundefined{keywj}{}{10.~\expandafter\MakeUppercase\keywj\@. }%
-}
-
 \newcommand{\@abstractkw}{%
         \@ifundefined{keywa}{}{\expandafter \keywa}%
         \@ifundefined{keywb}{}{ \keywb}%
@@ -369,15 +392,8 @@ Versão: \currversion^^J
 \date{\monthname}{\number\year}
 
 %==============================================================================
-% Definição padrão da folha de rosto.
-% Os dados específicos do tipo de trabalho (dissertação, tese, etc.) são
-% informados definindo-se o comando \titlepagespecificinfo. Veja os
-% arquivos .def incluídos com a classe.
+% Capa e folha de rosto (Manual UFPel, p. 12 e 82-86)
 %==============================================================================
-
-\newlength{\titlepagewinwidth}\setlength{\titlepagewinwidth}{95mm}
-\newlength{\titlepagewinheight}\setlength{\titlepagewinheight}{64mm}
-\newlength{\titlepagewinvoffset}\setlength{\titlepagewinvoffset}{112mm}
 
 \newcommand{\location}[2]{
         \gdef\@city{#1}
@@ -463,7 +479,7 @@ Versão: \currversion^^J
     \centering%
         \@ifundefined{@advisora}{}{
           \begin{tabular}{rp{9cm}}%
-          \@ifundefined{@advisorb}{\advisorname:}{\advisorname es:} &
+          \@ifundefined{@advisorb}{\advisorname:}{\advisorsname:} &
           \@ifundefined{@advisora}{}{\@advisora\\}
           \@ifundefined{@advisorb}{}{\ &}
           \@ifundefined{@advisorb}{}{\@advisorb\\}
@@ -475,7 +491,7 @@ Versão: \currversion^^J
           }
         \@ifundefined{@coadvisora}{}{
         \begin{tabular}{rp{9cm}}%
-      	\@ifundefined{@coadvisorb}{\coadvisorname:}{\coadvisorname es:} &
+      	\@ifundefined{@coadvisorb}{\coadvisorname:}{\coadvisorsname:} &
       	\@ifundefined{@coadvisora}{}{\@coadvisora\\}
         \@ifundefined{@coadvisorb}{}{\ &}
         \@ifundefined{@coadvisorb}{}{\@coadvisorb\\}
@@ -487,7 +503,7 @@ Versão: \currversion^^J
         }
         \@ifundefined{@collaboratora}{}{
         \begin{tabular}{rp{9cm}}%
-      	\@ifundefined{@collaboratorb}{\collaboratorname:}{\collaboratorname es:} &
+      	\@ifundefined{@collaboratorb}{\collaboratorname:}{\collaboratorsname:} &
       	\@ifundefined{@collaboratora}{}{\@collaboratora\\}
         \@ifundefined{@collaboratorb}{}{\ &}
         \@ifundefined{@collaboratorb}{}{\@collaboratorb\\}
@@ -529,6 +545,10 @@ Versão: \currversion^^J
               {\@dottedtocline{2}{0em}{3.7em}{\textbf{#1}}{\hss #2}}
 \renewcommand*{\l@subsubsection}[2]
               {\@dottedtocline{3}{0em}{4.6em}{\textbf{#1}}{\hss #2}}
+\renewcommand*{\l@paragraph}[2]
+              {\@dottedtocline{4}{0em}{5.6em}{\textbf{#1}}{\hss #2}}
+% Sumário com todas as seções, até a quinária (NBR 6027; Manual UFPel, p. 19 e 102)
+\setcounter{tocdepth}{4}
 \newif\if@aftertoc
 \@aftertocfalse
 \renewcommand{\tableofcontents}{%
@@ -576,9 +596,18 @@ Versão: \currversion^^J
 %==============================================================================
 % Referência do trabalho, usada no resumo, no abstract e na errata, em espaço
 % simples e alinhada à esquerda (Manual UFPel, p. 15). Recebe o título.
+% Nomes de orientadores ou coorientadores separados por ``;''. #1 = advisor/coadvisor
+\newcommand{\ei@nomes}[1]{%
+  \csname @#1afirst\endcsname\ \csname @#1alast\endcsname
+  \@ifundefined{@#1b}{}{; \csname @#1bfirst\endcsname\ \csname @#1blast\endcsname}%
+  \@ifundefined{@#1c}{}{; \csname @#1cfirst\endcsname\ \csname @#1clast\endcsname}%
+  \@ifundefined{@#1d}{}{; \csname @#1dfirst\endcsname\ \csname @#1dlast\endcsname}}
 \newcommand{\ei@referencia}[1]{%
   {\singlespacing\raggedright\noindent\MakeUppercase{\@authoralast},
-    \@authorafirst. \textbf{#1}. \advisorname: \@advisorafirst\ \@advisoralast. \@publyear. \pageref{LastPage}~f. \@tipodocumento,
+    \@authorafirst. \textbf{#1}.
+    \@ifundefined{@advisora}{}{\@ifundefined{@advisorb}{\advisorname}{\advisorsname}: \ei@nomes{advisor}. }%
+    \@ifundefined{@coadvisora}{}{\@ifundefined{@coadvisorb}{\coadvisorname}{\coadvisorsname}: \ei@nomes{coadvisor}. }%
+    \@publyear. \pageref{LastPage}~f. \@tipodocumento,
     \universidadename, \@city, \@publyear.\par}\vspace{\baselineskip}}
 
 % Resumo em espaco simples (Manual UFPel, p. 15)
@@ -588,13 +617,14 @@ Versão: \currversion^^J
   \@ifundefined{@nocipinfo}{\ei@referencia{\@title}}{}%
   \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
 }{%
-  \par\vfill
+  % palavras-chave logo após o texto, separadas por uma linha em branco
+  % (Manual UFPel, p. 14-15 e modelo da p. 94)
+  \par\vspace{\baselineskip}%
   \noindent\keywordsname: \@abstractkw
 }
 
 \newenvironment{englishabstract}[1]{%
   \if@openright\cleardoublepage\else\clearpage\fi%
-  %\gdef\@englishkeywords{#2}%
   \gdef\@englishtitle{{#1}}%
   \iflanguage{english}{
     \begin{otherlanguage}{brazilian}
@@ -604,10 +634,10 @@ Versão: \currversion^^J
 
       \chapter*{\abstractname}
       \singlespacing
-      \ei@referencia{\@englishtitle}%
+      \@ifundefined{@nocipinfo}{\ei@referencia{\@englishtitle}}{}%
       \everypar{{\setbox\z@\lastbox}\everypar{}}% resumo sem recuo (o indentfirst anula \@afterindentfalse)
     }{
-      \par\vfill
+      \par\vspace{\baselineskip}%
       \noindent\keywordsname: \@abstractkweng
     \end{otherlanguage}
 }
@@ -648,9 +678,10 @@ Versão: \currversion^^J
     % apendices e anexos: ``Apêndice A – Título'', centralizado (modelo UFPel, p. 107)
     {\centering\reset@font\ei@chapterfont\sffamily\bfseries
       \@chapapp\thechapter\ --\ #1\par}%
+    \thispagestyle{empty}%
   \else
     {\reset@font\noindent\ei@chapterfont\sffamily\bfseries
-      \thechapter\hspace{1em}#1\par}%
+      \thechapter\space#1\par}%
     \thispagestyle{empty}%
   \fi
   \addvspace{42pt}%
@@ -679,7 +710,7 @@ Versão: \currversion^^J
   \stepcounter{ei@apxset}%
   \xdef\theHchapter{apx\arabic{ei@apxset}.\noexpand\Alph{chapter}}%
   \setcounter{tocdepth}{0}%
-  \@captionlistingfalse%
+  \captionsetup{list=no}% figuras e tabelas de apêndices/anexos fora das listas
   \global\@ei@apxtrue
   \gdef\@chapapp{#1\space}%
 }
@@ -690,7 +721,10 @@ Versão: \currversion^^J
 %==============================================================================
 % Formatação das seções (todas em negrito, Arial 12; Manual UFPel, p. 70)
 %==============================================================================
-\setcounter{secnumdepth}{4} 
+\setcounter{secnumdepth}{4}
+
+% Indicativo da seção separado do título apenas por um espaço (Manual UFPel, p. 70)
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\space}
 
 \renewcommand{\section}{%
   \@startsection{section}{1}{0pt}{18pt}{9pt}{\reset@font\normalsize\bfseries}
@@ -715,9 +749,6 @@ Versão: \currversion^^J
 %==============================================================================
 % Formatação das legendas
 %==============================================================================
-\renewcommand{\thefigure}{\@arabic\c@figure}
-\renewcommand{\thetable}{\@arabic\c@table}
-
 \counterwithout{figure}{chapter}
 \counterwithout{equation}{chapter}
 \counterwithout{table}{chapter}
@@ -725,24 +756,6 @@ Versão: \currversion^^J
 %==============================================================================
 % Redefinição do conteúdo das listas de figuras e tabelas
 %==============================================================================
-\newif\if@captionlisting\@captionlistingtrue
-
-\long\def\@caption#1[#2]#3{%
-  \par
-  \if@captionlisting%
-    \addcontentsline{\csname ext@#1\endcsname}{#1}%
-        {\protect\numberline{\csname fnum@#1\endcsname}{\ignorespaces #2}}%
-  \fi%
-  \begingroup
-    \@parboxrestore
-    \if@minipage
-      \@setminipage
-    \fi
-    \normalsize
-    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
-  \endgroup%
-}
-
 \renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
 
 % Conteúdo de figuras e tabelas (corpo, título e fonte) em tamanho 10
@@ -750,6 +763,19 @@ Versão: \currversion^^J
 % valer 10 pt, para que linhas como {\small Fonte: ...} fiquem no padrão.
 \AtBeginEnvironment{figure}{\footnotesize\let\small\footnotesize}
 \AtBeginEnvironment{table}{\footnotesize\let\small\footnotesize}
+
+% Quadros. O Manual UFPel (p. 15-16) designa todas as ilustrações como
+% ``Figura'', mas recomenda lista própria por tipo quando forem muitas.
+% O ambiente quadro numera junto com as figuras (Figura 1, Figura 2...),
+% usa a mesma formatação e vai para a Lista de Quadros (\listofquadros).
+\DeclareFloatingEnvironment[fileext=loq,name=\figurename,placement=htbp,within=none]{quadro}
+\let\c@quadro\c@figure
+\renewcommand{\thequadro}{\thefigure}
+\renewcommand{\theHquadro}{quadro.\arabic{figure}}
+\captionsetup[quadro]{position=top,listformat=figuracf}
+\AtBeginEnvironment{quadro}{\footnotesize\let\small\footnotesize}
+\renewcommand{\listofquadros}{\chapter*{\listquadroname}\@starttoc{loq}}
+\let\l@quadro\l@figure
 \let\l@table\l@figure
 
 %==============================================================================
@@ -779,6 +805,16 @@ Versão: \currversion^^J
 %   \ifNAT@swa\expandafter\MakeUppercase\else\expandafter\@firstofone\fi{{\NAT@up #1}}%
 % }
 
+%==============================================================================
+% Citação de citação (apud), Manual UFPel, p. 65 (NBR 10520).
+% A obra original não entra na lista de referências; só a consultada.
+%   \apud{Silva}{2000}{Abreu:2011:XYZ}          -> Silva (2000 apud Abreu, 2011)
+%   \apud[p.~45]{Silva}{2000}{Abreu:2011:XYZ}   -> Silva (2000 apud Abreu, 2011, p. 45)
+%   \apudp{Silva}{2000}{Abreu:2011:XYZ}         -> (Silva, 2000 apud Abreu, 2011)
+%==============================================================================
+\newcommand{\apud}[4][]{#2 (#3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
+\newcommand{\apudp}[4][]{(#2, #3 apud \citeauthor{#4}, \citeyear{#4}\if\relax\detokenize{#1}\relax\else, #1\fi)}
+
 %capa do CDROM
 \newcommand{\makecover}{%
 \singlespacing
@@ -791,7 +827,7 @@ Versão: \currversion^^J
 \begin{minipage}{1.8cm}
 \rotatebox{90}{~\parbox{12cm}{%
 \begin{minipage}[c]{1cm}
-\includegraphics[width=\columnwidth]{ufpelw}
+\includegraphics[width=\columnwidth]{imagens/ufpelw.pdf}
 \end{minipage}\hfill
 \begin{minipage}[c]{10.5cm}
 \textbf{\@title} -- \@authora
@@ -806,7 +842,7 @@ Versão: \currversion^^J
 \MakeUppercase{\textbf{\@universidade}}\\%
 \@unidade\\%
 \@ifundefined{@nomecurso}{\@programa}{Curso de \@nomecurso}\\%
-\includegraphics[width=3cm]{ufpel}\\
+\includegraphics[width=3cm]{imagens/ufpel.pdf}\\
 \@documento%
 \end{center}
 }%
@@ -970,11 +1006,11 @@ Versão: \currversion^^J
 		}
 	\end{center}
 	\vskip 2cm
-	\noindent\textbf{Data da Defesa: }{#1}\\
+	\noindent\textbf{Data da defesa: }{#1}\\
 	\mbox{}
 	\vfill
 	\begin{flushleft}
-		\textbf{Banca Examinadora: }\\
+		\textbf{Banca examinadora: }\\
 }{
 	\end{flushleft}
 	\vfill
@@ -992,6 +1028,13 @@ Versão: \currversion^^J
 
 % Filete das notas de rodapé com 5 cm a partir da margem esquerda (NBR 14724)
 \renewcommand{\footnoterule}{\kern-3\p@\hrule\@width 5cm\kern 2.6\p@}
+
+% Notas alinhadas a partir da segunda linha abaixo da primeira letra da
+% primeira palavra, destacando o expoente (Manual UFPel, p. 68)
+\renewcommand\@makefntext[1]{%
+  \setbox\@tempboxa\hbox{\@makefnmark\space}%
+  \hangindent\wd\@tempboxa\hangafter\@ne
+  \noindent\box\@tempboxa#1}
 
 % Alíneas e subalíneas (Manual UFPel, p. 71; NBR 6024):
 % enumerate de 1o nível -> a), b), ..., z), aa), bb), ...
