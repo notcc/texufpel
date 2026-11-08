@@ -1,121 +1,255 @@
-\documentclass[diss-proposta,nocipinfo]{texufpel}
-%nocipinfo para não aparecer os dados da CIP no Resumo
+%==============================================================================
+% Exemplo de Proposta de Dissertação com a classe texufpel
+%
+% A proposta tem o mesmo tema do exemplo de dissertação
+% (dissertação/exemplo-diss.tex): é o projeto que, depois de executado,
+% resultaria naquele trabalho. Troque os dados do preâmbulo (os comentários
+% "ALTERE" indicam o que mudar) e o texto dos capítulos.
+%
+% Compilação (a partir da pasta raiz do repositório):
+%   pdflatex dissertação/exemplo-diss-proposta
+%   bibtex   exemplo-diss-proposta
+%   pdflatex dissertação/exemplo-diss-proposta
+%   pdflatex dissertação/exemplo-diss-proposta
+%
+% As páginas citadas nos comentários são as do Manual de normas UFPel para
+% trabalhos acadêmicos (2023).
+%==============================================================================
 
-\usepackage[utf8]{inputenc} % acentuacao
-\usepackage{graphicx} % para inserir figuras
-\usepackage[T1]{fontenc}
+% Opção diss-proposta: a proposta não é depositada na biblioteca, por isso a
+% classe não gera capa (a opção capa é ignorada) nem a referência do trabalho
+% acima do resumo. A antiga opção nocipinfo não é mais necessária aqui: a
+% classe já a aplica às propostas.
+\documentclass[diss-proposta]{texufpel}
 
-\hypersetup{
-    hidelinks, % Remove coloração e caixas
-    unicode=true,   %Permite acentuação no bookmark
-    linktoc=all %Habilita link no nome e página do sumário
-}
-
+%------------------------------------------------------------------------------
+% Dados institucionais. ALTERE para o seu programa.
+% Unidade feminina (Faculdade, Escola): \unidade[a]{...}.
+%------------------------------------------------------------------------------
 \unidade{Centro de Desenvolvimento Tecnológico}
 \programa{Programa de Pós-Graduação em Computação}
 \curso{Ciência da Computação}
 
-\title{Um Blabla Blablabla com Aplicações em Blablabla}
+%------------------------------------------------------------------------------
+% Dados do trabalho. ALTERE.
+% Os nomes abaixo são de grandes nomes da Computação e servem só de exemplo.
+% Substitua pelos nomes da sua orientação.
+%------------------------------------------------------------------------------
+\title{Roteamento da coleta seletiva em grafos dirigidos: um estudo de caso em Pelotas}
 
-\author{UltimoNome}{Nome Sobrenome de}
-\advisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
-%\coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
-%\collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\author{Lovelace}{Ada}                          % ALTERE: autor(a)
+\advisor[Prof.ª~Dr.ª]{Liskov}{Barbara}          % ALTERE: orientador(a)
+\coadvisor[Prof.~Dr.]{Dijkstra}{Edsger W.}      % ALTERE: coorientador(a), opcional
 
-%Palavras-chave em PT_BR
-%use letras minúsculas seguidas por ;
-%a última terminada por .
-\keyword{palavrachave-um;}
-\keyword{palavrachave-dois;}
-\keyword{palavrachave-tres;}
-\keyword{palavrachave-quatro.}
-
-%Palavras-chave em EN_US
-\keywordeng{keyword-one;}
-\keywordeng{keyword-two;}
-\keywordeng{keyword-three;}
-\keywordeng{keyword-four.}
+% Palavras-chave: iniciais minúsculas (exceto nomes próprios), separadas por
+% ponto e vírgula, a última terminada em ponto (Manual, p. 15).
+\keyword{algoritmo de Dijkstra;}
+\keyword{caminho mínimo;}
+\keyword{coleta seletiva;}
+\keyword{grafos dirigidos.}
 
 \begin{document}
 
-%\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
-%\renewcommand{\coadvisorname}{Coorientadora}      %descomente caso tenhas coorientadora
+% Orientadora: troque o rótulo da folha de rosto.
+\renewcommand{\advisorname}{Orientadora}
 
-\maketitle 
-\sloppy
+\maketitle   % folha de rosto (sem capa, por ser proposta)
+\sloppy      % evita linhas que ultrapassam a margem direita
 
-%Resumo em Portugues (no maximo 1 pagina)
+%------------------------------------------------------------------------------
+% Resumo (no máximo uma página): problema, objetivo e contribuição esperada.
+%------------------------------------------------------------------------------
 \begin{abstract}
-  Apresentar aqui uma breve Introdução ao Problema que está se
-  pretendendo resolver ou abordar. Além disso, nesta seção,
-  apresenta(m)-se o(s) principal(is) objetivo(s) do projeto e,
-  portanto, a(s) principal(is) contribuição(ções).
+A coleta seletiva de Pelotas segue rotas definidas pela experiência das
+equipes, sem apoio de ferramentas de otimização. Em bairros com muitas ruas de
+mão única, a ordem em que o caminhão visita os pontos de coleta pode aumentar
+a distância rodada por dia. Esta proposta de dissertação trata o problema como
+um problema de caminho mínimo em grafos dirigidos, em que o sentido das ruas é
+representado pela direção das arestas. A malha viária de quatro setores de
+coleta será modelada dessa forma, e o algoritmo de Dijkstra calculará a menor
+rota entre a garagem e a cooperativa de reciclagem, passando pelos pontos de
+cada setor. O objetivo principal é verificar se as rotas calculadas são mais
+curtas do que as rotas praticadas hoje e medir quanto do ganho se deve à
+representação correta das ruas de mão única. A contribuição esperada é um
+protótipo em Python, aplicado aos quatro setores, e uma comparação, setor a
+setor, entre as rotas calculadas e as atuais.
 \end{abstract}
 
+%==============================================================================
 \chapter{Motivação}
-% (ENTRE 1 e 2 PÁGINAS)
+% Entre uma e duas páginas.
+%==============================================================================
 
-Nesta seção, apresenta-se um breve histórico da área de concentração
-da Dissertação, partindo do tema mais abrangente até chegar
-especificamente no assunto do Projeto. Além disso, apresenta-se a
-justificativa para a realização do trabalho, sua importância acadêmica
-ou para comunidade e grau de inovação. Poderá também apresentar as
-distinções entre o trabalho atual e outros trabalhos já realizados.
+O problema do caminho mínimo acompanha a Computação desde o fim da década de
+1950. A nota de três páginas em que \citet{Dijkstra:1959:NTP} apresentou seu
+algoritmo resolve o caso de origem única com pesos não negativos, e outras
+soluções da mesma época, como a de Bellman, tratam pesos negativos
+\citep{Cormen:2022:IA}. Hoje esses algoritmos estão em sistemas de navegação,
+no roteamento de redes de computadores e em boa parte dos problemas de
+logística \citep{Knuth:1997:ACP,Cormen:2022:IA}.
 
+A coleta seletiva é um desses problemas. O caminhão parte da garagem, passa
+pelos pontos de coleta e leva o material até a cooperativa de reciclagem; cada
+quilômetro a mais é combustível, tempo da equipe e desgaste do veículo. Em
+Pelotas, como em muitas cidades de porte médio, as rotas são definidas pela
+experiência de quem dirige. Isso funciona em traçados simples, mas tende a
+gerar desvios no centro histórico, onde boa parte das ruas é de mão única.
+
+É justamente a mão única que motiva esta dissertação. Um modelo em que as ruas
+são arestas sem direção calcula rotas que o caminhão não pode seguir, e a
+economia que ele promete é, em parte, ilusória. Representar a malha como um
+grafo dirigido corrige isso, mas também muda o resultado esperado: é possível
+que a rota mínima real seja bem mais longa do que a calculada no modelo
+simplificado. Medir essa diferença é a principal contribuição acadêmica do
+trabalho.
+
+O tema também se liga a outros trabalhos da Universidade Federal de Pelotas que usam a Computação para
+apoiar decisões ambientais da cidade, como o de \citet{Cruz:2015:FCS}, sobre a
+simulação da dispersão de poluentes na atmosfera.
+
+%==============================================================================
 \chapter{Objetivos e Resultados}
-% (ENTRE 1 e 3 PÁGINAS)
+% Entre uma e três páginas.
+%==============================================================================
 
-Nesta seção, apresentam-se o objetivo Geral e os objetivos Específicos
-da dissertação. Os objetivos não devem ser confundidos com as
-atividades. Para a definição das atividades, deve-se partir dos
-objetivos determinados nesta seção. O objetivo Geral do Projeto
-necessariamente deve ser algum resultado prático (implementação) ou
-teórico (modelos formais ou especificações ou validações) produto da
-pesquisa realizada no período do Projeto. Assim como os objetivos
-específicos, que são considerados como sub-produtos do Objetivo
-Geral. Além disso, deve-se apresentar os principais resultados
-esperados do desenvolvimento desta dissertação.
+O objetivo geral é verificar se o algoritmo de Dijkstra, aplicado a um modelo
+em grafo dirigido da malha viária, reduz a distância percorrida nas rotas de
+coleta seletiva de Pelotas.
 
+Os objetivos específicos são:
+
+\begin{enumerate}
+  \item modelar a malha viária de quatro setores de coleta como grafos
+        ponderados e dirigidos, com o sentido de cada rua;
+  \item implementar o algoritmo de Dijkstra e validá-lo em grafos pequenos,
+        com resultado conhecido;
+  \item calcular as rotas mínimas de cada setor nos modelos dirigido e não
+        dirigido;
+  \item comparar as rotas calculadas com as rotas praticadas pela equipe de
+        coleta.
+\end{enumerate}
+
+Os resultados esperados são:
+
+\begin{enumerate}
+  \item um protótipo em Python, de código aberto, que recebe o grafo de um
+        setor e devolve a rota mínima;
+  \item os grafos dos quatro setores, conferidos com a equipe de coleta;
+  \item uma comparação, setor a setor, entre as rotas praticadas e as
+        calculadas nos dois modelos;
+  \item a submissão de ao menos um artigo a evento da área.
+\end{enumerate}
+
+As listas acima usam alíneas, como pede o Manual (p. 71): o texto que as
+antecede termina em dois pontos, cada alínea termina em ponto e vírgula e a
+última, em ponto.
+
+%==============================================================================
 \chapter{Metodologia}
-% (ENTRE 1 e 3 PÁGINAS)
+% Entre uma e três páginas.
+%==============================================================================
 
-Nesta seção, apresenta-se a metodologia proposta para o
-desenvolvimento da Dissertação. O proponente deve descrever as
-atividades necessárias para a conclusão dos objetivos propostos. 
+O trabalho será desenvolvido em quatro etapas, uma para cada objetivo
+específico.
 
+Na primeira, os setores serão escolhidos com a equipe de coleta, de modo a
+incluir traçados diferentes: o centro, com quarteirões regulares e muitas ruas
+de mão única, e bairros com loteamentos mais recentes. Cada setor será
+modelado como um grafo, com a garagem, os pontos de coleta e a cooperativa como
+vértices e os trechos de rua como arestas, com a distância em quilômetros como
+peso. Trechos de mão dupla terão duas arestas, uma em cada sentido; trechos de
+mão única, uma só.
+
+Na segunda etapa, o algoritmo de Dijkstra será implementado em Python, com a
+fila de prioridade do módulo \texttt{heapq}, seguindo a descrição de
+\citet{Cormen:2022:IA}. A implementação será validada em grafos pequenos, com
+distâncias mínimas calculadas à mão.
+
+Na terceira, o protótipo calculará a rota mínima de cada setor duas vezes: no
+modelo dirigido e em uma versão do mesmo grafo que ignora o sentido das ruas.
+Na quarta, as rotas calculadas serão comparadas com as rotas praticadas,
+informadas pela equipe de coleta, pela distância total percorrida.
+
+%==============================================================================
 \chapter{Cronograma}
+% Atividades em doze meses, incluindo seminário de andamento, entrega e
+% apresentação da dissertação.
+%==============================================================================
 
-Esta seção deve apresentar relação numerada de atividades (de estudo,
-modelagem, especificação, implementação ou validação) que deverão ser
-realizadas (incluindo atividades obrigatórias como seminário de
-andamento, entrega e apresentação da dissertação) e o cronograma
-destas atividades, distribuídas no prazo de 12
-meses~\cite{vonNeumann:1966:TSR}.
+As atividades previstas são:
 
-\bibliography{bibliografia}
+\begin{enumerate}
+  \item revisão da literatura sobre caminho mínimo e roteamento;
+  \item levantamento dos setores e das rotas praticadas, com a equipe de
+        coleta;
+  \item modelagem dos grafos dirigidos dos setores;
+  \item implementação e validação do algoritmo de Dijkstra;
+  \item cálculo das rotas nos dois modelos e comparação com as rotas
+        praticadas;
+  \item escrita da dissertação;
+  \item seminário de andamento;
+  \item submissão de artigo a evento da área;
+  \item entrega da dissertação à banca;
+  \item apresentação da dissertação (defesa).
+\end{enumerate}
+
+A Tabela~\ref{tab:cronograma} distribui as atividades ao longo de 2026,
+identificadas pela letra da alínea.
+
+% Cronograma em tabela: uma coluna para a atividade (a letra da alínea) e uma
+% para cada mês, com os meses abreviados conforme o Anexo A do Manual (p. 79).
+\begin{table}[htbp]
+  \caption{Cronograma de atividades em 2026}
+  \label{tab:cronograma}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{l*{12}{c}}
+    \hline
+    Atividade & jan. & fev. & mar. & abr. & maio & jun. & jul. & ago. & set. & out. & nov. & dez. \\
+    \hline
+    a) & X & X & X &   &   &   &   &   &   &   &   &   \\
+    b) &   & X & X & X &   &   &   &   &   &   &   &   \\
+    c) &   &   &   & X & X &   &   &   &   &   &   &   \\
+    d) &   &   &   &   & X & X & X &   &   &   &   &   \\
+    e) &   &   &   &   &   &   &   & X & X &   &   &   \\
+    f) &   &   & X & X & X & X & X & X & X & X & X &   \\
+    g) &   &   &   &   &   &   & X &   &   &   &   &   \\
+    h) &   &   &   &   &   &   &   &   &   & X &   &   \\
+    i) &   &   &   &   &   &   &   &   &   &   & X &   \\
+    j) &   &   &   &   &   &   &   &   &   &   &   & X \\
+    \hline
+  \end{tabular}
+  \caption*{Fonte: Elaborada pela autora (2026).}
+\end{table}
+
+%------------------------------------------------------------------------------
+% Referências: estilo abnt.bst e base bibliografia.bib, na raiz. Só as obras
+% citadas no texto entram na lista.
+%------------------------------------------------------------------------------
 \bibliographystyle{abnt}
+\bibliography{bibliografia}
 
-\chapter{Assinaturas}
+%------------------------------------------------------------------------------
+% Assinaturas da proponente e da orientadora.
+%------------------------------------------------------------------------------
+\chapter*{Assinaturas}
+
 \vspace{2cm}
 
 \begin{center}
 \rule{8cm}{.3mm}
-\medskip
 
-	Nome do Aluno\\
-	Proponente
-
+Ada Lovelace\\               % ALTERE
+Proponente
 \end{center}
 
-\vspace{4cm}
+\vspace{3cm}
 
 \begin{center}
 \rule{8cm}{.3mm}
-\medskip
 
-	Nome do Professor\\
-	Prof. Orientador
-
+Prof.ª Dr.ª Barbara Liskov\\  % ALTERE
+Orientadora
 \end{center}
-\end{document}
 
+\end{document}
